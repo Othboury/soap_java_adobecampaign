@@ -39,7 +39,6 @@ public class SoapAuth implements ISOAPAuth{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            //HttpClient httpclient = new DefaultHttpClient();
             HttpClient httpclient = HttpClientBuilder.create().build();
             // You can get below parameters from SoapUI's Raw request if you are using that tool
             StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
@@ -54,33 +53,33 @@ public class SoapAuth implements ISOAPAuth{
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
+
                 //prints whole response
                 System.out.println(resp);
+
+                //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
                 SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
                 //Retrieve the sessionToken and securityToken based on their elements' tagNames
                 sessionToken =  soapResp.getSOAPBody().getElementsByTagName("pstrSessionToken").item(0);
                 securityToken =  soapResp.getSOAPBody().getElementsByTagName("pstrSecurityToken").item(0);
 
-                //Regular expression to parse texts of <balance> elements in the response assuming they have
-                // no child elements
-                Matcher m = Pattern.compile("<balance>([^<]*)").matcher(resp); //groups all characters except <
-                // (tag closing character)
-                while (m.find()) {
-                    //prints texts of all balances in a loop
-                    System.out.println(m.group(1));
-                }
             } else {
                 System.err.println("No Response");
             }
+
             //Pouplate the tokens Arraylist
             ArrayList<Node> tokens = new ArrayList<>();
             tokens.add(sessionToken);
             tokens.add(securityToken);
+
             //return the tokens
             return tokens;
+
         } catch (Exception e) {
             System.err.println("WebService SOAP exception = " + e.toString());
+
             //return null if no token are retrieved
             return  null;
         }
@@ -108,7 +107,6 @@ public class SoapAuth implements ISOAPAuth{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            //HttpClient httpclient = new DefaultHttpClient();
             HttpClient httpclient = HttpClientBuilder.create().build();
             // You can get below parameters from SoapUI's Raw request if you are using that tool
             StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
@@ -129,14 +127,6 @@ public class SoapAuth implements ISOAPAuth{
                 //prints whole response
                 System.out.println(resp);
 
-                //Regular expression to parse texts of <balance> elements in the response assuming they have
-                // no child elements
-                Matcher m = Pattern.compile("<balance>([^<]*)").matcher(resp); //groups all characters except
-                // < (tag closing character)
-                while (m.find()) {
-                    //prints texts of all balances in a loop
-                    System.out.println(m.group(1));
-                }
             } else {
                 System.err.println("No Response");
             }
@@ -173,7 +163,6 @@ public class SoapAuth implements ISOAPAuth{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            //HttpClient httpclient = new DefaultHttpClient();
             HttpClient httpclient = HttpClientBuilder.create().build();
             // You can get below parameters from SoapUI's Raw request if you are using that tool
             StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
@@ -194,14 +183,6 @@ public class SoapAuth implements ISOAPAuth{
                 //prints whole response
                 System.out.println(resp);
 
-                //Regular expression to parse texts of <balance> elements in the response assuming they have
-                // no child elements
-                Matcher m = Pattern.compile("<balance>([^<]*)").matcher(resp);//groups all characters except
-                // < (tag closing character)
-                while (m.find()) {
-                    //prints texts of all balances in a loop
-                    System.out.println(m.group(1));
-                }
             } else {
                 System.err.println("No Response");
             }
@@ -226,7 +207,6 @@ public class SoapAuth implements ISOAPAuth{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            //HttpClient httpclient = new DefaultHttpClient();
             HttpClient httpclient = HttpClientBuilder.create().build();
             // You can get below parameters from SoapUI's Raw request if you are using that tool
             StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
@@ -247,14 +227,6 @@ public class SoapAuth implements ISOAPAuth{
                 //prints whole response
                 System.out.println(resp);
 
-                //Regular expression to parse texts of <balance> elements in the response assuming they have
-                // no child elements
-                Matcher m = Pattern.compile("<balance>([^<]*)").matcher(resp); //groups all characters except
-                // < (tag closing character)
-                while (m.find()) {
-                    //prints texts of all balances in a loop
-                    System.out.println(m.group(1));
-                }
             } else {
                 System.err.println("No Response");
             }
@@ -285,7 +257,6 @@ public class SoapAuth implements ISOAPAuth{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            //HttpClient httpclient = new DefaultHttpClient();
             HttpClient httpclient = HttpClientBuilder.create().build();
             // You can get below parameters from SoapUI's Raw request if you are using that tool
             StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
@@ -305,13 +276,7 @@ public class SoapAuth implements ISOAPAuth{
 
                 //prints whole response
                 System.out.println(resp);
-
-                //Regular expression to parse texts of <balance> elements in the response assuming they have no child elements
-                Matcher m = Pattern.compile("<balance>([^<]*)").matcher(resp); //groups all characters except < (tag closing character)
-                while (m.find()) {
-                    //prints texts of all balances in a loop
-                    System.out.println(m.group(1));
-                }
+                
             } else {
                 System.err.println("No Response");
             }
