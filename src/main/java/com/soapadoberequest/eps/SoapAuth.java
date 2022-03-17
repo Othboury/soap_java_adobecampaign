@@ -54,7 +54,6 @@ public class SoapAuth implements ISOAPAuth{
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
-                System.out.println("*****WE ARE HERE 1*****");
                 //prints whole response
                 System.out.println(resp);
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -323,18 +322,23 @@ public class SoapAuth implements ISOAPAuth{
     }
 
     public static void main(String[] args) {
+        System.out.println("START SOAP REQUESTS...");
         SoapAuth soapWebServiceClientObject = new SoapAuth();
+        System.out.println("********AUTHENTICATE TO A SESSION********");
         ArrayList<Node> tokens =  soapWebServiceClientObject.postSOAPAUTH("admin","neo");
         Recipient recipient = new Recipient("Othmane","Boury","othboury@gmail.com");
-        //System.out.println("Session Token: "+ tokens.get(0).getTextContent());
-        //System.out.println("Security Token:"+ tokens.get(1).getTextContent());
-        //soapWebServiceClientObject.postSOAPInsert("Messi", "loko", "treiue@xyz.com",
-          //      tokens.get(0).getTextContent(), tokens.get(1).getTextContent());
-        //soapWebServiceClientObject.postSOAPSelect("othboury@gmail.com",tokens.get(0).getTextContent(),
-          //      tokens.get(1).getTextContent());
+        System.out.println("********INSERT NEW RECIPIENT INTO DB********");
+        soapWebServiceClientObject.postSOAPInsert("Messi", "loko", "treiue@xyz.com",
+                tokens.get(0).getTextContent(), tokens.get(1).getTextContent());
+        System.out.println("********SELECT RECIPIENT FROM DB********");
+        soapWebServiceClientObject.postSOAPSelect("othboury@gmail.com",tokens.get(0).getTextContent(),
+                tokens.get(1).getTextContent());
+        System.out.println("********START AN EXISTING WORKFLOW********");
         soapWebServiceClientObject.postSOAPStartWorkflow("WKF31",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
+        System.out.println("********SUBSCRIBE EXISTING RECIPIENT TO AN EXISTING SERVICE********");
         soapWebServiceClientObject.postSOAPSubscribe(recipient, "SVC1",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent() );
+                tokens.get(1).getTextContent());
+        System.out.println("END SOAP REQUESTS...");
     }
 }
