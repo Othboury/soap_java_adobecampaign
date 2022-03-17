@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SoapAuth {
+public class SoapAuth implements ISOAPAuth{
     //This function sends a SOAP request to authenticate and returns the sessionToken and the securityToken
     public ArrayList<Node> postSOAPAUTH(String login, String password) {
         String resp = null;
@@ -130,8 +130,10 @@ public class SoapAuth {
                 //prints whole response
                 System.out.println(resp);
 
-                //Regular expression to parse texts of <balance> elements in the response assuming they have no child elements
-                Matcher m = Pattern.compile("<balance>([^<]*)").matcher(resp); //groups all characters except < (tag closing character)
+                //Regular expression to parse texts of <balance> elements in the response assuming they have
+                // no child elements
+                Matcher m = Pattern.compile("<balance>([^<]*)").matcher(resp); //groups all characters except
+                // < (tag closing character)
                 while (m.find()) {
                     //prints texts of all balances in a loop
                     System.out.println(m.group(1));
@@ -150,7 +152,8 @@ public class SoapAuth {
         String resp = null;
         try {
 
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:queryDef\">\n" +
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
+                    "xmlns:urn=\"urn:xtk:queryDef\">\n" +
                     "   <soapenv:Header/>\n" +
                     "   <soapenv:Body>\n" +
                     "      <urn:ExecuteQuery>\n" +
@@ -192,8 +195,10 @@ public class SoapAuth {
                 //prints whole response
                 System.out.println(resp);
 
-                //Regular expression to parse texts of <balance> elements in the response assuming they have no child elements
-                Matcher m = Pattern.compile("<balance>([^<]*)").matcher(resp); //groups all characters except < (tag closing character)
+                //Regular expression to parse texts of <balance> elements in the response assuming they have
+                // no child elements
+                Matcher m = Pattern.compile("<balance>([^<]*)").matcher(resp);//groups all characters except
+                // < (tag closing character)
                 while (m.find()) {
                     //prints texts of all balances in a loop
                     System.out.println(m.group(1));
@@ -211,7 +216,8 @@ public class SoapAuth {
     public void postSOAPStartWorkflow(String workflowId, String sessionToken, String securityToken) {
         String resp = null;
         try {
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:workflow\">\n" +
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
+                    "xmlns:urn=\"urn:xtk:workflow\">\n" +
                     "   <soapenv:Header/>\n" +
                     "   <soapenv:Body>\n" +
                     "      <urn:Start>\n" +
@@ -228,6 +234,65 @@ public class SoapAuth {
             // URL of request
             HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
             post.setHeader("SOAPAction", "xtk:workflow#Start");
+            post.setHeader("cookie","__sessiontoken="+sessionToken);
+            post.setHeader("X-Security-Token", securityToken);
+            post.setEntity(strEntity);
+
+            // Execute request
+            HttpResponse response = httpclient.execute(post);
+            HttpEntity respEntity = response.getEntity();
+
+            if (respEntity != null) {
+                resp = EntityUtils.toString(respEntity);
+
+                //prints whole response
+                System.out.println(resp);
+
+                //Regular expression to parse texts of <balance> elements in the response assuming they have
+                // no child elements
+                Matcher m = Pattern.compile("<balance>([^<]*)").matcher(resp); //groups all characters except
+                // < (tag closing character)
+                while (m.find()) {
+                    //prints texts of all balances in a loop
+                    System.out.println(m.group(1));
+                }
+            } else {
+                System.err.println("No Response");
+            }
+
+        } catch (Exception e) {
+            System.err.println("WebService SOAP exception = " + e.toString());
+        }
+    }
+
+    //This function sends a SOAP request to start a workflow
+    public void postSOAPSubscribe(Recipient recipient, String serviceName, String sessionToken, String securityToken) {
+        String resp = null;
+
+        try {
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
+                    "xmlns:urn=\"urn:nms:subscription\">\n" +
+                    "   <soapenv:Header/>\n" +
+                    "   <soapenv:Body>\n" +
+                    "      <urn:Subscribe>\n" +
+                    "         <urn:sessiontoken/>\n" +
+                    "         <urn:strServiceName>"+serviceName+"</urn:strServiceName>\n" +
+                    "         <urn:elemRecipient>\n" +
+                    "            <recipient email=\""+recipient.email+"\" lastName=\""+recipient.lastName+"\" " +
+                    "firstName=\""+recipient.firstName+"\" _key=\"@email\"/>\n" +
+                    "         </urn:elemRecipient>\n" +
+                    "         <urn:bCreate>true</urn:bCreate>\n" +
+                    "      </urn:Subscribe>\n" +
+                    "   </soapenv:Body>\n" +
+                    "</soapenv:Envelope>";
+
+            //HttpClient httpclient = new DefaultHttpClient();
+            HttpClient httpclient = HttpClientBuilder.create().build();
+            // You can get below parameters from SoapUI's Raw request if you are using that tool
+            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
+            // URL of request
+            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
+            post.setHeader("SOAPAction", "nms:subscription#Subscribe");
             post.setHeader("cookie","__sessiontoken="+sessionToken);
             post.setHeader("X-Security-Token", securityToken);
             post.setEntity(strEntity);
@@ -260,6 +325,7 @@ public class SoapAuth {
     public static void main(String[] args) {
         SoapAuth soapWebServiceClientObject = new SoapAuth();
         ArrayList<Node> tokens =  soapWebServiceClientObject.postSOAPAUTH("admin","neo");
+        Recipient recipient = new Recipient("Othmane","Boury","othboury@gmail.com");
         //System.out.println("Session Token: "+ tokens.get(0).getTextContent());
         //System.out.println("Security Token:"+ tokens.get(1).getTextContent());
         //soapWebServiceClientObject.postSOAPInsert("Messi", "loko", "treiue@xyz.com",
@@ -268,5 +334,7 @@ public class SoapAuth {
           //      tokens.get(1).getTextContent());
         soapWebServiceClientObject.postSOAPStartWorkflow("WKF31",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
+        soapWebServiceClientObject.postSOAPSubscribe(recipient, "SVC1",tokens.get(0).getTextContent(),
+                tokens.get(1).getTextContent() );
     }
 }
