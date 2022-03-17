@@ -14,4 +14,5 @@ public interface ISOAPAuth {
     public void postSOAPPostEvent(String workFlowId, String activity, ArrayList<String> vars ,ArrayList<String> param,
                                   String sessionToken, String securityToken);
     public void postSOAPWrite(Recipient recipient, String sessionToken, String securityToken);
+    public void postSOAPKillWorkflow(String workFlowId, String sessionToken, String securityToken);
 }

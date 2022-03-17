@@ -336,7 +336,7 @@ public class SoapAuth implements ISOAPAuth{
         }
     }
 
-    //This function sends a signal to trigger a workflow
+    //This function sends a SOAP request to send a signal in order to trigger a workflow
     public void postSOAPPostEvent(String workFlowId, String activity, ArrayList<String> vars ,ArrayList<String> param, String sessionToken,
                               String securityToken) {
         String resp = null;
@@ -369,6 +369,50 @@ public class SoapAuth implements ISOAPAuth{
             // URL of request
             HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
             post.setHeader("SOAPAction", "xtk:workflow#PostEvent");
+            post.setHeader("cookie","__sessiontoken="+sessionToken);
+            post.setHeader("X-Security-Token", securityToken);
+            post.setEntity(strEntity);
+
+            // Execute request
+            HttpResponse response = httpclient.execute(post);
+            HttpEntity respEntity = response.getEntity();
+
+            if (respEntity != null) {
+                resp = EntityUtils.toString(respEntity);
+
+                //prints whole response
+                System.out.println(resp);
+
+            } else {
+                System.err.println("No Response");
+            }
+
+        } catch (Exception e) {
+            System.err.println("WebService SOAP exception = " + e);
+        }
+    }
+
+    //This function sends a SOAP request to kill a workflow
+    public void postSOAPKillWorkflow(String workFlowId, String sessionToken, String securityToken) {
+        String resp = null;
+        try {
+
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:workflow\">\n" +
+                    "   <soapenv:Header/>\n" +
+                    "   <soapenv:Body>\n" +
+                    "      <urn:Kill>\n" +
+                    "         <urn:sessiontoken/>\n" +
+                    "         <urn:strWorkflowId>"+workFlowId+"</urn:strWorkflowId>\n" +
+                    "      </urn:Kill>\n" +
+                    "   </soapenv:Body>\n" +
+                    "</soapenv:Envelope>";
+
+            HttpClient httpclient = HttpClientBuilder.create().build();
+            // You can get below parameters from SoapUI's Raw request if you are using that tool
+            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
+            // URL of request
+            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
+            post.setHeader("SOAPAction", "xtk:workflow#Kill");
             post.setHeader("cookie","__sessiontoken="+sessionToken);
             post.setHeader("X-Security-Token", securityToken);
             post.setEntity(strEntity);
