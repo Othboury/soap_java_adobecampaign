@@ -14,8 +14,7 @@ import org.w3c.dom.Node;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class SoapAuth implements ISOAPAuth{
     //This function sends a SOAP request to authenticate and returns the sessionToken and the securityToken
@@ -78,7 +77,7 @@ public class SoapAuth implements ISOAPAuth{
             return tokens;
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e.toString());
+            System.err.println("WebService SOAP exception = " + e);
 
             //return null if no token are retrieved
             return  null;
@@ -132,7 +131,7 @@ public class SoapAuth implements ISOAPAuth{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e.toString());
+            System.err.println("WebService SOAP exception = " + e);
         }
     }
 
@@ -188,7 +187,7 @@ public class SoapAuth implements ISOAPAuth{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e.toString());
+            System.err.println("WebService SOAP exception = " + e);
         }
     }
 
@@ -232,11 +231,11 @@ public class SoapAuth implements ISOAPAuth{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e.toString());
+            System.err.println("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to start a workflow
+    //This function sends a SOAP request to subscribe a recipient to a service
     public void postSOAPSubscribe(Recipient recipient, String serviceName, String sessionToken, String securityToken) {
         String resp = null;
 
@@ -276,13 +275,120 @@ public class SoapAuth implements ISOAPAuth{
 
                 //prints whole response
                 System.out.println(resp);
-                
+
             } else {
                 System.err.println("No Response");
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e.toString());
+            System.err.println("WebService SOAP exception = " + e);
+        }
+    }
+
+    //This function sends a SOAP request to write(Insert) a new recipient
+    public void postSOAPWrite(Recipient recipient, String sessionToken,
+                               String securityToken) {
+        String resp = null;
+        try {
+
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:session\">\n" +
+                    "   <soapenv:Header/>\n" +
+                    "   <soapenv:Body>\n" +
+                    "      <urn:Write>\n" +
+                    "         <urn:sessiontoken/>\n" +
+                    "         <urn:domDoc>\n" +
+                    "            <recipient _operation=\"insert\" \n" +
+                    "            \t\t\tlastName=\""+recipient.lastName+"\" \n" +
+                    "            \t\t\tfirstName=\""+recipient.firstName+"\" \n" +
+                    "            \t\t\temail=\""+recipient.email+"\"\n" +
+                    "            \t\t\txtkschema=\"nms:recipient\"/>\n" +
+                    "         </urn:domDoc>\n" +
+                    "      </urn:Write>\n" +
+                    "   </soapenv:Body>\n" +
+                    "</soapenv:Envelope>";
+
+            HttpClient httpclient = HttpClientBuilder.create().build();
+            // You can get below parameters from SoapUI's Raw request if you are using that tool
+            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
+            // URL of request
+            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
+            post.setHeader("SOAPAction", "xtk:persist#Write");
+            post.setHeader("cookie","__sessiontoken="+sessionToken);
+            post.setHeader("X-Security-Token", securityToken);
+            post.setEntity(strEntity);
+
+            // Execute request
+            HttpResponse response = httpclient.execute(post);
+            HttpEntity respEntity = response.getEntity();
+
+            if (respEntity != null) {
+                resp = EntityUtils.toString(respEntity);
+
+                //prints whole response
+                System.out.println(resp);
+
+            } else {
+                System.err.println("No Response");
+            }
+
+        } catch (Exception e) {
+            System.err.println("WebService SOAP exception = " + e);
+        }
+    }
+
+    //This function sends a signal to trigger a workflow
+    public void postSOAPPostEvent(String workFlowId, String activity, ArrayList<String> vars ,ArrayList<String> param, String sessionToken,
+                              String securityToken) {
+        String resp = null;
+        ArrayList<String> varBuilder = new ArrayList<>();
+        for (int i = 0; i <param.size(); i++){
+            varBuilder.add(vars.get(i)+'='+'"'+param.get(i)+'"');
+        }
+        String varSentence = varBuilder.stream().collect(Collectors.joining(" "));
+        try {
+
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:workflow\">\n" +
+                    "   <soapenv:Header/>\n" +
+                    "   <soapenv:Body>\n" +
+                    "      <urn:PostEvent>\n" +
+                    "         <urn:sessiontoken/>\n" +
+                    "         <urn:strWorkflowId>"+workFlowId+"</urn:strWorkflowId>\n" +
+                    "         <urn:strActivity>"+activity+"</urn:strActivity>\n" +
+                    "         <urn:strTransition></urn:strTransition>\n" +
+                    "         <urn:elemParameters>\n" +
+                    "            <variables "+ varSentence +" />\n" +
+                    "         </urn:elemParameters>\n" +
+                    "         <urn:bComplete>false</urn:bComplete>\n" +
+                    "      </urn:PostEvent>\n" +
+                    "   </soapenv:Body>\n" +
+                    "</soapenv:Envelope>";
+
+            HttpClient httpclient = HttpClientBuilder.create().build();
+            // You can get below parameters from SoapUI's Raw request if you are using that tool
+            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
+            // URL of request
+            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
+            post.setHeader("SOAPAction", "xtk:workflow#PostEvent");
+            post.setHeader("cookie","__sessiontoken="+sessionToken);
+            post.setHeader("X-Security-Token", securityToken);
+            post.setEntity(strEntity);
+
+            // Execute request
+            HttpResponse response = httpclient.execute(post);
+            HttpEntity respEntity = response.getEntity();
+
+            if (respEntity != null) {
+                resp = EntityUtils.toString(respEntity);
+
+                //prints whole response
+                System.out.println(resp);
+
+            } else {
+                System.err.println("No Response");
+            }
+
+        } catch (Exception e) {
+            System.err.println("WebService SOAP exception = " + e);
         }
     }
 
@@ -291,8 +397,12 @@ public class SoapAuth implements ISOAPAuth{
         SoapAuth soapWebServiceClientObject = new SoapAuth();
         System.out.println("********AUTHENTICATE TO A SESSION********");
         ArrayList<Node> tokens =  soapWebServiceClientObject.postSOAPAUTH("admin","neo");
-        Recipient recipient = new Recipient("Othmane","Boury","othboury@gmail.com");
-        System.out.println("********INSERT NEW RECIPIENT INTO DB********");
+        Recipient recipient = new Recipient("Imane","Boury","imaneb@gmail.com");
+        ArrayList<String> varName= new ArrayList<>();
+        ArrayList<String> varValue= new ArrayList<>();
+        varName.add("age");
+        varValue.add("30");
+       /* System.out.println("********INSERT NEW RECIPIENT INTO DB********");
         soapWebServiceClientObject.postSOAPInsert("Messi", "loko", "treiue@xyz.com",
                 tokens.get(0).getTextContent(), tokens.get(1).getTextContent());
         System.out.println("********SELECT RECIPIENT FROM DB********");
@@ -303,7 +413,13 @@ public class SoapAuth implements ISOAPAuth{
                 tokens.get(1).getTextContent());
         System.out.println("********SUBSCRIBE EXISTING RECIPIENT TO AN EXISTING SERVICE********");
         soapWebServiceClientObject.postSOAPSubscribe(recipient, "SVC1",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
+                tokens.get(1).getTextContent());*/
+        System.out.println("********WRITE A NEW RECIPIENT********");
+        //soapWebServiceClientObject.postSOAPWrite(recipient, tokens.get(0).getTextContent(),
+        //        tokens.get(1).getTextContent());
+
+        soapWebServiceClientObject.postSOAPPostEvent("WKF12", "signal", varName,varValue,
+                tokens.get(0).getTextContent(), tokens.get(1).getTextContent());
         System.out.println("END SOAP REQUESTS...");
     }
 }
