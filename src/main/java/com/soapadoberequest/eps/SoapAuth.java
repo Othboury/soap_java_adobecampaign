@@ -85,7 +85,7 @@ public class SoapAuth implements ISOAPAuth{
     }
 
     //This function sends a SOAP request to insert a new recipient
-    public void postSOAPInsert(String firstname, String lastname, String email, String sessionToken,
+    /*public void postSOAPInsert(String firstname, String lastname, String email, String sessionToken,
                                String securityToken) {
         String resp = null;
         try {
@@ -133,10 +133,10 @@ public class SoapAuth implements ISOAPAuth{
         } catch (Exception e) {
             System.err.println("WebService SOAP exception = " + e);
         }
-    }
+    }*/
 
     //This function sends a SOAP request to select a recipient using the email
-    public void postSOAPSelect(String email, String sessionToken, String securityToken) {
+    /*public void postSOAPSelect(String email, String sessionToken, String securityToken) {
         String resp = null;
         try {
 
@@ -189,10 +189,10 @@ public class SoapAuth implements ISOAPAuth{
         } catch (Exception e) {
             System.err.println("WebService SOAP exception = " + e);
         }
-    }
+    }*/
 
     //This function sends a SOAP request to start a workflow
-    public void postSOAPStartWorkflow(String workflowId, String sessionToken, String securityToken) {
+    /*public void postSOAPStartWorkflow(String workflowId, String sessionToken, String securityToken) {
         String resp = null;
         try {
             String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
@@ -233,7 +233,7 @@ public class SoapAuth implements ISOAPAuth{
         } catch (Exception e) {
             System.err.println("WebService SOAP exception = " + e);
         }
-    }
+    }*/
 
     //This function sends a SOAP request to subscribe a recipient to a service
     public void postSOAPSubscribe(Recipient recipient, String serviceName, String sessionToken, String securityToken) {
@@ -286,7 +286,7 @@ public class SoapAuth implements ISOAPAuth{
     }
 
     //This function sends a SOAP request to write(Insert) a new recipient
-    public void postSOAPWrite(Recipient recipient, String sessionToken,
+    /*public void postSOAPWrite(Recipient recipient, String sessionToken,
                                String securityToken) {
         String resp = null;
         try {
@@ -334,10 +334,10 @@ public class SoapAuth implements ISOAPAuth{
         } catch (Exception e) {
             System.err.println("WebService SOAP exception = " + e);
         }
-    }
+    }*/
 
     //This function sends a SOAP request to send a signal in order to trigger a workflow
-    public void postSOAPPostEvent(String workFlowId, String activity, ArrayList<String> vars ,ArrayList<String> param, String sessionToken,
+    /*public void postSOAPPostEvent(String workFlowId, String activity, ArrayList<String> vars ,ArrayList<String> param, String sessionToken,
                               String securityToken) {
         String resp = null;
         ArrayList<String> varBuilder = new ArrayList<>();
@@ -390,10 +390,10 @@ public class SoapAuth implements ISOAPAuth{
         } catch (Exception e) {
             System.err.println("WebService SOAP exception = " + e);
         }
-    }
+    }*/
 
     //This function sends a SOAP request to kill a workflow
-    public void postSOAPKillWorkflow(String workFlowId, String sessionToken, String securityToken) {
+   /* public void postSOAPKillWorkflow(String workFlowId, String sessionToken, String securityToken) {
         String resp = null;
         try {
 
@@ -434,36 +434,47 @@ public class SoapAuth implements ISOAPAuth{
         } catch (Exception e) {
             System.err.println("WebService SOAP exception = " + e);
         }
-    }
+    }*/
 
     public static void main(String[] args) {
         System.out.println("START SOAP REQUESTS...");
-        SoapAuth soapWebServiceClientObject = new SoapAuth();
+
+        //Declare the soap objects for each functionality
+        SoapAuth soapAuth = new SoapAuth();
+        SoapQuery soapQuery = new SoapQuery();
+        SoapDelivery soapDelivery = new SoapDelivery();
+        SoapWorkflow soapWorkflow = new SoapWorkflow();
+
         System.out.println("********AUTHENTICATE TO A SESSION********");
-        ArrayList<Node> tokens =  soapWebServiceClientObject.postSOAPAUTH("admin","neo");
+        ArrayList<Node> tokens =  soapAuth.postSOAPAUTH("admin","neo");
         Recipient recipient = new Recipient("Imane","Boury","imaneb@gmail.com");
         ArrayList<String> varName= new ArrayList<>();
         ArrayList<String> varValue= new ArrayList<>();
+
         varName.add("age");
         varValue.add("30");
-       /* System.out.println("********INSERT NEW RECIPIENT INTO DB********");
-        soapWebServiceClientObject.postSOAPInsert("Messi", "loko", "treiue@xyz.com",
+       System.out.println("********INSERT NEW RECIPIENT INTO DB********");
+        soapQuery.postSOAPInsert("Messi", "loko", "treiue@xyz.com",
                 tokens.get(0).getTextContent(), tokens.get(1).getTextContent());
         System.out.println("********SELECT RECIPIENT FROM DB********");
-        soapWebServiceClientObject.postSOAPSelect("othboury@gmail.com",tokens.get(0).getTextContent(),
+        soapQuery.postSOAPSelect("othboury@gmail.com",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
         System.out.println("********START AN EXISTING WORKFLOW********");
-        soapWebServiceClientObject.postSOAPStartWorkflow("WKF31",tokens.get(0).getTextContent(),
+        soapWorkflow.postSOAPStartWorkflow("WKF31",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
         System.out.println("********SUBSCRIBE EXISTING RECIPIENT TO AN EXISTING SERVICE********");
-        soapWebServiceClientObject.postSOAPSubscribe(recipient, "SVC1",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());*/
+        soapAuth.postSOAPSubscribe(recipient, "SVC1",tokens.get(0).getTextContent(),
+                tokens.get(1).getTextContent());
         System.out.println("********WRITE A NEW RECIPIENT********");
-        //soapWebServiceClientObject.postSOAPWrite(recipient, tokens.get(0).getTextContent(),
-        //        tokens.get(1).getTextContent());
-
-        soapWebServiceClientObject.postSOAPPostEvent("WKF12", "signal", varName,varValue,
+        soapQuery.postSOAPWrite(recipient, tokens.get(0).getTextContent(),
+                tokens.get(1).getTextContent());
+        System.out.println("********TRIGGER A WORKFLOW START FROM SIGNAL********");
+        soapWorkflow.postSOAPPostEvent("WKF12", "signal", varName,varValue,
                 tokens.get(0).getTextContent(), tokens.get(1).getTextContent());
+        System.out.println("********KILL WORKFLOW********");
+        soapWorkflow.postSOAPKillWorkflow("WKF8",tokens.get(0).getTextContent(),
+                tokens.get(1).getTextContent() );
+
         System.out.println("END SOAP REQUESTS...");
     }
 }
