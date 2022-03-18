@@ -7,4 +7,8 @@ public interface ISOAPWorkflow {
     public void postSOAPPostEvent(String workFlowId, String activity, ArrayList<String> vars , ArrayList<String> param,
                                   String sessionToken, String securityToken);
     public void postSOAPKillWorkflow(String workFlowId, String sessionToken, String securityToken);
+    public void postSOAPPauseWorkflow(String workFlowId, String sessionToken, String securityToken);
+    public void postSOAPWakeUpWorkflow(String workFlowId, String sessionToken, String securityToken);
+    public void postSOAPStartWithParams(String workFlowId, ArrayList<String> vars, ArrayList<String> param,
+                                        String sessionToken, String securityToken);
 }
