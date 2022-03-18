@@ -58,9 +58,11 @@ public class SoapCalls {
         System.out.println("********START A WORKFLOW WITH PARAMETERS********");
         soapWorkflow.postSOAPStartWithParams("WKF13", varName, varValue, tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent() );*/
+        soapWorkflow.postSOAPWorkflowLogs("16873",tokens.get(0).getTextContent(),
+                tokens.get(1).getTextContent());
 
         System.out.println("-------DELIVERY CALLS-------");
-        System.out.println("********SELECT A DELIVERY********");
+       /* System.out.println("********SELECT A DELIVERY********");
         soapDelivery.postSOAPSelectDelivery("DM33",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
         soapDelivery.postSOAPCreateWithTemplate("",varName, varValue, "","",
@@ -72,7 +74,7 @@ public class SoapCalls {
         soapDelivery.postSOAPPrepareMessage("DM40",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
         soapDelivery.postSOAPSubmitDelivery("DM7",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
+                tokens.get(1).getTextContent());*/
         System.out.println("END SOAP REQUESTS...");
     }
 }

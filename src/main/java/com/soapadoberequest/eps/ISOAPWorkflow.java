@@ -11,4 +11,6 @@ public interface ISOAPWorkflow {
     public void postSOAPWakeUpWorkflow(String workFlowId, String sessionToken, String securityToken);
     public void postSOAPStartWithParams(String workFlowId, ArrayList<String> vars, ArrayList<String> param,
                                         String sessionToken, String securityToken);
+    public void postSOAPWorkflowLogs(String workflowId, String sessionToken, String securityToken);
+    public void postSOAPWorkflowState(String workflowInternalName, String sessionToken, String securityToken);
 }
