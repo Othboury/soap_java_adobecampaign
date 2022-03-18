@@ -249,7 +249,7 @@ public class SoapWorkflow implements ISOAPWorkflow{
         }
     }
 
-    //This function sends a SOAP request to send a signal in order to trigger a workflow
+    //This function sends a SOAP request to start a workflow with parameters
     @Override
     public void postSOAPStartWithParams(String workFlowId, ArrayList<String> vars,
                                         ArrayList<String> param, String sessionToken, String securityToken) {
