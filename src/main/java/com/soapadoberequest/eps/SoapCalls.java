@@ -17,13 +17,13 @@ public class SoapCalls {
 
         System.out.println("********AUTHENTICATE TO A SESSION********");
         ArrayList<Node> tokens =  soapAuth.postSOAPAUTH("admin","neo");
-        Recipient recipient = new Recipient("Imane","Boury","imaneb@gmail.com");
+        Recipient recipient = new Recipient("Oma","Boury","omarb@gmail.com");
 
         //Params config
         ArrayList<String> varName= new ArrayList<>();
         ArrayList<String> varValue= new ArrayList<>();
-        varName.add("age");
-        varValue.add("30");
+        varName.add("email");
+        varValue.add("othboury@gmail.com");
 
         System.out.println("-------QUERY CALLS-------");
         /*System.out.println("********INSERT NEW RECIPIENT INTO DB********");
@@ -37,9 +37,9 @@ public class SoapCalls {
                 tokens.get(1).getTextContent());
         System.out.println("********WRITE A NEW RECIPIENT********");
         soapQuery.postSOAPWrite(recipient, tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
+                tokens.get(1).getTextContent());*/
 
-        System.out.println("-------WORKFLOW CALLS-------");
+       /* System.out.println("-------WORKFLOW CALLS-------");
         System.out.println("********START AN EXISTING WORKFLOW********");
         soapWorkflow.postSOAPStartWorkflow("WKF31",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
@@ -57,20 +57,20 @@ public class SoapCalls {
                 tokens.get(1).getTextContent() );
         System.out.println("********START A WORKFLOW WITH PARAMETERS********");
         soapWorkflow.postSOAPStartWithParams("WKF13", varName, varValue, tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent() );*/
+                tokens.get(1).getTextContent() );
         soapWorkflow.postSOAPWorkflowLogs("16873",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
+                tokens.get(1).getTextContent());*/
 
         System.out.println("-------DELIVERY CALLS-------");
        /* System.out.println("********SELECT A DELIVERY********");
         soapDelivery.postSOAPSelectDelivery("DM33",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
-        soapDelivery.postSOAPCreateWithTemplate("",varName, varValue, "","",
-                tokens.get(0).getTextContent(), tokens.get(1).getTextContent());
-        soapDelivery.postSOAPPrepareAndStart("DM40",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
-        soapDelivery.postSOAPPrepareTarget("DM40",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
+                tokens.get(1).getTextContent());*/
+        /*soapDelivery.postSOAPCreateWithTemplate("DM7",varName, varValue,"",
+                tokens.get(0).getTextContent(), tokens.get(1).getTextContent());*/
+       /* soapDelivery.postSOAPPrepareAndStart("DM40",tokens.get(0).getTextContent(),
+                tokens.get(1).getTextContent());*/
+        soapDelivery.postSOAPPrepareTarget(114886,tokens.get(0).getTextContent(),
+                tokens.get(1).getTextContent());/*
         soapDelivery.postSOAPPrepareMessage("DM40",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
         soapDelivery.postSOAPSubmitDelivery("DM7",tokens.get(0).getTextContent(),

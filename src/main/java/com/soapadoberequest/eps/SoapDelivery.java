@@ -21,7 +21,7 @@ public class SoapDelivery implements ISOAPDelivery{
     //This function sends a SOAP request to create delivery from model
     @Override
     public void postSOAPCreateWithTemplate(String ScenarioName, ArrayList<String> vars, ArrayList<String> param,
-                                           String targetType, String source, String sessionToken, String securityToken){
+                                            String source, String sessionToken, String securityToken){
         String resp = null;
         ArrayList<String> varBuilder = new ArrayList<>();
         for (int i = 0; i <param.size(); i++){
@@ -41,9 +41,9 @@ public class SoapDelivery implements ISOAPDelivery{
                     "            <delivery>\n" +
                     "               <targets>\n" +
                     "                   <deliveryTarget>\n" +
-                    "                       <targetPart type='"+targetType+"' exclusion='false' ignoreDeleteStatus='false'>\n" +
+                    "                       <targetPart exclusion='false' ignoreDeleteStatus='false'>\n" +
                     "                           <where>\n" +
-                    "                               <condition expr='"+varSentence+"'/>\n" +
+                    "                               <condition expr='@"+varSentence+"'/>\n" +
                     "                           </where>\n" +
                     "                       </targetPart>\n" +
                     "                    </deliveryTarget>\n" +
