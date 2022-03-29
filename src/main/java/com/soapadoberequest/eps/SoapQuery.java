@@ -286,7 +286,8 @@ public class SoapQuery implements ISOAPQuery{
     }
 
 
-    //This function sends a SOAP request to write(Insert) a new recipient
+    //This function sends a SOAP request to write(Insert) a collection of entries (recipient-deliveries - workflow -etc)
+    // from csv file
     @Override
     public void postSOAPWriteCollection(String filename, String sessionToken, String securityToken) {
         String resp = null;
