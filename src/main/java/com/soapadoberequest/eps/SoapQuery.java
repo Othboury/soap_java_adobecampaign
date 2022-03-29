@@ -260,32 +260,6 @@ public class SoapQuery implements ISOAPQuery{
         }
     }
 
-    public void readFile( String file){
-        String entity = "";
-        String schema = "";
-            try (CSVReader reader = new CSVReader(new FileReader(file))) {
-                String[] lineInArray = reader.readNext();
-                String[] linesArray;
-                while ((linesArray = reader.readNext()) != null){
-                    for(int i=0; i<linesArray.length; i++){
-                        if(i >= 2) {
-                            entity = entity + lineInArray[i] + "=" + linesArray[i] + "\n";
-                        }
-                        else if(i < 1){
-                            schema = schema + linesArray[i]+ ":" + linesArray[i+1] + "\n";
-                        }
-                    }
-                }
-            System.out.println(entity);
-            System.out.println(schema);
-            } catch (CsvValidationException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-    }
-
-
     //This function sends a SOAP request to write(Insert) a collection of entries (recipient-deliveries - workflow -etc)
     // from csv file
     @Override

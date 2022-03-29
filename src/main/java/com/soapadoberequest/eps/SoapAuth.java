@@ -32,8 +32,8 @@ public class SoapAuth implements ISOAPAuth{
                     "   <soapenv:Body>\n" +
                     "      <urn:Logon>\n" +
                     "         <urn:sessiontoken/>\n" +
-                    "         <urn:strLogin>"+dotenv.get("ADOBE_LOGIN").toString()+"</urn:strLogin>\n" +
-                    "         <urn:strPassword>"+dotenv.get("ADOBE_PASSWORD").toString()+"</urn:strPassword>\n" +
+                    "         <urn:strLogin>"+dotenv.get("ADOBE_LOGIN")+"</urn:strLogin>\n" +
+                    "         <urn:strPassword>"+dotenv.get("ADOBE_PASSWORD")+"</urn:strPassword>\n" +
                     "         <urn:elemParameters>\n" +
                     "         </urn:elemParameters>\n" +
                     "      </urn:Logon>\n" +

@@ -165,8 +165,7 @@ public class SoapDelivery implements ISOAPDelivery{
                     "      <urn:PrepareAndStart>\n" +
                     "         <urn:sessiontoken/>\n" +
                     "         <urn:entity>\n" +
-                    "            <% var delivery = NLWS.nmsDelivery.load(\""+deliveryId+"\");" +
-                    "               delivery.PrepareAndStart(); %>\n" +
+                    "            <-- ADD DELIVERY -->" +
                     "         </urn:entity>\n" +
                     "      </urn:PrepareAndStart>\n" +
                     "   </soapenv:Body>\n" +
@@ -215,8 +214,7 @@ public class SoapDelivery implements ISOAPDelivery{
                     "      <urn:PrepareTarget>\n" +
                     "         <urn:sessiontoken/>\n" +
                     "         <urn:entity>\n" +
-                    "            <% var delivery = NLWS.nmsDelivery.load(\""+deliveryId+"\");\n" +
-                    "               delivery.PrepareTarget(); %>\n" +
+                    "            <-- ADD DELIVERY -->\"" +
                     "         </urn:entity>\n" +
                     "      </urn:PrepareTarget>\n" +
                     "   </soapenv:Body>\n" +
@@ -266,8 +264,7 @@ public class SoapDelivery implements ISOAPDelivery{
                     "      <urn:PrepareMessage>\n" +
                     "         <urn:sessiontoken/>\n" +
                     "         <urn:entity>\n" +
-                    "            <% var delivery = NLWS.nmsDelivery.load(\""+deliveryId+"\");\n" +
-                    "               delivery.PrepareMessage(); %>\n" +
+                    "            <-- ADD DELIVERY -->\"" +
                     "         </urn:entity>\n" +
                     "      </urn:PrepareMessage>\n" +
                     "   </soapenv:Body>\n" +
