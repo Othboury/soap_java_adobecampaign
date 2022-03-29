@@ -5,9 +5,6 @@ public class Recipient {
     public String lastName;
     public String email;
 
-    public Recipient() {
-    }
-
     public Recipient(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;

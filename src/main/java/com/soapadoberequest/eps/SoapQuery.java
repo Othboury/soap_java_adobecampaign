@@ -322,9 +322,9 @@ public class SoapQuery implements ISOAPQuery{
                     "      <urn:WriteCollection>\n" +
                     "         <urn:sessiontoken/>\n" +
                     "         <urn:domDoc>\n" +
-                    "              <recipient-collection xtkschema='"+schema+"'>"+
+                    "              <"+schema.split(":")[1]+"-collection xtkschema='"+schema+"'>"+
                                         template +
-                    "               </recipient-collection>"+
+                    "               </"+schema.split(":")[1]+"-collection>"+
                     "         </urn:domDoc>\n" +
                     "      </urn:WriteCollection>\n" +
                     "   </soapenv:Body>\n" +
