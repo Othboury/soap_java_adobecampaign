@@ -15,10 +15,14 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import io.github.cdimascio.dotenv.Dotenv;
+
 
 public class SoapAuth implements ISOAPAuth{
+    Dotenv dotenv=Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
+
     //This function sends a SOAP request to authenticate and returns the sessionToken and the securityToken
-    public ArrayList<Node> postSOAPAUTH(String login, String password) {
+    public ArrayList<Node> postSOAPAUTH() {
         String resp = null;
         Node securityToken = null;
         Node sessionToken = null;
@@ -29,10 +33,9 @@ public class SoapAuth implements ISOAPAuth{
                     "   <soapenv:Body>\n" +
                     "      <urn:Logon>\n" +
                     "         <urn:sessiontoken></urn:sessiontoken>\n" +
-                    "         <urn:strLogin>"+login+"</urn:strLogin>\n" +
-                    "         <urn:strPassword>"+password+"</urn:strPassword>\n" +
+                    "         <urn:strLogin>"+dotenv.get("ADOBE_LOGIN").toString()+"</urn:strLogin>\n" +
+                    "         <urn:strPassword>"+dotenv.get("ADOBE_PASSWORD").toString()+"</urn:strPassword>\n" +
                     "         <urn:elemParameters>\n" +
-                    "            <!--You may enter ANY elements at this point-->\n" +
                     "         </urn:elemParameters>\n" +
                     "      </urn:Logon>\n" +
                     "   </soapenv:Body>\n" +

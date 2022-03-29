@@ -5,7 +5,7 @@ import org.w3c.dom.Node;
 import java.util.ArrayList;
 
 public interface ISOAPAuth {
-    public ArrayList<Node> postSOAPAUTH(String login, String password);
+    public ArrayList<Node> postSOAPAUTH();
     /*public void postSOAPInsert(String firstname, String lastname, String email, String sessionToken,
                                String securityToken);
     public void postSOAPSelect(String email, String sessionToken, String securityToken);

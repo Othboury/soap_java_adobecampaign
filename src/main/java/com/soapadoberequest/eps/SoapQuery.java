@@ -1,5 +1,11 @@
 package com.soapadoberequest.eps;
 
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvException;
+import com.opencsv.exceptions.CsvValidationException;
 import jakarta.xml.soap.MessageFactory;
 import jakarta.xml.soap.SOAPMessage;
 import org.apache.http.HttpEntity;
@@ -10,8 +16,10 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SoapQuery implements ISOAPQuery{
 
@@ -249,6 +257,122 @@ public class SoapQuery implements ISOAPQuery{
 
         } catch (Exception e) {
             System.err.println("WebService SOAP exception = " + e);
+        }
+    }
+
+    public void readFile( String file){
+        String entity = "";
+        String schema = "";
+            try (CSVReader reader = new CSVReader(new FileReader(file))) {
+                String[] lineInArray = reader.readNext();
+                String[] linesArray;
+                while ((linesArray = reader.readNext()) != null){
+                    for(int i=0; i<linesArray.length; i++){
+                        if(i >= 2) {
+                            entity = entity + lineInArray[i] + "=" + linesArray[i] + "\n";
+                        }
+                        else if(i < 1){
+                            schema = schema + linesArray[i]+ ":" + linesArray[i+1] + "\n";
+                        }
+                    }
+                }
+            System.out.println(entity);
+            System.out.println(schema);
+            } catch (CsvValidationException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+    }
+
+
+    //This function sends a SOAP request to write(Insert) a new recipient
+    @Override
+    public void postSOAPWriteCollection(String filename, String sessionToken, String securityToken) {
+        String resp = null;
+        String[] varNames;
+        String[] values;
+        String valuesString ="";
+        String schema = "";
+        String template ="";
+        String key="";
+
+        try (CSVReader reader = new CSVReader(new FileReader(filename))) {
+            varNames = reader.readNext();
+            while ((values = reader.readNext()) != null){
+                schema = values[0]+ ":" + values[1];
+                key = values[2];
+                valuesString ="";
+                for(int i=3; i<values.length; i++){
+                    valuesString = valuesString + varNames[i] + "='" + values[i] + "'\n";
+                }
+                template = template + "<"+schema.split(":")[1]+" _key='"+key+"' "+
+                        valuesString + " />";
+            }
+
+            try{
+            int currentCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0], schema.split(":")[1],
+                    sessionToken, securityToken));
+            int lastId = Integer.parseInt(postSOAPSelectLast(schema.split(":")[0], schema.split(":")[1],
+                    sessionToken, securityToken));
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:session\">\n" +
+                    "   <soapenv:Header/>\n" +
+                    "   <soapenv:Body>\n" +
+                    "      <urn:WriteCollection>\n" +
+                    "         <urn:sessiontoken/>\n" +
+                    "         <urn:domDoc>\n" +
+                    "              <recipient-collection xtkschema='"+schema+"'>"+
+                                        template +
+                    "               </recipient-collection>"+
+                    "         </urn:domDoc>\n" +
+                    "      </urn:WriteCollection>\n" +
+                    "   </soapenv:Body>\n" +
+                    "</soapenv:Envelope>";
+
+            HttpClient httpclient = HttpClientBuilder.create().build();
+            // You can get below parameters from SoapUI's Raw request if you are using that tool
+            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
+            // URL of request
+            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
+            post.setHeader("SOAPAction", "xtk:persist#WriteCollection");
+            post.setHeader("cookie","__sessiontoken="+sessionToken);
+            post.setHeader("X-Security-Token", securityToken);
+            post.setEntity(strEntity);
+
+            // Execute request
+            HttpResponse response = httpclient.execute(post);
+            HttpEntity respEntity = response.getEntity();
+
+            if (respEntity != null) {
+                resp = EntityUtils.toString(respEntity);
+
+                //prints whole response
+                System.out.println(resp);
+
+                int secondCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0], schema.split(":")[1]
+                        ,sessionToken, securityToken));
+
+                if (currentCount == secondCount){
+                    System.out.println("No entry has been saved in the datatable");
+                }else if(secondCount > currentCount){
+                    int entriesNumber = secondCount - currentCount;
+                    System.out.println("Last entry's ID before insertion: "+ lastId);
+                    System.out.println(String.valueOf(entriesNumber)+" entries were registered in database");
+                    System.out.println("Last entry's ID after insertion: "+ postSOAPSelectLast(schema.split(":")[0]
+                            , schema.split(":")[1],sessionToken, securityToken));
+                }
+
+            } else {
+                System.err.println("No Response");
+            }
+
+        } catch (Exception e) {
+            System.err.println("WebService SOAP exception = " + e);
+        }
+    } catch (CsvValidationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
