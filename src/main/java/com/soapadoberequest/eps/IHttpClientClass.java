@@ -12,13 +12,13 @@ public interface IHttpClientClass {
     /**
      * This method is used to launch HTTPClient for different SOAP requests
      * @param soapBody
-     * @param SOAPAction
+     * @param soapAction
      * @param sessionToken
      * @param securityToken
      * @return Response Entity
      * @throws IOException
      */
-    public HttpEntity httpClientCall(String soapBody, String SOAPAction, String sessionToken, String securityToken)
+    public HttpEntity httpClientCall(String soapBody, String soapAction, String sessionToken, String securityToken)
             throws IOException;
 
     /**

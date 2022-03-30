@@ -2,7 +2,7 @@ package com.soapadoberequest.eps;
 
 import org.w3c.dom.Node;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is an interface containing the methods used in the class SOAPAuth in order to execute SOAP requests
@@ -15,7 +15,7 @@ public interface ISOAPAuth {
      * @return sessionToken and securityToken
      * @throws Exception
      */
-    public ArrayList<Node> postSOAPAUTH() throws Exception;
+    public List<Node> postSOAPAUTH() throws Exception;
 
     /**
      * This function sends a SOAP request to subscribe a recipient to a service

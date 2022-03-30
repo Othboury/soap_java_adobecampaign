@@ -1,6 +1,6 @@
 package com.soapadoberequest.eps;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is an interface containing the methods used in the class SOAPDelivery in order to execute SOAP requests
@@ -18,7 +18,7 @@ public interface ISOAPDelivery {
      * @param securityToken
      * @throws Exception
      */
-    public void postSOAPCreateWithTemplate(String scenarioName, ArrayList<String> vars, ArrayList<String> param,
+    public void postSOAPCreateWithTemplate(String scenarioName, List<String> vars, List<String> param,
                                            String source, String sessionToken, String securityToken) throws Exception;
 
     /**

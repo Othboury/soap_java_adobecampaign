@@ -10,6 +10,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -77,7 +78,7 @@ public class SoapWorkflow implements ISOAPWorkflow{
      * @throws Exception
      */
     @Override
-    public void postSOAPPostEvent(String workFlowId, String activity, ArrayList<String> vars, ArrayList<String> param,
+    public void postSOAPPostEvent(String workFlowId, String activity, List<String> vars, List<String> param,
                                   String sessionToken, String securityToken) throws Exception {
         String resp = null;
         ArrayList<String> varBuilder = new ArrayList<>();
@@ -258,8 +259,8 @@ public class SoapWorkflow implements ISOAPWorkflow{
      * @throws Exception
      */
     @Override
-    public void postSOAPStartWithParams(String workFlowId, ArrayList<String> vars,
-                                        ArrayList<String> param, String sessionToken, String securityToken) throws Exception{
+    public void postSOAPStartWithParams(String workFlowId, List<String> vars,
+                                        List<String> param, String sessionToken, String securityToken) throws Exception{
         String resp = null;
         ArrayList<String> varBuilder = new ArrayList<>();
         for (int i = 0; i <param.size(); i++){

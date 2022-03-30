@@ -1,6 +1,6 @@
 package com.soapadoberequest.eps;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is an interface containing the methods used in the class SOAPWorkflow in order to execute SOAP requests
@@ -29,7 +29,7 @@ public interface ISOAPWorkflow {
      * @param securityToken
      * @throws Exception
      */
-    public void postSOAPPostEvent(String workFlowId, String activity, ArrayList<String> vars , ArrayList<String> param,
+    public void postSOAPPostEvent(String workFlowId, String activity, List<String> vars , List<String> param,
                                   String sessionToken, String securityToken) throws Exception;
 
     /**
@@ -72,7 +72,7 @@ public interface ISOAPWorkflow {
      * @param securityToken
      * @throws Exception
      */
-    public void postSOAPStartWithParams(String workFlowId, ArrayList<String> vars, ArrayList<String> param,
+    public void postSOAPStartWithParams(String workFlowId, List<String> vars, List<String> param,
                                         String sessionToken, String securityToken) throws Exception;
 
     /**

@@ -24,29 +24,28 @@ public class HttpClientClass implements IHttpClientClass{
     /**
      * This method is used to launch HTTPClient for different SOAP requests
      * @param soapBody
-     * @param SOAPAction
+     * @param soapAction
      * @param sessionToken
      * @param securityToken
      * @return Response Entity
      * @throws IOException
      */
-    public HttpEntity httpClientCall(String soapBody, String SOAPAction, String sessionToken, String securityToken) throws IOException {
+    public HttpEntity httpClientCall(String soapBody, String soapAction, String sessionToken, String securityToken) throws IOException {
 
         HttpClient httpclient = HttpClientBuilder.create().build();
         // You can get below parameters from SoapUI's Raw request if you are using that tool
         StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
         // URL of request
         HttpPost post = new HttpPost(dotenv.get(HTTP_URL));
-        post.setHeader("SOAPAction", SOAPAction);
+        post.setHeader("SOAPAction", soapAction);
         post.setHeader("cookie","__sessiontoken="+sessionToken);
         post.setHeader("X-Security-Token", securityToken);
         post.setEntity(strEntity);
 
         // Execute request
         HttpResponse response = httpclient.execute(post);
-        HttpEntity respEntity = response.getEntity();
+        return response.getEntity();
 
-        return respEntity;
     }
 
     /**
@@ -69,8 +68,7 @@ public class HttpClientClass implements IHttpClientClass{
 
         // Execute request
         HttpResponse response = httpclient.execute(post);
-        HttpEntity respEntity = response.getEntity();
+        return response.getEntity();
 
-        return respEntity;
     }
 }

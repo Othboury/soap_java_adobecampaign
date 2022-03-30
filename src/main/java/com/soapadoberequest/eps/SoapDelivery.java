@@ -8,6 +8,7 @@ import org.apache.http.util.EntityUtils;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -32,8 +33,8 @@ public class SoapDelivery implements ISOAPDelivery{
      * @throws Exception
      */
     @Override
-    public void postSOAPCreateWithTemplate(String scenarioName, ArrayList<String> vars, ArrayList<String> param,
-                                            String source, String sessionToken, String securityToken) throws Exception{
+    public void postSOAPCreateWithTemplate(String scenarioName, List<String> vars, List<String> param,
+                                           String source, String sessionToken, String securityToken) throws Exception{
         String resp = null;
         ArrayList<String> varBuilder = new ArrayList<>();
         for (int i = 0; i <param.size(); i++){
@@ -138,11 +139,9 @@ public class SoapDelivery implements ISOAPDelivery{
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
                 SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
 
-                //Retrieve the deliveryId based on their attribute's name
-                String deliveryId =  soapResp.getSOAPBody().getElementsByTagName("delivery").item(0)
+                //Retrieve the deliveryId based on their attribute's name and return it
+                return soapResp.getSOAPBody().getElementsByTagName("delivery").item(0)
                         .getAttributes().getNamedItem("id").getNodeValue();
-
-                return deliveryId;
             } else {
                 logger.log(Level.WARNING,"No Response");
             }
@@ -166,19 +165,19 @@ public class SoapDelivery implements ISOAPDelivery{
             throws Exception{
         String resp = null;
         try {
-            String deliveryId=postSOAPSelectDelivery(internalName, sessionToken, securityToken);
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
-                    "xmlns:urn=\"urn:nms:delivery\">\n" +
-                    "   <soapenv:Header/>\n" +
-                    "   <soapenv:Body>\n" +
-                    "      <urn:PrepareAndStart>\n" +
-                    "         <urn:sessiontoken/>\n" +
-                    "         <urn:entity>\n" +
-                    "            <-- ADD DELIVERY -->" +
-                    "         </urn:entity>\n" +
-                    "      </urn:PrepareAndStart>\n" +
-                    "   </soapenv:Body>\n" +
-                    "</soapenv:Envelope>";
+            String soapBody = """
+                    <soapenv:Envelope xmlns:soapenv=http://schemas.xmlsoap.org/soap/envelope/"
+                    xmlns:urn=urn:nms:delivery>
+                       <soapenv:Header/>
+                       <soapenv:Body>
+                          <urn:PrepareAndStart>
+                             <urn:sessiontoken/>
+                             <urn:entity>
+                                <-- ADD DELIVERY -->
+                             </urn:entity>
+                          </urn:PrepareAndStart>
+                       </soapenv:Body>
+                    </soapenv:Envelope>""";
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:delivery#PrepareAndStart",
@@ -213,19 +212,19 @@ public class SoapDelivery implements ISOAPDelivery{
         String resp = null;
 
         try {
-            String deliveryId=postSOAPSelectDelivery(internalName, sessionToken, securityToken);
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
-                    "xmlns:urn=\"urn:nms:delivery\">\n" +
-                    "   <soapenv:Header/>\n" +
-                    "   <soapenv:Body>\n" +
-                    "      <urn:PrepareTarget>\n" +
-                    "         <urn:sessiontoken/>\n" +
-                    "         <urn:entity>\n" +
-                    "            <-- ADD DELIVERY -->\"" +
-                    "         </urn:entity>\n" +
-                    "      </urn:PrepareTarget>\n" +
-                    "   </soapenv:Body>\n" +
-                    "</soapenv:Envelope>";
+            String soapBody = """
+                    <soapenv:Envelope xmlns:soapenv= http://schemas.xmlsoap.org/soap/envelope/ 
+                    xmlns:urn=urn:nms:delivery>
+                       <soapenv:Header/>
+                       <soapenv:Body>
+                          <urn:PrepareTarget>
+                             <urn:sessiontoken/>
+                             <urn:entity>
+                                <-- ADD DELIVERY -->
+                             </urn:entity>
+                          </urn:PrepareTarget>
+                       </soapenv:Body>
+                    </soapenv:Envelope>""";
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:delivery#PrepareAndTarget",
@@ -260,19 +259,19 @@ public class SoapDelivery implements ISOAPDelivery{
         String resp = null;
 
         try {
-            String deliveryId=postSOAPSelectDelivery(internalName, sessionToken, securityToken);
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
-                    "xmlns:urn=\"urn:nms:delivery\">\n" +
-                    "   <soapenv:Header/>\n" +
-                    "   <soapenv:Body>\n" +
-                    "      <urn:PrepareMessage>\n" +
-                    "         <urn:sessiontoken/>\n" +
-                    "         <urn:entity>\n" +
-                    "            <-- ADD DELIVERY -->\"" +
-                    "         </urn:entity>\n" +
-                    "      </urn:PrepareMessage>\n" +
-                    "   </soapenv:Body>\n" +
-                    "</soapenv:Envelope>";
+            String soapBody = """
+                    <soapenv:Envelope xmlns:soapenv=http://schemas.xmlsoap.org/soap/envelope/
+                    xmlns:urn=urn:nms:delivery>
+                       <soapenv:Header/>
+                       <soapenv:Body>
+                          <urn:PrepareMessage>
+                             <urn:sessiontoken/>
+                             <urn:entity>
+                                <-- ADD DELIVERY -->
+                             </urn:entity>
+                          </urn:PrepareMessage>
+                       </soapenv:Body>
+                    </soapenv:Envelope>""";
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:delivery#PrepareMessage",
@@ -334,10 +333,9 @@ public class SoapDelivery implements ISOAPDelivery{
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
                 SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
 
-                //Retrieve the deliveryId based on their attribute's name
-                String deliveryId =  soapResp.getSOAPBody().getElementsByTagName("plDeliveryId").item(0).getNodeValue();
+                //Retrieve the deliveryId based on their attribute's name and return it
+                return soapResp.getSOAPBody().getElementsByTagName("plDeliveryId").item(0).getNodeValue();
 
-                return deliveryId;
             } else {
                 logger.log(Level.WARNING,"No Response");
             }

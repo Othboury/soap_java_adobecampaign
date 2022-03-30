@@ -33,7 +33,7 @@ public class SoapCalls {
         varValue.add("othboury@gmail.com");
 
         logger.log(Level.INFO,"-------QUERY CALLS-------");
-        /*logger.log(Level.INFO,"********INSERT NEW RECIPIENT INTO DB********");
+        logger.log(Level.INFO,"********INSERT NEW RECIPIENT INTO DB********");
         soapQuery.postSOAPInsert("Messi", "loko", "treiue@xyz.com",
                 tokens.get(0).getTextContent(), tokens.get(1).getTextContent());
         logger.log(Level.INFO,"********SELECT RECIPIENT FROM DB********");
@@ -45,13 +45,13 @@ public class SoapCalls {
         logger.log(Level.INFO,"********WRITE A NEW RECIPIENT********");
         String filename = dotenv.get("FILE_LOCATION");
         soapQuery.postSOAPWriteCollection( filename, tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());*/
+                tokens.get(1).getTextContent());
 
         logger.log(Level.INFO,"********SELECT COUNT OF TABLE********");
         soapQuery.postSOAPSelectCount("nms","recipient",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
 
-       /* logger.log(Level.INFO,"-------WORKFLOW CALLS-------");
+        logger.log(Level.INFO,"-------WORKFLOW CALLS-------");
         logger.log(Level.INFO,"********START AN EXISTING WORKFLOW********");
         soapWorkflow.postSOAPStartWorkflow("WKF33",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
@@ -87,6 +87,6 @@ public class SoapCalls {
                 tokens.get(1).getTextContent());
         soapDelivery.postSOAPSubmitDelivery("DM7",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
-        logger.log(Level.INFO, "END SOAP REQUESTS...");*/
+        logger.log(Level.INFO, "END SOAP REQUESTS...");
     }
 }
