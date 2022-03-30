@@ -14,6 +14,9 @@ import org.w3c.dom.Node;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import io.github.cdimascio.dotenv.Dotenv;
 
 /**
@@ -22,6 +25,7 @@ import io.github.cdimascio.dotenv.Dotenv;
  */
 public class SoapAuth implements ISOAPAuth{
     Dotenv dotenv=Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
+    Logger logger = Logger.getLogger("logger");
 
     /**
      * This function sends a SOAP request to authenticate and returns the sessionToken and the securityToken
@@ -48,23 +52,14 @@ public class SoapAuth implements ISOAPAuth{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            HttpClient httpclient = HttpClientBuilder.create().build();
-            // You can get below parameters from SoapUI's Raw request if you are using that tool
-            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
-            // URL of request
-            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
-            post.setHeader("SOAPAction", "xtk:session#Logon");
-            post.setEntity(strEntity);
-
-            // Execute request
-            HttpResponse response = httpclient.execute(post);
-            HttpEntity respEntity = response.getEntity();
+            HttpClientClass httpClientClass = new HttpClientClass();
+            HttpEntity respEntity =  httpClientClass.httpClientLogon(soapBody);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                System.out.println(resp);
+                logger.log(Level.INFO, resp);
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -75,7 +70,7 @@ public class SoapAuth implements ISOAPAuth{
                 securityToken =  soapResp.getSOAPBody().getElementsByTagName("pstrSecurityToken").item(0);
 
             } else {
-                System.err.println("No Response");
+                logger.log(Level.WARNING,"No Response");
             }
 
             //Pouplate the tokens Arraylist
@@ -113,36 +108,26 @@ public class SoapAuth implements ISOAPAuth{
                     "         <urn:sessiontoken/>\n" +
                     "         <urn:strServiceName>"+serviceName+"</urn:strServiceName>\n" +
                     "         <urn:elemRecipient>\n" +
-                    "            <recipient email=\""+recipient.email+"\" lastName=\""+recipient.lastName+"\" " +
-                    "firstName=\""+recipient.firstName+"\" _key=\"@email\"/>\n" +
+                    "            <recipient email=\""+recipient.getEmail()+"\" lastName=\""+recipient.getLastName()+"\" " +
+                    "firstName=\""+recipient.getFirstName()+"\" _key=\"@email\"/>\n" +
                     "         </urn:elemRecipient>\n" +
                     "         <urn:bCreate>true</urn:bCreate>\n" +
                     "      </urn:Subscribe>\n" +
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            HttpClient httpclient = HttpClientBuilder.create().build();
-            // You can get below parameters from SoapUI's Raw request if you are using that tool
-            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
-            // URL of request
-            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
-            post.setHeader("SOAPAction", "nms:subscription#Subscribe");
-            post.setHeader("cookie","__sessiontoken="+sessionToken);
-            post.setHeader("X-Security-Token", securityToken);
-            post.setEntity(strEntity);
-
-            // Execute request
-            HttpResponse response = httpclient.execute(post);
-            HttpEntity respEntity = response.getEntity();
+            HttpClientClass httpClientClass = new HttpClientClass();
+            HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:subscription#Subscribe",
+                    sessionToken, securityToken );
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                System.out.println(resp);
+                logger.log(Level.INFO,resp);
 
             } else {
-                System.err.println("No Response");
+                logger.log(Level.WARNING,"No Response");
             }
 
         } catch (Exception e) {

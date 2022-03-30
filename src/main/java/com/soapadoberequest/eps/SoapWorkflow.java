@@ -1,5 +1,6 @@
 package com.soapadoberequest.eps;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -9,6 +10,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 /**
@@ -16,6 +19,8 @@ import java.util.stream.Collectors;
  * ISOAPWorkflow
  */
 public class SoapWorkflow implements ISOAPWorkflow{
+
+    Logger logger = Logger.getLogger("logger");
 
     /**
      *This function sends a SOAP request to start a workflow
@@ -41,28 +46,18 @@ public class SoapWorkflow implements ISOAPWorkflow{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            HttpClient httpclient = HttpClientBuilder.create().build();
-            // You can get below parameters from SoapUI's Raw request if you are using that tool
-            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
-            // URL of request
-            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
-            post.setHeader("SOAPAction", "xtk:workflow#Start");
-            post.setHeader("cookie","__sessiontoken="+sessionToken);
-            post.setHeader("X-Security-Token", securityToken);
-            post.setEntity(strEntity);
-
-            // Execute request
-            HttpResponse response = httpclient.execute(post);
-            HttpEntity respEntity = response.getEntity();
+            HttpClientClass httpClientClass = new HttpClientClass();
+            HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:workflow#Start",
+                    sessionToken, securityToken );
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                System.out.println(resp);
+                logger.log(Level.INFO,resp);
 
             } else {
-                System.err.println("No Response");
+                logger.log(Level.WARNING,"No Response");
             }
 
         } catch (Exception e) {
@@ -108,28 +103,18 @@ public class SoapWorkflow implements ISOAPWorkflow{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            HttpClient httpclient = HttpClientBuilder.create().build();
-            // You can get below parameters from SoapUI's Raw request if you are using that tool
-            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
-            // URL of request
-            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
-            post.setHeader("SOAPAction", "xtk:workflow#PostEvent");
-            post.setHeader("cookie","__sessiontoken="+sessionToken);
-            post.setHeader("X-Security-Token", securityToken);
-            post.setEntity(strEntity);
-
-            // Execute request
-            HttpResponse response = httpclient.execute(post);
-            HttpEntity respEntity = response.getEntity();
+            HttpClientClass httpClientClass = new HttpClientClass();
+            HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:workflow#PostEvent",
+                    sessionToken, securityToken );
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                System.out.println(resp);
+                logger.log(Level.INFO,resp);
 
             } else {
-                System.err.println("No Response");
+                logger.log(Level.WARNING,"No Response");
             }
 
         } catch (Exception e) {
@@ -160,28 +145,18 @@ public class SoapWorkflow implements ISOAPWorkflow{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            HttpClient httpclient = HttpClientBuilder.create().build();
-            // You can get below parameters from SoapUI's Raw request if you are using that tool
-            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
-            // URL of request
-            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
-            post.setHeader("SOAPAction", "xtk:workflow#Kill");
-            post.setHeader("cookie","__sessiontoken="+sessionToken);
-            post.setHeader("X-Security-Token", securityToken);
-            post.setEntity(strEntity);
-
-            // Execute request
-            HttpResponse response = httpclient.execute(post);
-            HttpEntity respEntity = response.getEntity();
+            HttpClientClass httpClientClass = new HttpClientClass();
+            HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:workflow#Kill",
+                    sessionToken, securityToken );
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                System.out.println(resp);
+                logger.log(Level.INFO,resp);
 
             } else {
-                System.err.println("No Response");
+                logger.log(Level.WARNING,"No Response");
             }
 
         } catch (Exception e) {
@@ -212,28 +187,18 @@ public class SoapWorkflow implements ISOAPWorkflow{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            HttpClient httpclient = HttpClientBuilder.create().build();
-            // You can get below parameters from SoapUI's Raw request if you are using that tool
-            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
-            // URL of request
-            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
-            post.setHeader("SOAPAction", "xtk:workflow#Pause");
-            post.setHeader("cookie","__sessiontoken="+sessionToken);
-            post.setHeader("X-Security-Token", securityToken);
-            post.setEntity(strEntity);
-
-            // Execute request
-            HttpResponse response = httpclient.execute(post);
-            HttpEntity respEntity = response.getEntity();
+            HttpClientClass httpClientClass = new HttpClientClass();
+            HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:workflow#Pause",
+                    sessionToken, securityToken );
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                System.out.println(resp);
+                logger.log(Level.ALL,resp);
 
             } else {
-                System.err.println("No Response");
+                logger.log(Level.WARNING,"No Response");
             }
 
         } catch (Exception e) {
@@ -264,28 +229,17 @@ public class SoapWorkflow implements ISOAPWorkflow{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            HttpClient httpclient = HttpClientBuilder.create().build();
-            // You can get below parameters from SoapUI's Raw request if you are using that tool
-            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
-            // URL of request
-            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
-            post.setHeader("SOAPAction", "xtk:workflow#Wakeup");
-            post.setHeader("cookie","__sessiontoken="+sessionToken);
-            post.setHeader("X-Security-Token", securityToken);
-            post.setEntity(strEntity);
-
-            // Execute request
-            HttpResponse response = httpclient.execute(post);
-            HttpEntity respEntity = response.getEntity();
-
+            HttpClientClass httpClientClass = new HttpClientClass();
+            HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:workflow#WakeUp",
+                    sessionToken, securityToken );
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                System.out.println(resp);
+                logger.log(Level.INFO,resp);
 
             } else {
-                System.err.println("No Response");
+                logger.log(Level.WARNING,"No Response");
             }
 
         } catch (Exception e) {
@@ -327,28 +281,18 @@ public class SoapWorkflow implements ISOAPWorkflow{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            HttpClient httpclient = HttpClientBuilder.create().build();
-            // You can get below parameters from SoapUI's Raw request if you are using that tool
-            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
-            // URL of request
-            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
-            post.setHeader("SOAPAction", "xtk:workflow#StartWithParameters");
-            post.setHeader("cookie","__sessiontoken="+sessionToken);
-            post.setHeader("X-Security-Token", securityToken);
-            post.setEntity(strEntity);
-
-            // Execute request
-            HttpResponse response = httpclient.execute(post);
-            HttpEntity respEntity = response.getEntity();
+            HttpClientClass httpClientClass = new HttpClientClass();
+            HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:workflow#StartWithParameters",
+                    sessionToken, securityToken );
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                System.out.println(resp);
+                logger.log(Level.INFO,resp);
 
             } else {
-                System.err.println("No Response");
+                logger.log(Level.WARNING,"No Response");
             }
 
         } catch (Exception e) {
@@ -393,28 +337,18 @@ public class SoapWorkflow implements ISOAPWorkflow{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            HttpClient httpclient = HttpClientBuilder.create().build();
-            // You can get below parameters from SoapUI's Raw request if you are using that tool
-            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
-            // URL of request
-            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
-            post.setHeader("SOAPAction", "xtk:queryDef#ExecuteQuery");
-            post.setHeader("cookie","__sessiontoken="+sessionToken);
-            post.setHeader("X-Security-Token", securityToken);
-            post.setEntity(strEntity);
-
-            // Execute request
-            HttpResponse response = httpclient.execute(post);
-            HttpEntity respEntity = response.getEntity();
+            HttpClientClass httpClientClass = new HttpClientClass();
+            HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:queryDef#ExecuteQuery",
+                    sessionToken, securityToken );
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                System.out.println(resp);
+                logger.log(Level.INFO,resp);
 
             } else {
-                System.err.println("No Response");
+                logger.log(Level.WARNING,"No Response");
             }
 
         } catch (Exception e) {
@@ -455,28 +389,18 @@ public class SoapWorkflow implements ISOAPWorkflow{
                     "   </soapenv:Body>\n" +
                     "</soapenv:Envelope>";
 
-            HttpClient httpclient = HttpClientBuilder.create().build();
-            // You can get below parameters from SoapUI's Raw request if you are using that tool
-            StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
-            // URL of request
-            HttpPost post = new HttpPost("http://localhost:8080/nl/jsp/soaprouter.jsp");
-            post.setHeader("SOAPAction", "xtk:queryDef#ExecuteQuery");
-            post.setHeader("cookie","__sessiontoken="+sessionToken);
-            post.setHeader("X-Security-Token", securityToken);
-            post.setEntity(strEntity);
-
-            // Execute request
-            HttpResponse response = httpclient.execute(post);
-            HttpEntity respEntity = response.getEntity();
+            HttpClientClass httpClientClass = new HttpClientClass();
+            HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:queryDef#ExecuteQuery",
+                    sessionToken, securityToken );
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                System.out.println(resp);
+                logger.log(Level.INFO,resp);
 
             } else {
-                System.err.println("No Response");
+                logger.log(Level.WARNING,"No Response");
             }
 
         } catch (Exception e) {

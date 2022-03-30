@@ -10,7 +10,7 @@ public interface ISOAPDelivery {
     /**
      * This function sends a SOAP request to create delivery from model
      *
-     * @param ScenarioName
+     * @param scenarioName
      * @param vars
      * @param param
      * @param source
@@ -18,7 +18,7 @@ public interface ISOAPDelivery {
      * @param securityToken
      * @throws Exception
      */
-    public void postSOAPCreateWithTemplate(String ScenarioName, ArrayList<String> vars, ArrayList<String> param,
+    public void postSOAPCreateWithTemplate(String scenarioName, ArrayList<String> vars, ArrayList<String> param,
                                            String source, String sessionToken, String securityToken) throws Exception;
 
     /**
@@ -79,12 +79,12 @@ public interface ISOAPDelivery {
     /**
      * This function sends a SOAP request to submit a delivery
      *
-     * @param ScenarioName
+     * @param scenarioName
      * @param sessionToken
      * @param securityToken
      * @return the delivery's Id
      * @throws Exception
      */
-    public String postSOAPSubmitDelivery( String ScenarioName, String sessionToken, String securityToken)
+    public String postSOAPSubmitDelivery( String scenarioName, String sessionToken, String securityToken)
             throws Exception;
 }

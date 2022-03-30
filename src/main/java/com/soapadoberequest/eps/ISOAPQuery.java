@@ -1,7 +1,5 @@
 package com.soapadoberequest.eps;
 
-import java.io.File;
-
 /**
  * This class is an interface containing the methods used in the class SOAPQuery in order to execute SOAP requests
  * for queries like the selection and insertion
