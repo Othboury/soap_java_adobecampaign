@@ -1,0 +1,10 @@
+com\soapadoberequest\eps\SoapWorkflow.class
+com\soapadoberequest\eps\ISOAPQuery.class
+com\soapadoberequest\eps\ISOAPAuth.class
+com\soapadoberequest\eps\ISOAPDelivery.class
+com\soapadoberequest\eps\SoapCalls.class
+com\soapadoberequest\eps\SoapDelivery.class
+com\soapadoberequest\eps\Recipient.class
+com\soapadoberequest\eps\ISOAPWorkflow.class
+com\soapadoberequest\eps\SoapAuth.class
+com\soapadoberequest\eps\SoapQuery.class
