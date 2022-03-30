@@ -21,11 +21,25 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class contains the SOAP requests for different Delivery functions, it implements its methods from the interface
+ * ISOAPQuery
+ */
 public class SoapQuery implements ISOAPQuery{
 
-    //This function sends a SOAP request to insert a new recipient
+    /**
+     * This function sends a SOAP request to insert a new recipient
+     *
+     * @param firstname
+     * @param lastname
+     * @param email
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPInsert(String firstname, String lastname, String email, String sessionToken, String securityToken) {
+    public void postSOAPInsert(String firstname, String lastname, String email, String sessionToken,
+                               String securityToken) throws Exception{
         String resp = null;
         try {
 
@@ -70,13 +84,23 @@ public class SoapQuery implements ISOAPQuery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to select rge count of table
+    /**
+     * This function sends a SOAP request to select the count of table
+     *
+     * @param prefix
+     * @param tableName
+     * @param sessionToken
+     * @param securityToken
+     * @return
+     * @throws Exception
+     */
     @Override
-    public String postSOAPSelectCount(String prefix, String tableName, String sessionToken, String securityToken) {
+    public String postSOAPSelectCount(String prefix, String tableName, String sessionToken,
+                                      String securityToken) throws Exception{
         String resp = null;
         try {
 
@@ -134,14 +158,24 @@ public class SoapQuery implements ISOAPQuery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
         return null;
     }
 
-    //This function sends a SOAP request to select last entry's id
+    /**
+     * This function sends a SOAP request to select last entry's id
+     *
+     * @param prefix
+     * @param tableName
+     * @param sessionToken
+     * @param securityToken
+     * @return The count
+     * @throws Exception
+     */
     @Override
-    public String postSOAPSelectLast(String prefix, String tableName, String sessionToken, String securityToken) {
+    public String postSOAPSelectLast(String prefix, String tableName, String sessionToken,
+                                     String securityToken) throws Exception{
         String resp = null;
         try {
             String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:queryDef\">\n" +
@@ -198,14 +232,21 @@ public class SoapQuery implements ISOAPQuery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
         return null;
     }
 
-    //This function sends a SOAP request to select a recipient using the email
+    /**
+     * This function sends a SOAP request to select a recipient using the email
+     *
+     * @param email
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPSelect(String email, String sessionToken, String securityToken) {
+    public void postSOAPSelect(String email, String sessionToken, String securityToken) throws Exception {
         String resp = null;
         try {
 
@@ -256,14 +297,21 @@ public class SoapQuery implements ISOAPQuery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to write(Insert) a collection of entries (recipient-deliveries - workflow -etc)
-    // from csv file
+    /**
+     * This function sends a SOAP request to write(Insert) a collection of entries (recipient - deliveries -
+     * workflow - etc) from csv file
+     *
+     * @param filename
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPWriteCollection(String filename, String sessionToken, String securityToken) {
+    public void postSOAPWriteCollection(String filename, String sessionToken, String securityToken) throws Exception {
         String resp = null;
         String[] varNames;
         String[] values;
@@ -342,18 +390,25 @@ public class SoapQuery implements ISOAPQuery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+                throw new Exception("WebService SOAP exception = " + e);
         }
     } catch (CsvValidationException e) {
-            e.printStackTrace();
+            throw new Exception("CsvValidationException = "+ e);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new Exception("IOException = " + e);
         }
     }
 
-    //This function sends a SOAP request to write(Insert) a new recipient
+    /**
+     * This function sends a SOAP request to write(Insert) a new recipient
+     *
+     * @param recipient
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPWrite(Recipient recipient, String sessionToken, String securityToken) {
+    public void postSOAPWrite(Recipient recipient, String sessionToken, String securityToken) throws Exception {
         String resp = null;
         try {
             int currentCount = Integer.parseInt(postSOAPSelectCount("nms", "recipient",sessionToken, securityToken));
@@ -410,7 +465,7 @@ public class SoapQuery implements ISOAPQuery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 }

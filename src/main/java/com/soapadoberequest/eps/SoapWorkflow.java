@@ -11,11 +11,23 @@ import org.apache.http.util.EntityUtils;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+/**
+ * This class contains the SOAP requests for different Delivery functions, it implements its methods from the interface
+ * ISOAPWorkflow
+ */
 public class SoapWorkflow implements ISOAPWorkflow{
 
-    //This function sends a SOAP request to start a workflow
+    /**
+     *This function sends a SOAP request to start a workflow
+     *
+     * @param workflowId
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     *
+     */
     @Override
-    public void postSOAPStartWorkflow(String workflowId, String sessionToken, String securityToken) {
+    public void postSOAPStartWorkflow(String workflowId, String sessionToken, String securityToken) throws Exception {
         String resp = null;
         try {
             String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
@@ -54,13 +66,24 @@ public class SoapWorkflow implements ISOAPWorkflow{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to send a signal in order to trigger a workflow
+    /**
+     * This function sends a SOAP request to send a signal in order to trigger a workflow
+     *
+     * @param workFlowId
+     * @param activity
+     * @param vars
+     * @param param
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPPostEvent(String workFlowId, String activity, ArrayList<String> vars, ArrayList<String> param, String sessionToken, String securityToken) {
+    public void postSOAPPostEvent(String workFlowId, String activity, ArrayList<String> vars, ArrayList<String> param,
+                                  String sessionToken, String securityToken) throws Exception {
         String resp = null;
         ArrayList<String> varBuilder = new ArrayList<>();
         for (int i = 0; i <param.size(); i++){
@@ -110,13 +133,20 @@ public class SoapWorkflow implements ISOAPWorkflow{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to kill a workflow
+    /**
+     * This function sends a SOAP request to kill a workflow
+     *
+     * @param workFlowId
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPKillWorkflow(String workFlowId, String sessionToken, String securityToken) {
+    public void postSOAPKillWorkflow(String workFlowId, String sessionToken, String securityToken) throws Exception {
         String resp = null;
         try {
 
@@ -155,13 +185,20 @@ public class SoapWorkflow implements ISOAPWorkflow{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to pause a workflow
+    /**
+     * This function sends a SOAP request to pause a workflow
+     *
+     * @param workFlowId
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPPauseWorkflow(String workFlowId, String sessionToken, String securityToken) {
+    public void postSOAPPauseWorkflow(String workFlowId, String sessionToken, String securityToken) throws Exception {
         String resp = null;
         try {
 
@@ -200,13 +237,20 @@ public class SoapWorkflow implements ISOAPWorkflow{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to wake up a workflow
+    /**
+     * This function sends a SOAP request to wake up a workflow
+     *
+     * @param workFlowId
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPWakeUpWorkflow(String workFlowId, String sessionToken, String securityToken) {
+    public void postSOAPWakeUpWorkflow(String workFlowId, String sessionToken, String securityToken) throws Exception {
         String resp = null;
         try {
 
@@ -245,14 +289,23 @@ public class SoapWorkflow implements ISOAPWorkflow{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to start a workflow with parameters
+    /**
+     * This function sends a SOAP request to start a workflow with parameters
+     *
+     * @param workFlowId
+     * @param vars
+     * @param param
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
     public void postSOAPStartWithParams(String workFlowId, ArrayList<String> vars,
-                                        ArrayList<String> param, String sessionToken, String securityToken) {
+                                        ArrayList<String> param, String sessionToken, String securityToken) throws Exception{
         String resp = null;
         ArrayList<String> varBuilder = new ArrayList<>();
         for (int i = 0; i <param.size(); i++){
@@ -299,13 +352,20 @@ public class SoapWorkflow implements ISOAPWorkflow{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request the logs of a workflow
+    /**
+     * This function sends a SOAP request the logs of a workflow
+     *
+     * @param workflowId
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPWorkflowLogs(String workflowId, String sessionToken, String securityToken) {
+    public void postSOAPWorkflowLogs(String workflowId, String sessionToken, String securityToken) throws Exception {
         String resp = null;
         try {
 
@@ -358,13 +418,20 @@ public class SoapWorkflow implements ISOAPWorkflow{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request the logs of a workflow
+    /**
+     * This function sends a SOAP request the logs of a workflow
+     *
+     * @param workflowInternalName
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPWorkflowState(String workflowInternalName, String sessionToken, String securityToken) {
+    public void postSOAPWorkflowState(String workflowInternalName, String sessionToken, String securityToken) throws Exception{
         String resp = null;
         try {
 
@@ -413,7 +480,7 @@ public class SoapWorkflow implements ISOAPWorkflow{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 

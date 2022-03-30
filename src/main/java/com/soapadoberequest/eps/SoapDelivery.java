@@ -16,12 +16,26 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class SoapDelivery implements ISOAPDelivery{
+/**
+ * This class contains the SOAP requests for different Delivery functions, it implements its methods from the interface
+ * ISOAPDelivery
+ */
 
-    //This function sends a SOAP request to create delivery from model
+public class SoapDelivery implements ISOAPDelivery{
+    /**
+     * This function sends a SOAP request to create delivery from model
+     *
+     * @param ScenarioName
+     * @param vars
+     * @param param
+     * @param source
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
     public void postSOAPCreateWithTemplate(String ScenarioName, ArrayList<String> vars, ArrayList<String> param,
-                                            String source, String sessionToken, String securityToken){
+                                            String source, String sessionToken, String securityToken) throws Exception{
         String resp = null;
         ArrayList<String> varBuilder = new ArrayList<>();
         for (int i = 0; i <param.size(); i++){
@@ -84,13 +98,21 @@ public class SoapDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to select a recipient using the email
+    /**
+     * This function sends a SOAP request to select a delivery using the internal name
+     *
+     * @param internalName
+     * @param sessionToken
+     * @param securityToken
+     * @return the delivery's Id
+     * @throws Exception
+     */
     @Override
-    public String postSOAPSelectDelivery(String internalName, String sessionToken, String securityToken) {
+    public String postSOAPSelectDelivery(String internalName, String sessionToken, String securityToken) throws Exception {
         String resp = null;
         try {
 
@@ -147,14 +169,21 @@ public class SoapDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
         return null;
     }
 
-    //This function sends a SOAP request to create delivery from model
+    /**
+     * This function sends a SOAP request to prerape a delivery and start it
+     *
+     * @param internalName
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPPrepareAndStart( String internalName, String sessionToken, String securityToken) {
+    public void postSOAPPrepareAndStart( String internalName, String sessionToken, String securityToken) throws Exception{
         String resp = null;
         try {
             String deliveryId=postSOAPSelectDelivery(internalName, sessionToken, securityToken);
@@ -196,13 +225,20 @@ public class SoapDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to prepare delivery's target
+    /**
+     * This function sends a SOAP request to prepare delivery's target
+     *
+     * @param internalName
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPPrepareTarget( String internalName, String sessionToken, String securityToken) {
+    public void postSOAPPrepareTarget( String internalName, String sessionToken, String securityToken) throws Exception {
         String resp = null;
 
         try {
@@ -245,14 +281,21 @@ public class SoapDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to prepare delivery's message
+    /**
+     * This function sends a SOAP request to prepare delivery's message
+     *
+     * @param internalName
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
     public void postSOAPPrepareMessage( String internalName, String sessionToken,
-                                       String securityToken) {
+                                       String securityToken) throws Exception {
         String resp = null;
 
         try {
@@ -295,13 +338,21 @@ public class SoapDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to submit a delivery
+    /**
+     * This function sends a SOAP request to submit a delivery
+     *
+     * @param ScenarioName
+     * @param sessionToken
+     * @param securityToken
+     * @return the delivery's Id
+     * @throws Exception
+     */
     @Override
-    public String postSOAPSubmitDelivery( String ScenarioName, String sessionToken, String securityToken) {
+    public String postSOAPSubmitDelivery( String ScenarioName, String sessionToken, String securityToken) throws Exception{
         String resp = null;
         try {
 
@@ -350,14 +401,21 @@ public class SoapDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
         return null;
     }
 
-    //This function sends a SOAP request to stop a delivery
+    /**
+     * This function sends a SOAP request to stop a delivery
+     *
+     * @param deliveryId
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
     @Override
-    public void postSOAPStopDelivery(String deliveryId, String sessionToken, String securityToken) {
+    public void postSOAPStopDelivery(String deliveryId, String sessionToken, String securityToken) throws Exception{
         String resp = null;
         try {
 
@@ -397,7 +455,7 @@ public class SoapDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 

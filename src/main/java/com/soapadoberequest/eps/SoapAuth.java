@@ -16,12 +16,20 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import io.github.cdimascio.dotenv.Dotenv;
 
-
+/**
+ * This class contains the SOAP requests for different Delivery functions, it implements its methods from the interface
+ * ISOAPAuth
+ */
 public class SoapAuth implements ISOAPAuth{
     Dotenv dotenv=Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
 
-    //This function sends a SOAP request to authenticate and returns the sessionToken and the securityToken
-    public ArrayList<Node> postSOAPAUTH() {
+    /**
+     * This function sends a SOAP request to authenticate and returns the sessionToken and the securityToken
+     *
+     * @return sessionToken and securityToken
+     * @throws Exception
+     */
+    public ArrayList<Node> postSOAPAUTH() throws Exception {
         String resp = null;
         Node securityToken = null;
         Node sessionToken = null;
@@ -79,15 +87,21 @@ public class SoapAuth implements ISOAPAuth{
             return tokens;
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
-
-            //return null if no token are retrieved
-            return  null;
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
-    //This function sends a SOAP request to subscribe a recipient to a service
-    public void postSOAPSubscribe(Recipient recipient, String serviceName, String sessionToken, String securityToken) {
+    /**
+     * This function sends a SOAP request to subscribe a recipient to a service
+     *
+     * @param recipient
+     * @param serviceName
+     * @param sessionToken
+     * @param securityToken
+     * @throws Exception
+     */
+    public void postSOAPSubscribe(Recipient recipient, String serviceName, String sessionToken,
+                                  String securityToken) throws Exception{
         String resp = null;
 
         try {
@@ -132,7 +146,7 @@ public class SoapAuth implements ISOAPAuth{
             }
 
         } catch (Exception e) {
-            System.err.println("WebService SOAP exception = " + e);
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 

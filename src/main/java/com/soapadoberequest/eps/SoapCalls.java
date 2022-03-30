@@ -5,9 +5,12 @@ import org.w3c.dom.Node;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * The main class
+ */
 public class SoapCalls {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         System.out.println("START SOAP REQUESTS...");
 
         //Declare the soap objects for each functionality
