@@ -1,12 +1,6 @@
 package com.soapadoberequest.eps;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import java.util.ArrayList;
@@ -20,7 +14,6 @@ import java.util.stream.Collectors;
  * ISOAPWorkflow
  */
 public class SoapWorkflow implements ISOAPWorkflow{
-
     Logger logger = Logger.getLogger("logger");
 
     /**

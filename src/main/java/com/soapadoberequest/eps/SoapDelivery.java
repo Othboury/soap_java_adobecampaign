@@ -1,6 +1,5 @@
 package com.soapadoberequest.eps;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.xml.soap.MessageFactory;
 import jakarta.xml.soap.SOAPMessage;
 import org.apache.http.HttpEntity;
