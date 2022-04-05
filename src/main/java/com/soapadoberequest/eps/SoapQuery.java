@@ -22,17 +22,17 @@ public class SoapQuery implements ISOAPQuery{
     /**
      * This function sends a SOAP request to insert a new recipient
      *
-     * @param firstname
-     * @param lastname
-     * @param email
-     * @param sessionToken
-     * @param securityToken
-     * @throws Exception
+     * @param firstname - FirstName of recipient
+     * @param lastname - LastName of recipient
+     * @param email - Email of recipient
+     * @param sessionToken - Token of the session (__sessiontoken)
+     * @param securityToken - Security Token of the session (X-Security-Token)
+     * @throws Exception - Throws Exception when failure
      */
     @Override
     public void postSOAPInsert(String firstname, String lastname, String email, String sessionToken,
                                String securityToken) throws Exception{
-        String resp = null;
+        String resp;
         try {
             String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
                     "xmlns:urn=\"urn:nms:recipient\">\n" +
@@ -72,17 +72,17 @@ public class SoapQuery implements ISOAPQuery{
     /**
      * This function sends a SOAP request to select the count of table
      *
-     * @param prefix
-     * @param tableName
-     * @param sessionToken
-     * @param securityToken
-     * @return
-     * @throws Exception
+     * @param prefix - Prefix of the Schema (ex: nms)
+     * @param tableName - The name of the schema (ex: recipient)
+     * @param sessionToken - Token of the session (__sessiontoken)
+     * @param securityToken - Security Token of the session (X-Security-Token)
+     * @return - Returns the count
+     * @throws Exception - Throws Esception when failure
      */
     @Override
     public String postSOAPSelectCount(String prefix, String tableName, String sessionToken, String securityToken)
             throws Exception{
-        String resp = null;
+        String resp;
         try {
 
             String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
@@ -135,17 +135,17 @@ public class SoapQuery implements ISOAPQuery{
     /**
      * This function sends a SOAP request to select last entry's id
      *
-     * @param prefix
-     * @param tableName
-     * @param sessionToken
-     * @param securityToken
-     * @return The count
-     * @throws Exception
+     * @param prefix - Prefix of the Schema (ex: nms)
+     * @param tableName - The name of the schema (ex: recipient)
+     * @param sessionToken - Token of the session (__sessiontoken)
+     * @param securityToken - Security Token of the session (X-Security-Token)
+     * @return - The last entry
+     * @throws Exception - Throws exception when failure
      */
     @Override
     public String postSOAPSelectLast(String prefix, String tableName, String sessionToken,
                                      String securityToken) throws Exception{
-        String resp = null;
+        String resp;
         try {
             String soapBody = """ 
                        <soapenv:Envelope xmlns:soapenv= http://schemas.xmlsoap.org/soap/envelope/ xmlns:urn=urn:xtk:queryDef>
@@ -198,14 +198,14 @@ public class SoapQuery implements ISOAPQuery{
     /**
      * This function sends a SOAP request to select a recipient using the email
      *
-     * @param email
-     * @param sessionToken
-     * @param securityToken
-     * @throws Exception
+     * @param email - Email of recipient
+     * @param sessionToken - Token of the session (__sessiontoken)
+     * @param securityToken - Security Token of the session (X-Security-Token)
+     * @throws Exception - Throws exception when failure
      */
     @Override
     public void postSOAPSelect(String email, String sessionToken, String securityToken) throws Exception {
-        String resp = null;
+        String resp;
         try {
 
             String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
@@ -253,31 +253,58 @@ public class SoapQuery implements ISOAPQuery{
      * This function sends a SOAP request to write(Insert) a collection of entries (recipient - deliveries -
      * workflow - etc) from csv file
      *
-     * @param filename
-     * @param sessionToken
-     * @param securityToken
-     * @throws Exception
+     * @param filename - The name of the file containing the entries
+     * @param sessionToken - Token of the session (__sessiontoken)
+     * @param securityToken - Security Token of the session (X-Security-Token)
+     * @throws Exception - Throws exception when failure
      */
     @Override
     public void postSOAPWriteCollection(String filename, String sessionToken, String securityToken) throws Exception {
-        String resp = null;
-        String[] varNames;
-        String[] values;
-        String valuesString ="";
-        String schema = "";
-        String template ="";
-        String key="";
+        String[] varNames, values;
+        String schema ="";
+        String template = "";
+        String valuesString;
+        String resp, key1,key2,key3,keysSentence = null;
 
         try (CSVReader reader = new CSVReader(new FileReader(filename))) {
             varNames = reader.readNext();
             while ((values = reader.readNext()) != null){
                 schema = values[0]+ ":" + values[1];
-                key = values[2];
+                key1= "@"+values[2];
+                key2="@"+values[3];
+                key3 = "@"+values[4];
                 valuesString ="";
-                for(int i=3; i<values.length; i++){
+                for(int i=5; i<values.length; i++){
                     valuesString = valuesString + varNames[i] + "='" + values[i] + "'\n";
                 }
-                template = template + "<"+schema.split(":")[1]+" _key='"+key+"' "+
+                if(!key1.isEmpty() && !key2.isEmpty() && !key3.isEmpty()){
+                    if(key1.indexOf("-") == 0){ key1 = "["+key1+"]";}
+                    if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
+                    if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
+                    keysSentence = key1+","+key2+","+key3;
+                }else if(key1.isEmpty() && !key2.isEmpty() && !key3.isEmpty() ){
+                    if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
+                    if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
+                    keysSentence = key2+","+key3;
+                }else if(!key1.isEmpty() && key2.isEmpty() && !key3.isEmpty()){
+                    if(key1.indexOf("-") == 0){ key1 = "["+key3+"]";}
+                    if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
+                    keysSentence = key1+","+key3;
+                }else if(!key1.isEmpty() && !key2.isEmpty()){
+                    if(key1.indexOf("-") == 0){ key1 = "["+key1+"]";}
+                    if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
+                    keysSentence = key1+","+key2;
+                }else if(!key1.isEmpty()){
+                    if(key1.indexOf("-") == 0){ key1 = "["+key1+"]";}
+                    keysSentence = key1;
+                }else if(!key2.isEmpty()){
+                    if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
+                    keysSentence = key2;
+                }else if(!key3.isEmpty()){
+                    if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
+                    keysSentence = key3;
+                }
+                template = template + "<"+schema.split(":")[1]+" _key='"+keysSentence+"' "+
                         valuesString + " />";
             }
 
@@ -341,14 +368,14 @@ public class SoapQuery implements ISOAPQuery{
     /**
      * This function sends a SOAP request to write(Insert) a new recipient
      *
-     * @param recipient
-     * @param sessionToken
-     * @param securityToken
-     * @throws Exception
+     * @param recipient - The recipient object
+     * @param sessionToken - Token of the session (__sessiontoken)
+     * @param securityToken - Security Token of the session (X-Security-Token)
+     * @throws Exception - Throws exception when failure
      */
     @Override
     public void postSOAPWrite(Recipient recipient, String sessionToken, String securityToken) throws Exception {
-        String resp = null;
+        String resp;
         String prefix ="nms";
         String schema ="recipient";
         try {

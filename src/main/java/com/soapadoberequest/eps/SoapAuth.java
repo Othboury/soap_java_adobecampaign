@@ -26,10 +26,10 @@ public class SoapAuth implements ISOAPAuth{
      * This function sends a SOAP request to authenticate and returns the sessionToken and the securityToken
      *
      * @return sessionToken and securityToken
-     * @throws Exception
+     * @throws Exception - Throws exception when failure
      */
     public ArrayList<Node> postSOAPAUTH() throws Exception {
-        String resp = null;
+        String resp;
         Node securityToken = null;
         Node sessionToken = null;
         try {
@@ -84,15 +84,15 @@ public class SoapAuth implements ISOAPAuth{
     /**
      * This function sends a SOAP request to subscribe a recipient to a service
      *
-     * @param recipient
-     * @param serviceName
-     * @param sessionToken
-     * @param securityToken
-     * @throws Exception
+     * @param recipient - The recipient's object
+     * @param serviceName - The name of service
+     * @param sessionToken - Token of the session (__sessiontoken)
+     * @param securityToken - Security Token of the session (X-Security-Token)
+     * @throws Exception - Throws exception when failure
      */
     public void postSOAPSubscribe(Recipient recipient, String serviceName, String sessionToken,
                                   String securityToken) throws Exception{
-        String resp = null;
+        String resp;
 
         try {
             String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +

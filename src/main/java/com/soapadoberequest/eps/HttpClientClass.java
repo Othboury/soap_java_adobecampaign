@@ -23,12 +23,12 @@ public class HttpClientClass implements IHttpClientClass{
 
     /**
      * This method is used to launch HTTPClient for different SOAP requests
-     * @param soapBody
-     * @param soapAction
-     * @param sessionToken
-     * @param securityToken
-     * @return Response Entity
-     * @throws IOException
+     * @param soapBody - The soap's envelope's body
+     * @param soapAction - The soap action to perform
+     * @param sessionToken - Token of the session (__sessiontoken)
+     * @param securityToken - Security Token of the session (X-Security-Token)
+     * @return - Response Entity
+     * @throws IOException - Throws exception when failure
      */
     public HttpEntity httpClientCall(String soapBody, String soapAction, String sessionToken, String securityToken) throws IOException {
 
@@ -51,13 +51,14 @@ public class HttpClientClass implements IHttpClientClass{
     /**
      * This method is used to launch HTTPClient to logon in order to get session and security tokens
      *
-     * @param soapBody
-     * @return response Entity
-     * @throws IOException
+     * @param soapBody - The soap's envelope's body
+     * @return - response Entity
+     * @throws IOException - Throws exception when failure
      */
     public HttpEntity httpClientLogon(String soapBody) throws IOException {
 
         HttpClient httpclient = HttpClientBuilder.create().build();
+
         // You can get below parameters from SoapUI's Raw request if you are using that tool
         StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
 
