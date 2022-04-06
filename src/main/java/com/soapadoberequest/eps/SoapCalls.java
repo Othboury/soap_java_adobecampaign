@@ -7,10 +7,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * The main class
+ * This is the main class
  */
 public class SoapCalls {
-
+    /**
+     * The main method that unable us to run the methods
+     *
+     * @param args Args for the main methos
+     * @throws Exception Throws exception when failure
+     */
     public static void main(String[] args) throws Exception {
         Dotenv dotenv=Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
         Logger logger = Logger.getLogger("logger");

@@ -23,10 +23,10 @@ public class SoapWorkflow implements ISOAPWorkflow{
     /**
      *This function sends a SOAP request to start a workflow
      *
-     * @param workflowId - The id of the workflow
-     * @param sessionToken - Token of the session (__sessiontoken)
-     * @param securityToken - Security Token of the session (X-Security-Token)
-     * @throws Exception -Throws Exception when failure
+     * @param workflowId The id of the workflow
+     * @param sessionToken Token of the session (__sessiontoken)
+     * @param securityToken Security Token of the session (X-Security-Token)
+     * @throws Exception Throws Exception when failure
      *
      */
     @Override
@@ -66,13 +66,13 @@ public class SoapWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request to send a signal in order to trigger a workflow
      *
-     * @param workFlowId - The id of the worklow
-     * @param activity - the activity
-     * @param vars - A List of the variables to add inside the variables tag
-     * @param param - A List of the values to add inside the variables tag (according to the variables list)
-     * @param sessionToken - Token of the session (__sessiontoken)
-     * @param securityToken - Security Token of the session (X-Security-Token)
-     * @throws Exception -Throws Exception when failure
+     * @param workFlowId The id of the worklow
+     * @param activity The activity
+     * @param vars A List of the variables to add inside the variables tag
+     * @param param A List of the values to add inside the variables tag (according to the variables list)
+     * @param sessionToken Token of the session (__sessiontoken)
+     * @param securityToken Security Token of the session (X-Security-Token)
+     * @throws Exception Throws Exception when failure
      */
     @Override
     public void postSOAPPostEvent(String workFlowId, String activity, List<String> vars, List<String> param,
@@ -123,10 +123,10 @@ public class SoapWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request to kill a workflow
      *
-     * @param workFlowId - The id of the workflow
-     * @param sessionToken - Token of the session (__sessiontoken)
-     * @param securityToken - Security Token of the session (X-Security-Token)
-     * @throws Exception -Throws Exception when failure
+     * @param workFlowId The id of the workflow
+     * @param sessionToken Token of the session (__sessiontoken)
+     * @param securityToken Security Token of the session (X-Security-Token)
+     * @throws Exception Throws Exception when failure
      */
     @Override
     public void postSOAPKillWorkflow(String workFlowId, String sessionToken, String securityToken) throws Exception {
@@ -165,10 +165,10 @@ public class SoapWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request to pause a workflow
      *
-     * @param workFlowId - The Id of the workflow
-     * @param sessionToken - Token of the session (__sessiontoken)
-     * @param securityToken - Security Token of the session (X-Security-Token)
-     * @throws Exception -Throws Exception when failure
+     * @param workFlowId The Id of the workflow
+     * @param sessionToken Token of the session (__sessiontoken)
+     * @param securityToken Security Token of the session (X-Security-Token)
+     * @throws Exception Throws Exception when failure
      */
     @Override
     public void postSOAPPauseWorkflow(String workFlowId, String sessionToken, String securityToken) throws Exception {
@@ -207,10 +207,10 @@ public class SoapWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request to wake up a workflow
      *
-     * @param workFlowId - The Id of the workflow
-     * @param sessionToken - Token of the session (__sessiontoken)
-     * @param securityToken - Security Token of the session (X-Security-Token)
-     * @throws Exception -Throws Exception when failure
+     * @param workFlowId The Id of the workflow
+     * @param sessionToken Token of the session (__sessiontoken)
+     * @param securityToken Security Token of the session (X-Security-Token)
+     * @throws Exception Throws Exception when failure
      */
     @Override
     public void postSOAPWakeUpWorkflow(String workFlowId, String sessionToken, String securityToken) throws Exception {
@@ -248,12 +248,12 @@ public class SoapWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request to start a workflow with parameters
      *
-     * @param workFlowId - The id of the workflow
-     * @param vars - A List of the variables to add inside the variables tag
-     * @param param - A List of the values to add inside the variables tag (according to the variables list)
-     * @param sessionToken - Token of the session (__sessiontoken)
-     * @param securityToken - Security Token of the session (X-Security-Token)
-     * @throws Exception -Throws Exception when failure
+     * @param workFlowId The id of the workflow
+     * @param vars A List of the variables to add inside the variables tag
+     * @param param A List of the values to add inside the variables tag (according to the variables list)
+     * @param sessionToken Token of the session (__sessiontoken)
+     * @param securityToken Security Token of the session (X-Security-Token)
+     * @throws Exception Throws Exception when failure
      */
     @Override
     public void postSOAPStartWithParams(String workFlowId, List<String> vars,
@@ -301,10 +301,10 @@ public class SoapWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request the logs of a workflow
      *
-     * @param internalName - The internal name of the workflow
-     * @param sessionToken - Token of the session (__sessiontoken)
-     * @param securityToken - Security Token of the session (X-Security-Token)
-     * @throws Exception -Throws Exception when failure
+     * @param internalName The internal name of the workflow
+     * @param sessionToken Token of the session (__sessiontoken)
+     * @param securityToken Security Token of the session (X-Security-Token)
+     * @throws Exception Throws Exception when failure
      */
     @Override
     public void postSOAPWorkflowLogs(String internalName, String sessionToken, String securityToken) throws Exception {
@@ -358,10 +358,10 @@ public class SoapWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request the logs of a workflow
      *
-     * @param workflowInternalName - The internal name of the workflow
-     * @param sessionToken - Token of the session (__sessiontoken)
-     * @param securityToken - Security Token of the session (X-Security-Token)
-     * @throws Exception -Throws Exception when failure
+     * @param workflowInternalName The internal name of the workflow
+     * @param sessionToken Token of the session (__sessiontoken)
+     * @param securityToken Security Token of the session (X-Security-Token)
+     * @throws Exception Throws Exception when failure
      */
     @Override
     public void postSOAPWorkflowState(String workflowInternalName, String sessionToken, String securityToken) throws Exception{
@@ -410,10 +410,11 @@ public class SoapWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request to return the workflow ID based on its workflow internalName
      *
-     * @param internalName - Internal name of workflow
-     * @param sessionToken - Token of the session (__sessiontoken)
-     * @param securityToken - Security Token of the session (X-Security-Token)
-     * @throws Exception - Throws exception when failure
+     * @param internalName Internal name of workflow
+     * @param sessionToken Token of the session (__sessiontoken)
+     * @param securityToken Security Token of the session (X-Security-Token)
+     * @throws Exception Throws exception when failure
+     * @return Returns the workflow's Id
      */
     @Override
     public String postSOAPSelectWorkflow(String internalName, String sessionToken, String securityToken) throws Exception {
