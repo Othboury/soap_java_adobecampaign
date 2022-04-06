@@ -16,7 +16,6 @@ import java.util.logging.Logger;
  * ISOAPQuery
  */
 public class SoapQuery implements ISOAPQuery{
-
     Logger logger = Logger.getLogger("logger");
 
     /**
@@ -147,19 +146,19 @@ public class SoapQuery implements ISOAPQuery{
                                      String securityToken) throws Exception{
         String resp;
         try {
-            String soapBody = """ 
-                       <soapenv:Envelope xmlns:soapenv= http://schemas.xmlsoap.org/soap/envelope/ xmlns:urn=urn:xtk:queryDef>
+            String soapBody = """
+                       <soapenv:Envelope xmlns:soapenv='http://schemas.xmlsoap.org/soap/envelope/' xmlns:urn='urn:xtk:queryDef'>
                        <soapenv:Header/>
                        <soapenv:Body>
                           <urn:ExecuteQuery>
                              <urn:sessiontoken/>
                              <urn:entity>
-                                <queryDef operation=select schema=nms:recipient lineCount=1>
+                                <queryDef operation='select' schema='nms:recipient' lineCount='1'>
                                    <select>
-                                       <node expr=@id/>
+                                       <node expr='@id'/>
                                    </select>
                                    <orderBy>
-                                       <node expr=@id sortDesc=true/>
+                                       <node expr='@id' sortDesc='true'/>
                                    </orderBy>
                                 </queryDef>
                              </urn:entity>
@@ -264,50 +263,52 @@ public class SoapQuery implements ISOAPQuery{
         String schema ="";
         String template = "";
         String valuesString;
-        String resp, key1,key2,key3,keysSentence = null;
+        String resp, operation, key1,key2,key3,keysSentence = null;
 
         try (CSVReader reader = new CSVReader(new FileReader(filename))) {
             varNames = reader.readNext();
             while ((values = reader.readNext()) != null){
                 schema = values[0]+ ":" + values[1];
-                key1= "@"+values[2];
-                key2="@"+values[3];
-                key3 = "@"+values[4];
+                operation = values[2];
+                key1= "@"+values[3];
+                key2="@"+values[4];
+                key3 = "@"+values[5];
                 valuesString ="";
-                for(int i=5; i<values.length; i++){
+                for(int i=6; i<values.length; i++){
                     valuesString = valuesString + varNames[i] + "='" + values[i] + "'\n";
                 }
-                if(!key1.isEmpty() && !key2.isEmpty() && !key3.isEmpty()){
+                if(!"@".equals(key1) && !"@".equals(key2) && !"@".equals(key3)){
                     if(key1.indexOf("-") == 0){ key1 = "["+key1+"]";}
                     if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
                     if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
                     keysSentence = key1+","+key2+","+key3;
-                }else if(key1.isEmpty() && !key2.isEmpty() && !key3.isEmpty() ){
+                }else if("@".equals(key1) && !"@".equals(key2) && !"@".equals(key3) ){
                     if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
                     if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
                     keysSentence = key2+","+key3;
-                }else if(!key1.isEmpty() && key2.isEmpty() && !key3.isEmpty()){
-                    if(key1.indexOf("-") == 0){ key1 = "["+key3+"]";}
+                }else if(!"@".equals(key1) && "@".equals(key2) && !"@".equals(key3)){
+                    if(key1.indexOf("-") == 0){ key1 = "["+key1+"]";}
                     if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
                     keysSentence = key1+","+key3;
-                }else if(!key1.isEmpty() && !key2.isEmpty()){
+                }else if(!"@".equals(key1) && !"@".equals(key2)){
                     if(key1.indexOf("-") == 0){ key1 = "["+key1+"]";}
                     if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
                     keysSentence = key1+","+key2;
-                }else if(!key1.isEmpty()){
+                }else if(!"@".equals(key1)){
                     if(key1.indexOf("-") == 0){ key1 = "["+key1+"]";}
                     keysSentence = key1;
-                }else if(!key2.isEmpty()){
+                }else if(!"@".equals(key2)){
                     if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
                     keysSentence = key2;
-                }else if(!key3.isEmpty()){
+                }else if(!"@".equals(key3)){
                     if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
                     keysSentence = key3;
                 }
-                template = template + "<"+schema.split(":")[1]+" _key='"+keysSentence+"' "+
+                template = template + "<"+schema.split(":")[1]+" _key='"+keysSentence+"' _operation='"+operation+"' "+
                         valuesString + " />";
             }
 
+            System.out.println(template);
             try{
             int currentCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0], schema.split(":")[1],
                     sessionToken, securityToken));
@@ -366,7 +367,7 @@ public class SoapQuery implements ISOAPQuery{
     }
 
     /**
-     * This function sends a SOAP request to write(Insert) a new recipient
+     * This function sends a SOAP request to write (Insert, update and delete) a collection of entries
      *
      * @param recipient - The recipient object
      * @param sessionToken - Token of the session (__sessiontoken)
@@ -428,4 +429,5 @@ public class SoapQuery implements ISOAPQuery{
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
+
 }

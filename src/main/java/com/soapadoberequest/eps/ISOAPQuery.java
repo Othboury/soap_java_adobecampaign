@@ -66,7 +66,7 @@ public interface ISOAPQuery {
             throws Exception;
 
     /**
-     * This function sends a SOAP request to write(Insert) a new recipient
+     * This function sends a SOAP request to write(Insert, update and delete) a collection of entries
      *
      * @param recipient - The recipient object
      * @param sessionToken - Token of the session (__sessiontoken)
