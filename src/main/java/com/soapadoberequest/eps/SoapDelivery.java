@@ -73,7 +73,7 @@ public class SoapDelivery implements ISOAPDelivery{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:delivery#CreateFromModel",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -127,7 +127,7 @@ public class SoapDelivery implements ISOAPDelivery{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:queryDef#ExecuteQuery",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -160,7 +160,7 @@ public class SoapDelivery implements ISOAPDelivery{
      * @throws Exception Throws exception when failure
      */
     @Override
-    public void postSOAPPrepareAndStart( String internalName, String sessionToken, String securityToken)
+    public void postSOAPPrepareAndStart(String internalName, String sessionToken, String securityToken)
             throws Exception{
         String resp;
         try {
@@ -206,7 +206,7 @@ public class SoapDelivery implements ISOAPDelivery{
      * @throws Exception Throws exception when failure
      */
     @Override
-    public void postSOAPPrepareTarget( String internalName, String sessionToken, String securityToken)
+    public void postSOAPPrepareTarget(String internalName, String sessionToken, String securityToken)
             throws Exception {
         String resp;
 
@@ -227,7 +227,7 @@ public class SoapDelivery implements ISOAPDelivery{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:delivery#PrepareAndTarget",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -253,7 +253,7 @@ public class SoapDelivery implements ISOAPDelivery{
      * @throws Exception Throws exception when failure
      */
     @Override
-    public void postSOAPPrepareMessage( String internalName, String sessionToken, String securityToken)
+    public void postSOAPPrepareMessage(String internalName, String sessionToken, String securityToken)
             throws Exception {
         String resp;
 
@@ -274,7 +274,7 @@ public class SoapDelivery implements ISOAPDelivery{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:delivery#PrepareMessage",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -301,7 +301,7 @@ public class SoapDelivery implements ISOAPDelivery{
      * @throws Exception Throws exception when failure
      */
     @Override
-    public String postSOAPSubmitDelivery( String scenarioName, String sessionToken, String securityToken)
+    public String postSOAPSubmitDelivery(String scenarioName, String sessionToken, String securityToken)
             throws Exception{
         String resp;
         try {
@@ -321,7 +321,7 @@ public class SoapDelivery implements ISOAPDelivery{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:delivery#SubmitDelivery",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -371,7 +371,7 @@ public class SoapDelivery implements ISOAPDelivery{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:delivery#Stop",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);

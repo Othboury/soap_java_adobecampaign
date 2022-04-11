@@ -51,7 +51,7 @@ public interface ISOAPDelivery {
      * @param securityToken Security Token of the session (X-Security-Token)
      * @throws Exception Throws exception when failure
      */
-    public void postSOAPPrepareAndStart( String internalName, String sessionToken, String securityToken)
+    public void postSOAPPrepareAndStart(String internalName, String sessionToken, String securityToken)
             throws Exception;
 
     /**
@@ -62,7 +62,7 @@ public interface ISOAPDelivery {
      * @param securityToken Security Token of the session (X-Security-Token)
      * @throws Exception Throws exception when failure
      */
-    public void postSOAPPrepareTarget( String internalName, String sessionToken, String securityToken)
+    public void postSOAPPrepareTarget(String internalName, String sessionToken, String securityToken)
             throws Exception;
 
     /**
@@ -73,7 +73,7 @@ public interface ISOAPDelivery {
      * @param securityToken Security Token of the session (X-Security-Token)
      * @throws Exception Throws exception when failure
      */
-    public void postSOAPPrepareMessage( String internalName, String sessionToken, String securityToken)
+    public void postSOAPPrepareMessage(String internalName, String sessionToken, String securityToken)
             throws Exception;
 
     /**
@@ -85,6 +85,6 @@ public interface ISOAPDelivery {
      * @return The delivery's Id
      * @throws Exception Throws exception when failure
      */
-    public String postSOAPSubmitDelivery( String scenarioName, String sessionToken, String securityToken)
+    public String postSOAPSubmitDelivery(String scenarioName, String sessionToken, String securityToken)
             throws Exception;
 }

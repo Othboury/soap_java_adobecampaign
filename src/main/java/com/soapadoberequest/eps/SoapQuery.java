@@ -8,6 +8,7 @@ import jakarta.xml.soap.SOAPMessage;
 import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
 import java.io.*;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,7 +52,7 @@ public class SoapQuery implements ISOAPQuery{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:recipient#insert",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -105,7 +106,7 @@ public class SoapQuery implements ISOAPQuery{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:queryDef#ExecuteQuery",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -168,7 +169,7 @@ public class SoapQuery implements ISOAPQuery{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:queryDef#ExecuteQuery",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -231,7 +232,7 @@ public class SoapQuery implements ISOAPQuery{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:queryDef#ExecuteQuery",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -264,12 +265,22 @@ public class SoapQuery implements ISOAPQuery{
         String template = "";
         String valuesString;
         String resp, operation, key1,key2,key3,keysSentence = null;
+        int countInsert = 0;
+        int countDelete =0;
+        int countUpdate =0;
 
         try (CSVReader reader = new CSVReader(new FileReader(filename))) {
             varNames = reader.readNext();
             while ((values = reader.readNext()) != null){
                 schema = values[0]+ ":" + values[1];
                 operation = values[2];
+                if(Objects.equals(operation, "insert")){
+                    countInsert++;
+                }else if(Objects.equals(operation, "delete")){
+                    countDelete++;
+                }else if(Objects.equals(operation, "update")){
+                    countUpdate++;
+                }
                 key1= "@"+values[3];
                 key2="@"+values[4];
                 key3 = "@"+values[5];
@@ -330,14 +341,16 @@ public class SoapQuery implements ISOAPQuery{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:persist#WriteCollection",
-                        sessionToken, securityToken );
+                        sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
                 logger.log(Level.INFO,resp);
-
+                logger.log(Level.INFO, "FILE -> The number of data to insert is: {0} ", countInsert);
+                logger.log(Level.INFO, "FILE -> The number of data to update is: {0} ", countUpdate);
+                logger.log(Level.INFO, "FILE -> The number of data to delete is: {0} ", countDelete);
                 int secondCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0], schema.split(":")[1]
                         ,sessionToken, securityToken));
 
@@ -400,7 +413,7 @@ public class SoapQuery implements ISOAPQuery{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:persist#Write",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);

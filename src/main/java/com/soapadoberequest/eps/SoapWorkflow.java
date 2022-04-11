@@ -46,7 +46,7 @@ public class SoapWorkflow implements ISOAPWorkflow{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:workflow#Start",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -103,7 +103,7 @@ public class SoapWorkflow implements ISOAPWorkflow{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:workflow#PostEvent",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -145,7 +145,7 @@ public class SoapWorkflow implements ISOAPWorkflow{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:workflow#Kill",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -187,7 +187,7 @@ public class SoapWorkflow implements ISOAPWorkflow{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:workflow#Pause",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -229,7 +229,7 @@ public class SoapWorkflow implements ISOAPWorkflow{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:workflow#WakeUp",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
@@ -281,7 +281,7 @@ public class SoapWorkflow implements ISOAPWorkflow{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:workflow#StartWithParameters",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -338,7 +338,7 @@ public class SoapWorkflow implements ISOAPWorkflow{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:queryDef#ExecuteQuery",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -390,7 +390,7 @@ public class SoapWorkflow implements ISOAPWorkflow{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:queryDef#ExecuteQuery",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
@@ -443,7 +443,7 @@ public class SoapWorkflow implements ISOAPWorkflow{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:queryDef#ExecuteQuery",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
