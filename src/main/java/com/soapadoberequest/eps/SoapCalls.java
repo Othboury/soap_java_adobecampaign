@@ -58,7 +58,7 @@ public class SoapCalls {
 
         logger.log(Level.INFO,"-------WORKFLOW CALLS-------");
         logger.log(Level.INFO,"********START AN EXISTING WORKFLOW********");
-        soapWorkflow.postSOAPStartWorkflow("WKF37",tokens.get(0).getTextContent(),
+        soapWorkflow.postSOAPStartWorkflow("WKF38",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
         /*logger.log(Level.INFO,"********TRIGGER A WORKFLOW START FROM SIGNAL********");
         soapWorkflow.postSOAPPostEvent("WKF12", "signal", varName,varValue,

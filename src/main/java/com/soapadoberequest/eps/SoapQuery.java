@@ -264,7 +264,7 @@ public class SoapQuery implements ISOAPQuery{
         String schema ="";
         String template = "";
         String valuesString;
-        String resp, operation, key1,key2,key3,keysSentence = null;
+        String resp, operation, key, key1,key2,key3,keysSentence = null;
         int countInsert = 0;
         int countDelete =0;
         int countUpdate =0;
@@ -281,14 +281,14 @@ public class SoapQuery implements ISOAPQuery{
                 }else if(Objects.equals(operation, "update")){
                     countUpdate++;
                 }
-                key1= "@"+values[3];
-                key2="@"+values[4];
-                key3 = "@"+values[5];
+                key= values[3];
+                /*key2="@"+values[4];
+                key3 = "@"+values[5];*/
                 valuesString ="";
                 for(int i=6; i<values.length; i++){
                     valuesString = valuesString + varNames[i] + "='" + values[i] + "'\n";
                 }
-                if(!"@".equals(key1) && !"@".equals(key2) && !"@".equals(key3)){
+                /*if(!"@".equals(key1) && !"@".equals(key2) && !"@".equals(key3)){
                     if(key1.indexOf("-") == 0){ key1 = "["+key1+"]";}
                     if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
                     if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
@@ -314,8 +314,8 @@ public class SoapQuery implements ISOAPQuery{
                 }else if(!"@".equals(key3)){
                     if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
                     keysSentence = key3;
-                }
-                template = template + "<"+schema.split(":")[1]+" _key='"+keysSentence+"' _operation='"+operation+"' "+
+                }*/
+                template = template + "<"+schema.split(":")[1]+" _key='"+key+"' _operation='"+operation+"' "+
                         valuesString + " />";
             }
 

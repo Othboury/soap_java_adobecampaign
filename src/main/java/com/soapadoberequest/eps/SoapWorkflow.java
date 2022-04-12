@@ -174,7 +174,6 @@ public class SoapWorkflow implements ISOAPWorkflow{
     public void postSOAPPauseWorkflow(String workFlowId, String sessionToken, String securityToken) throws Exception {
         String resp;
         try {
-
             String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:workflow\">\n" +
                     "   <soapenv:Header/>\n" +
                     "   <soapenv:Body>\n" +
@@ -198,7 +197,6 @@ public class SoapWorkflow implements ISOAPWorkflow{
             } else {
                 logger.log(Level.WARNING,"No Response");
             }
-
         } catch (Exception e) {
             throw new Exception("WebService SOAP exception = " + e);
         }

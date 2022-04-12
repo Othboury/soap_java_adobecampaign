@@ -23,6 +23,7 @@ public class HttpClientClass implements IHttpClientClass{
 
     /**
      * This method is used to launch HTTPClient for different SOAP requests
+     *
      * @param soapBody The soap's envelope's body
      * @param soapAction The soap action to perform
      * @param sessionToken Token of the session (__sessiontoken)
