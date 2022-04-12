@@ -28,7 +28,7 @@ public class SoapCalls {
         SoapWorkflow soapWorkflow = new SoapWorkflow();
 
         logger.log(Level.INFO,"********AUTHENTICATE TO A SESSION********");
-        ArrayList<Node> tokens =  soapAuth.postSOAPAUTH();
+        ArrayList<Node> tokens =  soapAuth.postSOAPAuth();
         Recipient recipient = new Recipient("Fatim zahra","Bachri","fatbac@gmail.com");
 
         //Params config

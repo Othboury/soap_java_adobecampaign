@@ -15,7 +15,7 @@ public interface ISOAPAuth {
      * @return SessionToken and securityToken
      * @throws Exception Throws exception when failure
      */
-    public List<Node> postSOAPAUTH() throws Exception;
+    public List<Node> postSOAPAuth() throws Exception;
 
     /**
      * This function sends a SOAP request to subscribe a recipient to a service
@@ -28,5 +28,4 @@ public interface ISOAPAuth {
      */
     public void postSOAPSubscribe(Recipient recipient, String serviceName, String sessionToken,
                                   String securityToken) throws Exception;
-
 }

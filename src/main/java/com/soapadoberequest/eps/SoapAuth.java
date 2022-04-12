@@ -28,7 +28,7 @@ public class SoapAuth implements ISOAPAuth{
      * @return SessionToken and securityToken
      * @throws Exception Throws exception when failure
      */
-    public ArrayList<Node> postSOAPAUTH() throws Exception {
+    public ArrayList<Node> postSOAPAuth() throws Exception {
         String resp;
         Node securityToken = null;
         Node sessionToken = null;
