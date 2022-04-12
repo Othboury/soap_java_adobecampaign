@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * This class contains the SOAP requests for different Delivery functions, it implements its methods from the interface
  * ISOAPWorkflow
  */
-public class SoapWorkflow implements ISOAPWorkflow{
+public class SOAPWorkflow implements ISOAPWorkflow{
     Logger logger = Logger.getLogger("logger");
 
     /**

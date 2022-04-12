@@ -18,7 +18,7 @@ import io.github.cdimascio.dotenv.Dotenv;
  * This class contains the SOAP requests for different Delivery functions, it implements its methods from the interface
  * ISOAPAuth
  */
-public class SoapAuth implements ISOAPAuth{
+public class SOAPAuth implements ISOAPAuth{
     Dotenv dotenv=Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
     Logger logger = Logger.getLogger("logger");
 

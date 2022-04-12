@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * This class contains the SOAP requests for different Delivery functions, it implements its methods from the interface
  * ISOAPQuery
  */
-public class SoapQuery implements ISOAPQuery{
+public class SOAPQuery implements ISOAPQuery{
     Logger logger = Logger.getLogger("logger");
 
     /**

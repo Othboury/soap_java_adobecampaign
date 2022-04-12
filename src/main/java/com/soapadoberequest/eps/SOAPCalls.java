@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 /**
  * This is the main class
  */
-public class SoapCalls {
+public class SOAPCalls {
     /**
      * The main method that unable us to run the methods
      *
@@ -22,10 +22,10 @@ public class SoapCalls {
         logger.log(Level.INFO, "START SOAP REQUESTS...");
 
         //Declare the soap objects for each functionality
-        SoapAuth soapAuth = new SoapAuth();
-        SoapQuery soapQuery = new SoapQuery();
-        SoapDelivery soapDelivery = new SoapDelivery();
-        SoapWorkflow soapWorkflow = new SoapWorkflow();
+        SOAPAuth soapAuth = new SOAPAuth();
+        SOAPQuery soapQuery = new SOAPQuery();
+        SOAPDelivery soapDelivery = new SOAPDelivery();
+        SOAPWorkflow soapWorkflow = new SOAPWorkflow();
 
         logger.log(Level.INFO,"********AUTHENTICATE TO A SESSION********");
         ArrayList<Node> tokens =  soapAuth.postSOAPAuth();

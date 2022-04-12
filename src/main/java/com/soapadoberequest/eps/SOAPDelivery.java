@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * ISOAPDelivery
  */
 
-public class SoapDelivery implements ISOAPDelivery{
+public class SOAPDelivery implements ISOAPDelivery{
     Logger logger = Logger.getLogger("logger");
 
     /**
