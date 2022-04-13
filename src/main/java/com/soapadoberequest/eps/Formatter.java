@@ -7,8 +7,8 @@ import org.dom4j.io.XMLWriter;
 import java.io.StringWriter;
 
 /**
- * This class contains the methods in order to format a string response into a print print XML, it implements its methods
- * from the interface IFormatter
+ * This class contains the methods in order to format a string response into a pretty print XML, it implements its
+ * methods from the interface IFormatter
  */
 public class Formatter implements IFormatter{
 
