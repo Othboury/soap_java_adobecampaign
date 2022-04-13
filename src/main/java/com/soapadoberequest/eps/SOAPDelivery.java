@@ -79,7 +79,8 @@ public class SOAPDelivery implements ISOAPDelivery{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -126,14 +127,16 @@ public class SOAPDelivery implements ISOAPDelivery{
                     "</soapenv:Envelope>";
 
             HttpClientClass httpClientClass = new HttpClientClass();
-            HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "xtk:queryDef#ExecuteQuery",
+            HttpEntity respEntity = httpClientClass.httpClientCall(soapBody, "xtk:queryDef#ExecuteQuery",
                     sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
+
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
                 SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
@@ -179,14 +182,15 @@ public class SOAPDelivery implements ISOAPDelivery{
                     </soapenv:Envelope>""";
 
             HttpClientClass httpClientClass = new HttpClientClass();
-            HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:delivery#PrepareAndStart",
+            HttpEntity respEntity = httpClientClass.httpClientCall(soapBody, "nms:delivery#PrepareAndStart",
                     sessionToken, securityToken );
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -233,7 +237,8 @@ public class SOAPDelivery implements ISOAPDelivery{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -280,7 +285,8 @@ public class SOAPDelivery implements ISOAPDelivery{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -327,7 +333,9 @@ public class SOAPDelivery implements ISOAPDelivery{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
+
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
                 SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
@@ -377,7 +385,8 @@ public class SOAPDelivery implements ISOAPDelivery{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");

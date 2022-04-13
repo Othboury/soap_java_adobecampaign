@@ -5,8 +5,8 @@ import jakarta.xml.soap.SOAPMessage;
 import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -52,7 +52,8 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -109,7 +110,8 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -151,7 +153,8 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -192,7 +195,8 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.ALL,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -232,7 +236,8 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -285,7 +290,8 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -341,15 +347,25 @@ public class SOAPWorkflow implements ISOAPWorkflow{
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                logger.log(Level.INFO,resp);
+                //Write log response in xml file
+                try {
+                    String userHomeFolder = System.getProperty("user.home");
+                    String filename = userHomeFolder+"\\Desktop\\Logs-"+internalName+".xml";
+                    FileWriter myWriter = new FileWriter(filename);
+                    myWriter.write(Formatter.prettyPrintByDom4j(resp,4, true));
+                    myWriter.close();
+                    logger.log(Level.INFO, "Successfully wrote to the file.");
+                    logger.log(Level.INFO, "The file path: {0}", Path.of(filename).toUri());
+                } catch (IOException e) {
+                    throw new Exception("IO exception = " + e);
+                }
 
             } else {
                 logger.log(Level.WARNING,"No Response");
             }
 
         } catch (Exception e) {
-            throw new Exception("WebService SOAP exception = " + e);
+
         }
     }
 
@@ -378,7 +394,7 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                     "              <node expr=\"@state\"/>\n" +
                     "            </select>\n" +
                     "            <where>\n" +
-                    "              <condition expr=\"@internalName = "+workflowInternalName+"\"/>\n" +
+                    "              <condition expr=\"@internalName = '"+workflowInternalName+"'\"/>\n" +
                     "            </where>\n" +
                     "          </queryDef>\n" +
                     "         </urn:entity>\n" +
@@ -394,7 +410,8 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -447,7 +464,8 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());

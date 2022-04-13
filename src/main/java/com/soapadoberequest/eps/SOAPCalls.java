@@ -57,7 +57,7 @@ public class SOAPCalls {
                 tokens.get(1).getTextContent());*/
 
         logger.log(Level.INFO,"-------WORKFLOW CALLS-------");
-        logger.log(Level.INFO,"********START AN EXISTING WORKFLOW********");
+        /*logger.log(Level.INFO,"********START AN EXISTING WORKFLOW********");
         soapWorkflow.postSOAPStartWorkflow("WKF38",tokens.get(0).getTextContent(),
                 tokens.get(1).getTextContent());
         /*logger.log(Level.INFO,"********TRIGGER A WORKFLOW START FROM SIGNAL********");
@@ -74,9 +74,13 @@ public class SOAPCalls {
                 tokens.get(1).getTextContent() );
         logger.log(Level.INFO,"********START A WORKFLOW WITH PARAMETERS********");
         soapWorkflow.postSOAPStartWithParams("WKF13", varName, varValue, tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent() );
-        soapWorkflow.postSOAPWorkflowLogs("16873",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());*/
+                tokens.get(1).getTextContent() );*/
+        logger.log(Level.INFO,"********GET THE LOGS OF A WORKLFOW********");
+        soapWorkflow.postSOAPWorkflowLogs("WKF38",tokens.get(0).getTextContent(),
+                tokens.get(1).getTextContent());
+        logger.log(Level.INFO,"********GET WORKLFOW'S STATUS********");
+        soapWorkflow.postSOAPWorkflowState("WKF38",tokens.get(0).getTextContent(),
+                tokens.get(1).getTextContent());
 
         /*logger.log(Level.INFO,"-------DELIVERY CALLS-------");
         logger.log(Level.INFO,"********SELECT A DELIVERY********");

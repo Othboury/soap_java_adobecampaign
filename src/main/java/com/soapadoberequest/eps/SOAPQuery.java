@@ -58,7 +58,8 @@ public class SOAPQuery implements ISOAPQuery{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -112,7 +113,8 @@ public class SOAPQuery implements ISOAPQuery{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -175,7 +177,8 @@ public class SOAPQuery implements ISOAPQuery{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -238,7 +241,8 @@ public class SOAPQuery implements ISOAPQuery{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -347,7 +351,8 @@ public class SOAPQuery implements ISOAPQuery{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
                 logger.log(Level.INFO, "FILE -> The number of data to insert is: {0} ", countInsert);
                 logger.log(Level.INFO, "FILE -> The number of data to update is: {0} ", countUpdate);
                 logger.log(Level.INFO, "FILE -> The number of data to delete is: {0} ", countDelete);
@@ -419,7 +424,8 @@ public class SOAPQuery implements ISOAPQuery{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
                 int secondCount = Integer.parseInt(postSOAPSelectCount(prefix, schema,sessionToken, securityToken));
 

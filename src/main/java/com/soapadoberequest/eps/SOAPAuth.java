@@ -54,7 +54,8 @@ public class SOAPAuth implements ISOAPAuth{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO, resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -119,7 +120,8 @@ public class SOAPAuth implements ISOAPAuth{
                 resp = EntityUtils.toString(respEntity);
 
                 //prints whole response
-                logger.log(Level.INFO,resp);
+                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,loggerInfo);
 
             } else {
                 logger.log(Level.WARNING,"No Response");
