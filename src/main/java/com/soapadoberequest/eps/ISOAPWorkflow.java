@@ -108,6 +108,7 @@ public interface ISOAPWorkflow {
      * @param sessionToken Token of the session (__sessiontoken)
      * @param securityToken Security Token of the session (X-Security-Token)
      * @throws Exception Throws exception when failure
+     * @return Returns the workflow's Id
      */
     public String postSOAPSelectWorkflow(String internalName, String sessionToken, String securityToken)
             throws Exception;

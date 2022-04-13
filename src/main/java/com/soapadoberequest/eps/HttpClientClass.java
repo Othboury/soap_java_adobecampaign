@@ -28,7 +28,7 @@ public class HttpClientClass implements IHttpClientClass{
      * @param soapAction The soap action to perform
      * @param sessionToken Token of the session (__sessiontoken)
      * @param securityToken Security Token of the session (X-Security-Token)
-     * @return  HttpEntity
+     * @return HttpEntity
      * @throws IOException Throws exception when failure
      */
     public HttpEntity httpClientCall(String soapBody, String soapAction, String sessionToken, String securityToken) throws IOException {
