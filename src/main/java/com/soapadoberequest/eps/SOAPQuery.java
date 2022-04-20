@@ -17,6 +17,7 @@ import java.util.logging.Logger;
  * ISOAPQuery
  */
 public class SOAPQuery implements ISOAPQuery{
+    //Logger to initiate the logs
     Logger logger = Logger.getLogger("logger");
 
     /**

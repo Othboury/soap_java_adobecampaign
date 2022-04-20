@@ -19,7 +19,10 @@ import io.github.cdimascio.dotenv.Dotenv;
  * ISOAPAuth
  */
 public class SOAPAuth implements ISOAPAuth{
+    //Dotenv to get the information stored in the .env file
     Dotenv dotenv=Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
+
+    //Logger to initiate the logs
     Logger logger = Logger.getLogger("logger");
 
     /**

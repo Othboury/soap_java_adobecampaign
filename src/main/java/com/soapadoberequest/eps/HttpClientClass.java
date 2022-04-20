@@ -15,10 +15,12 @@ import java.io.IOException;
  * IHttpClientClass
  */
 public class HttpClientClass implements IHttpClientClass{
+    //Dotenv to get the information stored in the .env file
     Dotenv dotenv = Dotenv.configure()
             .ignoreIfMalformed()
             .ignoreIfMissing()
             .load();
+
     private static final String HTTP_URL = "HTTP_URL";
 
     /**

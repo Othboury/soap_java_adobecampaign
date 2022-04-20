@@ -1,9 +1,7 @@
 package com.soapadoberequest.eps;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import org.w3c.dom.Node;
 
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -20,7 +18,7 @@ public class SOAPCalls {
      * @throws Exception Throws exception when failure
      */
     public static void main(String[] args) throws Exception {
-        Dotenv dotenv=Dotenv.configure().ignoreIfMissing().ignoreIfMalformed().load();
+        //Logger to initiate the logs
         Logger logger = Logger.getLogger("logger");
         logger.log(Level.INFO, "START SOAP REQUESTS...");
 
@@ -30,26 +28,44 @@ public class SOAPCalls {
         SOAPDelivery soapDelivery = new SOAPDelivery();
         SOAPWorkflow soapWorkflow = new SOAPWorkflow();
 
-        //Menu to choose which SOAP requests to execute
-        Scanner sc = new Scanner(System.in);
-        int entry, choice;
-        String sessionToken, securityToken, rFname, rLname, rEmail, prefix, schemaName, wkInternalName, filename;
+        //Constant variables for message that are repeated in the menu scenario
+        String defaultMessage = "Something went wrong. Try again!\n";
+        String workflowInternal = "Enter workflow's internal name:\n";
 
-        //Starting
+        //Scanner to ger the user inputs
+        Scanner sc = new Scanner(System.in);
+
+        //Vars related to the Menu navigation
+        int entry;
+        int choice;
+
+        //Vars to store session token in order to make SOAP calls
+        String sessionToken;
+        String securityToken;
+
+        //Vars related to the SOAP calls
+        String rFname;
+        String rLname;
+        String rEmail;
+        String prefix;
+        String schemaName;
+        String wkInternalName;
+        String filename;
+
+        //Retrieve session tokens and store them in sessionToken and securityToken
+        ArrayList<Node> authTokens =  soapAuth.postSOAPAuth();
+        sessionToken= authTokens.get(0).getTextContent();
+        securityToken=authTokens.get(1).getTextContent();
+
+        //Menu to choose which SOAP requests to execute
         do{
-            ArrayList<Node> authTokens =  soapAuth.postSOAPAuth();
-            sessionToken= authTokens.get(0).getTextContent();
-            securityToken=authTokens.get(1).getTextContent();
             System.out.println("Choose SOAP requests to execute (Choose the number): \n");
             System.out.println("1. Deliveries \n");
             System.out.println("2. Execute queries \n");
             System.out.println("3. Workflows \n");
-            /*logger.log(Level.CONFIG, "Choose SOAP requests to execute: (Choose the number): %n");
-            logger.log(Level.CONFIG, "1. Deliveries %n");
-            logger.log(Level.CONFIG, "2. Execute queries %n");
-            logger.log(Level.CONFIG, "3. Workflows %n");*/
             entry = Integer.parseInt(sc.nextLine());
 
+            //Deliveries section's menu
             if(entry == 1){
                 System.out.println("Deliveries SOAP requests:\n");
                 System.out.println("1. Create with template\n");
@@ -66,8 +82,10 @@ public class SOAPCalls {
                         String internalName = sc.nextLine();
                         soapDelivery.postSOAPSelectDelivery(internalName, sessionToken, securityToken);
                     }
-                    default -> System.out.println("Something went wrong. Try again!\n");
+                    default -> System.out.println(defaultMessage);
                 }
+
+            //Queries section's menu
             }else if(entry == 2){
                 System.out.println("Queries SOAP requests:\n");
                 System.out.println("1. Insert one basic recipient (firstname, lastname, email)\n");
@@ -114,8 +132,10 @@ public class SOAPCalls {
                         schemaName = sc.nextLine();
                         soapQuery.postSOAPSelectLast(prefix,schemaName,sessionToken, securityToken);
                     }
-                    default -> System.out.println("Something went wrong. Try again!\n");
+                    default -> System.out.println(defaultMessage);
                 }
+
+            //Workflows section's menu
             }else if(entry ==3){
                 System.out.println("Worfklows SOAP requests:\n");
                 System.out.println( "1. Start Workflow\n");
@@ -129,7 +149,7 @@ public class SOAPCalls {
                 choice = Integer.parseInt(sc.nextLine());
                 switch (choice){
                     case 1 -> {
-                        System.out.println("Enter workflow's internal name:\n");
+                        System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPStartWorkflow(wkInternalName,sessionToken, securityToken);
                     }
@@ -137,7 +157,7 @@ public class SOAPCalls {
                         String stop;
                         ArrayList<String> varName = new ArrayList<>();
                         ArrayList<String> varValue = new ArrayList<>();
-                        System.out.println("Enter workflow's internal name:\n");
+                        System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         do {
                             System.out.println("Enter variable:\n");
@@ -156,14 +176,14 @@ public class SOAPCalls {
                         ArrayList<String> varName = new ArrayList<>();
                         ArrayList<String> varValue = new ArrayList<>();
                         String activity;
-                        System.out.println("Enter workflow's internal name:\n");
+                        System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         System.out.println("Enter activity:\n");
                         activity = sc.nextLine();
                         do {
                             System.out.println("Enter variable:\n");
-                            String var = sc.nextLine();
-                            varName.add(var);
+                            String variables = sc.nextLine();
+                            varName.add(variables);
                             System.out.println("Enter value");
                             String value = sc.nextLine();
                             varValue.add(value);
@@ -173,97 +193,35 @@ public class SOAPCalls {
                         soapWorkflow.postSOAPPostEvent(wkInternalName,activity, varName, varValue, sessionToken, securityToken);
                     }
                     case 4 ->{
-                        System.out.println("Enter workflow's internal name:\n");
+                        System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPPauseWorkflow(wkInternalName,sessionToken,securityToken);
                     }
                     case 5 ->{
-                        System.out.println("Enter workflow's internal name:\n");
+                        System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPKillWorkflow(wkInternalName,sessionToken,securityToken);
                     }
                     case 6 ->{
-                        System.out.println("Enter workflow's internal name:\n");
+                        System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPWakeUpWorkflow(wkInternalName,sessionToken,securityToken);
                     }
                     case 7 ->{
-                        System.out.println("Enter workflow's internal name:\n");
+                        System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPWorkflowLogs(wkInternalName,sessionToken,securityToken);
                     }
                     case 8 ->{
-                        System.out.println("Enter workflow's internal name:\n");
+                        System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPWorkflowState(wkInternalName,sessionToken,securityToken);
                     }
+                    default -> System.out.println(defaultMessage);
                 }
             }
         }while(entry > 0 && entry < 4);
 
-        //Params config
-        //varName.add("email");
-        //varValue.add("othboury@gmail.com");
-
-        /*logger.log(Level.INFO,"-------QUERY CALLS-------");
-        logger.log(Level.INFO,"********INSERT NEW RECIPIENT INTO DB********");
-        soapQuery.postSOAPInsert("Messi", "loko", "treiue@xyz.com",
-                tokens.get(0).getTextContent(), tokens.get(1).getTextContent());
-        logger.log(Level.INFO,"********SELECT RECIPIENT FROM DB********");
-        soapQuery.postSOAPSelect("othboury@gmail.com",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
-        logger.log(Level.INFO,"********SUBSCRIBE EXISTING RECIPIENT TO AN EXISTING SERVICE********");
-        soapAuth.postSOAPSubscribe(recipient, "SVC1",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
-        logger.log(Level.INFO,"********WRITE COLLECTION********");
-        String filename = dotenv.get("FILE_LOCATION");
-        soapQuery.postSOAPWriteCollection( filename, tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());*/
-
-        /*logger.log(Level.INFO,"********SELECT COUNT OF TABLE********");
-        soapQuery.postSOAPSelectCount("nms","recipient",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
-
-        logger.log(Level.INFO,"-------WORKFLOW CALLS-------");
-        /*logger.log(Level.INFO,"********START AN EXISTING WORKFLOW********");
-        soapWorkflow.postSOAPStartWorkflow("WKF38",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
-        /*logger.log(Level.INFO,"********TRIGGER A WORKFLOW START FROM SIGNAL********");
-        soapWorkflow.postSOAPPostEvent("WKF12", "signal", varName,varValue,
-                tokens.get(0).getTextContent(), tokens.get(1).getTextContent());
-        logger.log(Level.INFO,"********KILL A WORKFLOW********");
-        soapWorkflow.postSOAPKillWorkflow("WKF8",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent() );*/
-        /*logger.log(Level.INFO,"********PAUSE A WORKFLOW********");
-        soapWorkflow.postSOAPPauseWorkflow("WKF37",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent() );
-        /*logger.log(Level.INFO,"********WAKE UP A WORKFLOW********");
-        soapWorkflow.postSOAPWakeUpWorkflow("WKF8",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent() );
-        logger.log(Level.INFO,"********START A WORKFLOW WITH PARAMETERS********");
-        soapWorkflow.postSOAPStartWithParams("WKF13", varName, varValue, tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent() );
-        logger.log(Level.INFO,"********GET THE LOGS OF A WORKLFOW********");
-        soapWorkflow.postSOAPWorkflowLogs("WKF38",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
-        logger.log(Level.INFO,"********GET WORKLFOW'S STATUS********");
-        soapWorkflow.postSOAPWorkflowState("WKF38",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
-
-        /*logger.log(Level.INFO,"-------DELIVERY CALLS-------");
-        logger.log(Level.INFO,"********SELECT A DELIVERY********");
-        soapDelivery.postSOAPSelectDelivery("DM33",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
-        soapDelivery.postSOAPCreateWithTemplate("DM7",varName, varValue,"",
-                tokens.get(0).getTextContent(), tokens.get(1).getTextContent());
-        soapDelivery.postSOAPPrepareAndStart("DM40",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
-        soapDelivery.postSOAPPrepareTarget("DM40",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
-        soapDelivery.postSOAPPrepareMessage("DM40",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());
-        soapDelivery.postSOAPSubmitDelivery("DM7",tokens.get(0).getTextContent(),
-                tokens.get(1).getTextContent());*/
         logger.log(Level.INFO, "END SOAP REQUESTS...");
     }
 }
