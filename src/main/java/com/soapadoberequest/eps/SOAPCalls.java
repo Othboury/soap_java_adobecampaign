@@ -32,20 +32,15 @@ public class SOAPCalls {
 
         //Menu to choose which SOAP requests to execute
         Scanner sc = new Scanner(System.in);
-        int entry;
-        int choice;
-        String sessionToken;
-        String securityToken;
-        String rFname, rLname, rEmail;
-        String prefix, schemaName;
-        String wkInternalName;
-        String filename;
+        int entry, choice;
+        String sessionToken, securityToken, rFname, rLname, rEmail, prefix, schemaName, wkInternalName, filename;
 
+        //Starting
         do{
             ArrayList<Node> authTokens =  soapAuth.postSOAPAuth();
             sessionToken= authTokens.get(0).getTextContent();
             securityToken=authTokens.get(1).getTextContent();
-            System.out.println("Choose SOAP requests to execute: (Choose the number): \n");
+            System.out.println("Choose SOAP requests to execute (Choose the number): \n");
             System.out.println("1. Deliveries \n");
             System.out.println("2. Execute queries \n");
             System.out.println("3. Workflows \n");
@@ -99,8 +94,10 @@ public class SOAPCalls {
                     case 3 ->{
                         System.out.println("Enter filename:\n");
                         filename = sc.nextLine();
-                        String directoryPath = dotenv.get("FILE_LOCATION");
+                        String userHomeFolder = System.getProperty("user.home");
+                        String directoryPath = userHomeFolder+"\\Desktop\\Files\\";
                         String filepath = directoryPath + filename;
+                        logger.log(Level.INFO, filepath);
                         soapQuery.postSOAPWriteCollection( filepath, sessionToken, securityToken);
                     }
                     case  4 ->{

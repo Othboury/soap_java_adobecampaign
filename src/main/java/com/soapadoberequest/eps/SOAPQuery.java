@@ -268,7 +268,7 @@ public class SOAPQuery implements ISOAPQuery{
         String schema ="";
         String template = "";
         String valuesString;
-        String resp, operation, key, key1,key2,key3,keysSentence = null;
+        String resp, operation, key;
         int countInsert = 0;
         int countDelete =0;
         int countUpdate =0;
@@ -286,48 +286,17 @@ public class SOAPQuery implements ISOAPQuery{
                     countUpdate++;
                 }
                 key= values[3];
-                /*key2="@"+values[4];
-                key3 = "@"+values[5];*/
                 valuesString ="";
-                for(int i=6; i<values.length; i++){
+                for(int i=4; i<values.length; i++){
                     valuesString = valuesString + varNames[i] + "='" + values[i] + "'\n";
                 }
-                /*if(!"@".equals(key1) && !"@".equals(key2) && !"@".equals(key3)){
-                    if(key1.indexOf("-") == 0){ key1 = "["+key1+"]";}
-                    if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
-                    if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
-                    keysSentence = key1+","+key2+","+key3;
-                }else if("@".equals(key1) && !"@".equals(key2) && !"@".equals(key3) ){
-                    if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
-                    if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
-                    keysSentence = key2+","+key3;
-                }else if(!"@".equals(key1) && "@".equals(key2) && !"@".equals(key3)){
-                    if(key1.indexOf("-") == 0){ key1 = "["+key1+"]";}
-                    if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
-                    keysSentence = key1+","+key3;
-                }else if(!"@".equals(key1) && !"@".equals(key2)){
-                    if(key1.indexOf("-") == 0){ key1 = "["+key1+"]";}
-                    if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
-                    keysSentence = key1+","+key2;
-                }else if(!"@".equals(key1)){
-                    if(key1.indexOf("-") == 0){ key1 = "["+key1+"]";}
-                    keysSentence = key1;
-                }else if(!"@".equals(key2)){
-                    if(key2.indexOf("-") == 0){ key2 = "["+key2+"]";}
-                    keysSentence = key2;
-                }else if(!"@".equals(key3)){
-                    if(key3.indexOf("-") == 0){ key3 = "["+key3+"]";}
-                    keysSentence = key3;
-                }*/
                 template = template + "<"+schema.split(":")[1]+" _key='"+key+"' _operation='"+operation+"' "+
                         valuesString + " />";
             }
 
-            System.out.println(template);
+            logger.log(Level.INFO, template);
             try{
             int currentCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0], schema.split(":")[1],
-                    sessionToken, securityToken));
-            int lastId = Integer.parseInt(postSOAPSelectLast(schema.split(":")[0], schema.split(":")[1],
                     sessionToken, securityToken));
             String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:session\">\n" +
                     "   <soapenv:Header/>\n" +
@@ -353,21 +322,21 @@ public class SOAPQuery implements ISOAPQuery{
                 //prints whole response
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.INFO, "FILE -> The number of data to insert is: {0} ", countInsert);
-                logger.log(Level.INFO, "FILE -> The number of data to update is: {0} ", countUpdate);
-                logger.log(Level.INFO, "FILE -> The number of data to delete is: {0} ", countDelete);
+                logger.log(Level.INFO, "FILE -> The number of rows to insert is: {0} ", countInsert);
+                logger.log(Level.INFO, "FILE -> The number of rows to update is: {0} ", countUpdate);
+                logger.log(Level.INFO, "FILE -> The number of rows to delete is: {0} ", countDelete);
                 int secondCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0], schema.split(":")[1]
                         ,sessionToken, securityToken));
 
-                if (currentCount == secondCount){
+                if (currentCount == secondCount && countInsert == countDelete){
+                    logger.log(Level.INFO,"The numbers of lines in the database didn't change because the file " +
+                            "contain a number of rows to insert equal to the number of rows to delete");
+
+                }else if(currentCount == secondCount) {
                     logger.log(Level.INFO,"No entry has been saved in the datatable");
                 }else if(secondCount > currentCount){
                     int entriesNumber = secondCount - currentCount;
-                    logger.log(Level.INFO,"Last entry ID before insertion: {0}", lastId);
                     logger.log(Level.INFO,"{0} entries were registered in database", String.valueOf(entriesNumber));
-                    String lastIdInserted = postSOAPSelectLast(schema.split(":")[0]
-                            , schema.split(":")[1],sessionToken, securityToken);
-                    logger.log(Level.INFO,"Last entry ID after insertion: {0}", lastIdInserted);
                 }
 
             } else {
