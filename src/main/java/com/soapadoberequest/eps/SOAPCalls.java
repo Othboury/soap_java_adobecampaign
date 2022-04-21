@@ -59,7 +59,7 @@ public class SOAPCalls {
 
         //Menu to choose which SOAP requests to execute
         do{
-            System.out.println("Choose SOAP requests to execute (Choose the number): \n");
+            System.out.println("Please choose which SOAP requests to execute (Choose the number): \n");
             System.out.println("1. Deliveries \n");
             System.out.println("2. Execute queries \n");
             System.out.println("3. Workflows \n");
@@ -67,7 +67,7 @@ public class SOAPCalls {
 
             //Deliveries section's menu
             if(entry == 1){
-                System.out.println("Deliveries SOAP requests:\n");
+                System.out.println("Deliveries SOAP requests (Choose the number):\n");
                 System.out.println("1. Create with template\n");
                 System.out.println("2. Select delivery\n");
                 System.out.println("3. Prepare target\n ");
@@ -87,7 +87,7 @@ public class SOAPCalls {
 
             //Queries section's menu
             }else if(entry == 2){
-                System.out.println("Queries SOAP requests:\n");
+                System.out.println("Queries SOAP requests (Choose the number):\n");
                 System.out.println("1. Insert one basic recipient (firstname, lastname, email)\n");
                 System.out.println("2. Select recipient with email\n");
                 System.out.println("3. Write Collection (to apply CRUD methods on recipients, deliveries and workflows)\n");
@@ -137,7 +137,7 @@ public class SOAPCalls {
 
             //Workflows section's menu
             }else if(entry ==3){
-                System.out.println("Worfklows SOAP requests:\n");
+                System.out.println("Workflows SOAP requests (Choose the number):\n");
                 System.out.println( "1. Start Workflow\n");
                 System.out.println("2. Start with parameters\n");
                 System.out.println( "3. Post Event Workflow\n");
