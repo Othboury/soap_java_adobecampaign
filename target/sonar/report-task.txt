@@ -1,6 +1,0 @@
-projectKey=Adobe-Soap-Java
-serverUrl=http://localhost:9000
-serverVersion=9.3.0.51899
-dashboardUrl=http://localhost:9000/dashboard?id=Adobe-Soap-Java
-ceTaskId=AX_al-QwhGRabmc6PAvk
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AX_al-QwhGRabmc6PAvk
