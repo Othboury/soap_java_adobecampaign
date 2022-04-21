@@ -26,7 +26,7 @@ public class SOAPCalls {
         Logger logger = Logger.getLogger("logger");
         SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy-HH_mm_ss");
         Date date = new Date();
-        FileHandler fh = new FileHandler("Logs-"+formatter.format(date)+".txt", true);   // true forces append mode
+        FileHandler fh = new FileHandler("Logs-"+formatter.format(date)+".log", true);   // true forces append mode
         SimpleFormatter sf = new SimpleFormatter();
         fh.setFormatter(sf);
         logger.addHandler(fh);
