@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * This class is an interface containing the methods used in the class SOAPAuth in order to execute SOAP requests
- * for authentification
+ * for authentication
  */
 public interface ISOAPAuth {
     /**
@@ -23,7 +23,7 @@ public interface ISOAPAuth {
      * @param recipient The recipient's object
      * @param serviceName The name of service
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
+     * @param securityToken Security token of the session (X-Security-Token)
      * @throws Exception Throws exception when failure
      */
     public void postSOAPSubscribe(Recipient recipient, String serviceName, String sessionToken,

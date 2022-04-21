@@ -166,10 +166,11 @@ public class SOAPCalls {
                             System.out.println("Enter value");
                             String value = sc.nextLine();
                             varValue.add(value);
-                            System.out.println("Enter 'STOP' to stop inserting or press any key to continue:");
+                            System.out.println("Enter 'STOP' to stop inserting or press any key to add a variable:");
                             stop=sc.nextLine();
                         }while(!stop.equals("STOP"));
-                        soapWorkflow.postSOAPStartWithParams(wkInternalName, varName, varValue, sessionToken, securityToken);
+                        soapWorkflow.postSOAPStartWithParams(wkInternalName, varName, varValue, sessionToken,
+                                securityToken);
                     }
                     case 3 ->{
                         String stop;
@@ -187,10 +188,11 @@ public class SOAPCalls {
                             System.out.println("Enter value");
                             String value = sc.nextLine();
                             varValue.add(value);
-                            System.out.println("Enter 'STOP' to stop inserting or press any key to continue:");
+                            System.out.println("Enter 'STOP' to stop inserting or press any key to add a variable:");
                             stop=sc.nextLine();
                         }while(!stop.equals("STOP"));
-                        soapWorkflow.postSOAPPostEvent(wkInternalName,activity, varName, varValue, sessionToken, securityToken);
+                        soapWorkflow.postSOAPPostEvent(wkInternalName,activity, varName, varValue, sessionToken,
+                                securityToken);
                     }
                     case 4 ->{
                         System.out.println(workflowInternal);

@@ -11,10 +11,10 @@ public interface IHttpClientClass {
 
     /**
      * This method is used to launch HTTPClient for different SOAP requests
-     * @param soapBody The soap's envelope's body
+     * @param soapBody The soap envelope's body
      * @param soapAction The soap action to perform
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
+     * @param securityToken Security token of the session (X-Security-Token)
      * @return HttpEntity
      * @throws IOException Throws exception when failure
      */
@@ -24,7 +24,7 @@ public interface IHttpClientClass {
     /**
      * This method is used to launch HTTPClient to logon in order to get session and security tokens
      *
-     * @param soapBody The soap's envelope's body
+     * @param soapBody The soap envelope's body
      * @return HttpEntity
      * @throws IOException Throws exception when failure
      */

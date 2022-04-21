@@ -15,8 +15,8 @@ import java.util.logging.Logger;
 import io.github.cdimascio.dotenv.Dotenv;
 
 /**
- * This class contains the SOAP requests for different Delivery functions, it implements its methods from the interface
- * ISOAPAuth
+ * This class contains the methods used in to execute SOAP requests for authentication it implements its methods
+ * from the interface ISOAPAuth
  */
 public class SOAPAuth implements ISOAPAuth{
     //Dotenv to get the information stored in the .env file
@@ -91,7 +91,7 @@ public class SOAPAuth implements ISOAPAuth{
      * @param recipient The recipient's object
      * @param serviceName The name of service
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
+     * @param securityToken Security token of the session (X-Security-Token)
      * @throws Exception Throws exception when failure
      */
     public void postSOAPSubscribe(Recipient recipient, String serviceName, String sessionToken,
@@ -108,7 +108,7 @@ public class SOAPAuth implements ISOAPAuth{
                     "         <urn:strServiceName>"+serviceName+"</urn:strServiceName>\n" +
                     "         <urn:elemRecipient>\n" +
                     "            <recipient email=\""+recipient.getEmail()+"\" lastName=\""+recipient.getLastName()+"\" " +
-                    "firstName=\""+recipient.getFirstName()+"\" _key=\"@email\"/>\n" +
+                    "               firstName=\""+recipient.getFirstName()+"\" _key=\"@email\"/>\n" +
                     "         </urn:elemRecipient>\n" +
                     "         <urn:bCreate>true</urn:bCreate>\n" +
                     "      </urn:Subscribe>\n" +

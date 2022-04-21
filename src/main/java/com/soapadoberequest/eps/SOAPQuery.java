@@ -27,8 +27,8 @@ public class SOAPQuery implements ISOAPQuery{
      * @param lastname LastName of recipient
      * @param email Email of recipient
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
-     * @throws Exception Throws Exception when failure
+     * @param securityToken Security token of the session (X-Security-Token)
+     * @throws Exception Throws exception when failure
      */
     @Override
     public void postSOAPInsert(String firstname, String lastname, String email, String sessionToken,
@@ -77,9 +77,9 @@ public class SOAPQuery implements ISOAPQuery{
      * @param prefix Prefix of the Schema (ex: nms)
      * @param tableName The name of the schema (ex: recipient)
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
+     * @param securityToken Security token of the session (X-Security-Token)
      * @return Returns the count
-     * @throws Exception Throws Esception when failure
+     * @throws Exception Throws exception when failure
      */
     @Override
     public String postSOAPSelectCount(String prefix, String tableName, String sessionToken, String securityToken)
@@ -136,12 +136,12 @@ public class SOAPQuery implements ISOAPQuery{
     }
 
     /**
-     * This function sends a SOAP request to select last entry's id
+     * This function sends a SOAP request to select last entry's ID
      *
      * @param prefix Prefix of the Schema (ex: nms)
      * @param tableName The name of the schema (ex: recipient)
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
+     * @param securityToken Security token of the session (X-Security-Token)
      * @return The last entry
      * @throws Exception Throws exception when failure
      */
@@ -204,7 +204,7 @@ public class SOAPQuery implements ISOAPQuery{
      *
      * @param email Email of recipient
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
+     * @param securityToken Security token of the session (X-Security-Token)
      * @throws Exception Throws exception when failure
      */
     @Override
@@ -256,11 +256,11 @@ public class SOAPQuery implements ISOAPQuery{
 
     /**
      * This function sends a SOAP request to write(Insert) a collection of entries (recipient - deliveries -
-     * workflow - etc) from csv file
+     * workflow) from csv file
      *
      * @param filename The name of the file containing the entries
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
+     * @param securityToken Security token of the session (X-Security-Token)
      * @throws Exception Throws exception when failure
      */
     @Override
@@ -299,7 +299,8 @@ public class SOAPQuery implements ISOAPQuery{
             try{
             int currentCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0], schema.split(":")[1],
                     sessionToken, securityToken));
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:session\">\n" +
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
+                    "xmlns:urn=\"urn:xtk:session\">\n" +
                     "   <soapenv:Header/>\n" +
                     "   <soapenv:Body>\n" +
                     "      <urn:WriteCollection>\n" +
@@ -326,8 +327,8 @@ public class SOAPQuery implements ISOAPQuery{
                 logger.log(Level.INFO, "FILE -> The number of rows to insert is: {0} ", countInsert);
                 logger.log(Level.INFO, "FILE -> The number of rows to update is: {0} ", countUpdate);
                 logger.log(Level.INFO, "FILE -> The number of rows to delete is: {0} ", countDelete);
-                int secondCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0], schema.split(":")[1]
-                        ,sessionToken, securityToken));
+                int secondCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0],
+                        schema.split(":")[1] ,sessionToken, securityToken));
 
                 if (currentCount == secondCount && countInsert == countDelete){
                     logger.log(Level.INFO,"The numbers of lines in the database didn't change because the file " +
@@ -359,7 +360,7 @@ public class SOAPQuery implements ISOAPQuery{
      *
      * @param recipient The recipient object
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
+     * @param securityToken Security token of the session (X-Security-Token)
      * @throws Exception Throws exception when failure
      */
     @Override
@@ -370,7 +371,8 @@ public class SOAPQuery implements ISOAPQuery{
         try {
             int currentCount = Integer.parseInt(postSOAPSelectCount(prefix, schema,sessionToken, securityToken));
             int lastId = Integer.parseInt(postSOAPSelectLast(prefix, schema,sessionToken, securityToken));
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:session\">\n" +
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
+                    "xmlns:urn=\"urn:xtk:session\">\n" +
                     "   <soapenv:Header/>\n" +
                     "   <soapenv:Body>\n" +
                     "      <urn:Write>\n" +

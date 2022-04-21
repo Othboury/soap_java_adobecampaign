@@ -11,8 +11,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import java.io.IOException;
 
 /**
- * This class contains the HTTPClient methods in order to launch SOAP requests, it implements its methods from the interface
- * IHttpClientClass
+ * This class contains the HTTPClient methods in order to launch SOAP requests, it implements its methods from the
+ * interface IHttpClientClass
  */
 public class HttpClientClass implements IHttpClientClass{
     //Dotenv to get the information stored in the .env file
@@ -20,20 +20,20 @@ public class HttpClientClass implements IHttpClientClass{
             .ignoreIfMalformed()
             .ignoreIfMissing()
             .load();
-
     private static final String HTTP_URL = "HTTP_URL";
 
     /**
      * This method is used to launch HTTPClient for different SOAP requests
      *
-     * @param soapBody The soap's envelope's body
+     * @param soapBody The soap envelope's body
      * @param soapAction The soap action to perform
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
+     * @param securityToken Security token of the session (X-Security-Token)
      * @return HttpEntity
      * @throws IOException Throws exception when failure
      */
-    public HttpEntity httpClientCall(String soapBody, String soapAction, String sessionToken, String securityToken) throws IOException {
+    public HttpEntity httpClientCall(String soapBody, String soapAction, String sessionToken, String securityToken)
+            throws IOException {
 
         HttpClient httpclient = HttpClientBuilder.create().build();
         // You can get below parameters from SoapUI's Raw request if you are using that tool
@@ -54,7 +54,7 @@ public class HttpClientClass implements IHttpClientClass{
     /**
      * This method is used to launch HTTPClient to logon in order to get session and security tokens
      *
-     * @param soapBody The soap's envelope's body
+     * @param soapBody The soap envelope's body
      * @return HttpEntity
      * @throws IOException Throws exception when failure
      */
@@ -73,6 +73,5 @@ public class HttpClientClass implements IHttpClientClass{
         // Execute request
         HttpResponse response = httpclient.execute(post);
         return response.getEntity();
-
     }
 }

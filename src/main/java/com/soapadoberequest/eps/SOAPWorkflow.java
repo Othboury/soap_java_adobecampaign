@@ -24,10 +24,10 @@ public class SOAPWorkflow implements ISOAPWorkflow{
     /**
      *This function sends a SOAP request to start a workflow
      *
-     * @param workflowId The id of the workflow
+     * @param workflowId The ID of the workflow
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
-     * @throws Exception Throws Exception when failure
+     * @param securityToken Security token of the session (X-Security-Token)
+     * @throws Exception Throws exception when failure
      *
      */
     @Override
@@ -68,13 +68,13 @@ public class SOAPWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request to send a signal in order to trigger a workflow
      *
-     * @param workFlowId The id of the worklow
+     * @param workFlowId The ID of the workflow
      * @param activity The activity
      * @param vars A List of the variables to add inside the variables tag
      * @param param A List of the values to add inside the variables tag (according to the variables list)
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
-     * @throws Exception Throws Exception when failure
+     * @param securityToken Security token of the session (X-Security-Token)
+     * @throws Exception Throws exception when failure
      */
     @Override
     public void postSOAPPostEvent(String workFlowId, String activity, List<String> vars, List<String> param,
@@ -87,7 +87,8 @@ public class SOAPWorkflow implements ISOAPWorkflow{
         String varSentence = varBuilder.stream().collect(Collectors.joining(" "));
         try {
 
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:workflow\">\n" +
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
+                    "xmlns:urn=\"urn:xtk:workflow\">\n" +
                     "   <soapenv:Header/>\n" +
                     "   <soapenv:Body>\n" +
                     "      <urn:PostEvent>\n" +
@@ -126,17 +127,18 @@ public class SOAPWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request to kill a workflow
      *
-     * @param workFlowId The id of the workflow
+     * @param workFlowId The ID of the workflow
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
-     * @throws Exception Throws Exception when failure
+     * @param securityToken Security token of the session (X-Security-Token)
+     * @throws Exception Throws exception when failure
      */
     @Override
     public void postSOAPKillWorkflow(String workFlowId, String sessionToken, String securityToken) throws Exception {
         String resp;
         try {
 
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:workflow\">\n" +
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
+                    "xmlns:urn=\"urn:xtk:workflow\">\n" +
                     "   <soapenv:Header/>\n" +
                     "   <soapenv:Body>\n" +
                     "      <urn:Kill>\n" +
@@ -169,16 +171,17 @@ public class SOAPWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request to pause a workflow
      *
-     * @param workFlowId The Id of the workflow
+     * @param workFlowId The ID of the workflow
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
-     * @throws Exception Throws Exception when failure
+     * @param securityToken Security token of the session (X-Security-Token)
+     * @throws Exception Throws exception when failure
      */
     @Override
     public void postSOAPPauseWorkflow(String workFlowId, String sessionToken, String securityToken) throws Exception {
         String resp;
         try {
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:workflow\">\n" +
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
+                    "xmlns:urn=\"urn:xtk:workflow\">\n" +
                     "   <soapenv:Header/>\n" +
                     "   <soapenv:Body>\n" +
                     "      <urn:Pause>\n" +
@@ -210,17 +213,18 @@ public class SOAPWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request to wake up a workflow
      *
-     * @param workFlowId The Id of the workflow
+     * @param workFlowId The ID of the workflow
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
-     * @throws Exception Throws Exception when failure
+     * @param securityToken Security token of the session (X-Security-Token)
+     * @throws Exception Throws exception when failure
      */
     @Override
     public void postSOAPWakeUpWorkflow(String workFlowId, String sessionToken, String securityToken) throws Exception {
         String resp;
         try {
 
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:workflow\">\n" +
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
+                    "xmlns:urn=\"urn:xtk:workflow\">\n" +
                     "   <soapenv:Header/>\n" +
                     "   <soapenv:Body>\n" +
                     "      <urn:Wakeup>\n" +
@@ -252,16 +256,17 @@ public class SOAPWorkflow implements ISOAPWorkflow{
     /**
      * This function sends a SOAP request to start a workflow with parameters
      *
-     * @param workFlowId The id of the workflow
+     * @param workFlowId The ID of the workflow
      * @param vars A List of the variables to add inside the variables tag
      * @param param A List of the values to add inside the variables tag (according to the variables list)
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
-     * @throws Exception Throws Exception when failure
+     * @param securityToken Security token of the session (X-Security-Token)
+     * @throws Exception Throws exception when failure
      */
     @Override
     public void postSOAPStartWithParams(String workFlowId, List<String> vars,
-                                        List<String> param, String sessionToken, String securityToken) throws Exception{
+                                        List<String> param, String sessionToken, String securityToken)
+            throws Exception{
         String resp;
         ArrayList<String> varBuilder = new ArrayList<>();
         for (int i = 0; i <param.size(); i++){
@@ -270,7 +275,8 @@ public class SOAPWorkflow implements ISOAPWorkflow{
         String varSentence = varBuilder.stream().collect(Collectors.joining(" "));
         try {
 
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:urn=\"urn:xtk:workflow\">\n" +
+            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
+                    "xmlns:urn=\"urn:xtk:workflow\">\n" +
                     "   <soapenv:Header/>\n" +
                     "   <soapenv:Body>\n" +
                     "      <urn:StartWithParameters>\n" +
@@ -308,11 +314,12 @@ public class SOAPWorkflow implements ISOAPWorkflow{
      *
      * @param internalName The internal name of the workflow
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
-     * @throws Exception Throws Exception when failure
+     * @param securityToken Security token of the session (X-Security-Token)
+     * @throws Exception Throws exception when failure
      */
     @Override
-    public void postSOAPWorkflowLogs(String internalName, String sessionToken, String securityToken) throws Exception {
+    public void postSOAPWorkflowLogs(String internalName, String sessionToken, String securityToken)
+            throws Exception {
         String resp;
 
         String workflowId = postSOAPSelectWorkflow(internalName, sessionToken, securityToken  );
@@ -375,11 +382,12 @@ public class SOAPWorkflow implements ISOAPWorkflow{
      *
      * @param workflowInternalName The internal name of the workflow
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
-     * @throws Exception Throws Exception when failure
+     * @param securityToken Security token of the session (X-Security-Token)
+     * @throws Exception Throws e when failure
      */
     @Override
-    public void postSOAPWorkflowState(String workflowInternalName, String sessionToken, String securityToken) throws Exception{
+    public void postSOAPWorkflowState(String workflowInternalName, String sessionToken, String securityToken)
+            throws Exception{
         String resp;
         try {
 
@@ -428,12 +436,13 @@ public class SOAPWorkflow implements ISOAPWorkflow{
      *
      * @param internalName Internal name of workflow
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
+     * @param securityToken Security token of the session (X-Security-Token)
      * @throws Exception Throws exception when failure
-     * @return Returns the workflow's Id
+     * @return Returns the workflow's ID
      */
     @Override
-    public String postSOAPSelectWorkflow(String internalName, String sessionToken, String securityToken) throws Exception {
+    public String postSOAPSelectWorkflow(String internalName, String sessionToken, String securityToken)
+            throws Exception {
         String resp;
         try {
 
