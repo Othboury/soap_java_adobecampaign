@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * This class contains the SOAP requests for different Delivery functions, it implements its methods from the interface
+ * This class contains the SOAP requests for different query functions, it implements its methods from the interface
  * ISOAPQuery
  */
 public class SOAPQuery implements ISOAPQuery{
@@ -60,10 +60,13 @@ public class SOAPQuery implements ISOAPQuery{
 
                 //prints whole response
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,"Insert query SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
+                logger.log(Level.CONFIG,"--------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
+                logger.log(Level.CONFIG,"--------------------------------------");
             }
 
         } catch (Exception e) {
@@ -74,7 +77,7 @@ public class SOAPQuery implements ISOAPQuery{
     /**
      * This function sends a SOAP request to select the count of table
      *
-     * @param prefix Prefix of the Schema (ex: nms)
+     * @param prefix Prefix of the schema (ex: nms)
      * @param tableName The name of the schema (ex: recipient)
      * @param sessionToken Token of the session (__sessiontoken)
      * @param securityToken Security token of the session (X-Security-Token)
@@ -115,7 +118,9 @@ public class SOAPQuery implements ISOAPQuery{
 
                 //prints whole response
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,"Select count query SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
+                logger.log(Level.CONFIG,"--------------------------------------");
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -127,6 +132,7 @@ public class SOAPQuery implements ISOAPQuery{
 
             } else {
                 logger.log(Level.WARNING,"No Response");
+                logger.log(Level.CONFIG,"--------------------------------------");
             }
 
         } catch (Exception e) {
@@ -179,7 +185,9 @@ public class SOAPQuery implements ISOAPQuery{
 
                 //prints whole response
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,"Select last query SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
+                logger.log(Level.CONFIG,"--------------------------------------");
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -191,6 +199,7 @@ public class SOAPQuery implements ISOAPQuery{
 
             } else {
                 logger.log(Level.WARNING,"No Response");
+                logger.log(Level.CONFIG,"--------------------------------------");
             }
 
         } catch (Exception e) {
@@ -243,10 +252,13 @@ public class SOAPQuery implements ISOAPQuery{
 
                 //prints whole response
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,"Select query SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
+                logger.log(Level.CONFIG,"--------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
+                logger.log(Level.CONFIG,"--------------------------------------");
             }
 
         } catch (Exception e) {
@@ -295,7 +307,9 @@ public class SOAPQuery implements ISOAPQuery{
                         valuesString + " />";
             }
 
+            logger.log(Level.INFO,"The entity collection:");
             logger.log(Level.INFO, template);
+
             try{
             int currentCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0], schema.split(":")[1],
                     sessionToken, securityToken));
@@ -323,7 +337,7 @@ public class SOAPQuery implements ISOAPQuery{
 
                 //prints whole response
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,loggerInfo);
+
                 logger.log(Level.INFO, "FILE -> The number of rows to insert is: {0} ", countInsert);
                 logger.log(Level.INFO, "FILE -> The number of rows to update is: {0} ", countUpdate);
                 logger.log(Level.INFO, "FILE -> The number of rows to delete is: {0} ", countDelete);
@@ -341,8 +355,12 @@ public class SOAPQuery implements ISOAPQuery{
                     logger.log(Level.INFO,"{0} entries were registered in database", String.valueOf(entriesNumber));
                 }
 
+                logger.log(Level.INFO,"WriteCollection query SOAP request XML response:");
+                logger.log(Level.INFO,loggerInfo);
+                logger.log(Level.CONFIG,"--------------------------------------");
             } else {
                 logger.log(Level.WARNING,"No Response");
+                logger.log(Level.CONFIG,"--------------------------------------");
             }
 
         } catch (Exception e) {
@@ -397,6 +415,7 @@ public class SOAPQuery implements ISOAPQuery{
 
                 //prints whole response
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                logger.log(Level.INFO,"Write query SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
 
                 int secondCount = Integer.parseInt(postSOAPSelectCount(prefix, schema,sessionToken, securityToken));
@@ -410,10 +429,12 @@ public class SOAPQuery implements ISOAPQuery{
                     String lastIdInserted = postSOAPSelectLast("nms", "recipient",
                             sessionToken, securityToken);
                     logger.log(Level.INFO,"Last entry ID after insertion: {0}", lastIdInserted);
+                    logger.log(Level.CONFIG,"--------------------------------------");
                 }
 
             } else {
                 logger.log(Level.WARNING,"No Response");
+                logger.log(Level.CONFIG,"--------------------------------------");
             }
 
         } catch (Exception e) {

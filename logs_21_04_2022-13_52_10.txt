@@ -1,0 +1,89 @@
+avr. 21, 2022 1:52:10 PM com.soapadoberequest.eps.SOAPCalls main
+INFO: START SOAP REQUESTS...
+avr. 21, 2022 1:52:10 PM com.soapadoberequest.eps.SOAPAuth postSOAPAuth
+INFO: Authentication SOAP request XML response:
+avr. 21, 2022 1:52:10 PM com.soapadoberequest.eps.SOAPAuth postSOAPAuth
+INFO: 
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns="urn:xtk:session">
+    <SOAP-ENV:Body>
+        <LogonResponse xmlns="urn:xtk:session" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+            <pstrSessionToken xsi:type="xsd:string">___52de2f1e-81a5-4f57-8db6-21bcf41011ae</pstrSessionToken>
+            <pSessionInfo xsi:type="ns:Element" SOAP-ENV:encodingStyle="http://xml.apache.org/xml-soap/literalxml">
+                <sessionInfo>
+                    <serverInfo advisedClientBuildNumber="9349" advisedClientName="" advisedClientVersion="" allowSQL="false" buildNumber="9349" commitId="e319b6d" databaseId="u7F0000010007830A" defaultNameSpace="cus" fohVersion="2" instanceName="acc1" majNumber="6" minClientBuildNumber="9333" minNumber="7" minNumberTechnical="0" releaseName="7.2.2" securityTimeOut="86400" serverDate="2022-04-21 11:52:11.331Z" servicePack="0" sessionTimeOut="86400" useVault="false"/>
+                    <userInfo datakitInDatabase="true" homeDir="" instanceLocale="en-US" locale="en-US" login="admin" loginCS="Administrator (admin)" loginId="1059" noConsoleCnx="false" orgUnitId="0" theme="" timezone="Etc/UTC">
+                        <login-group id="1060"/>
+                        <login-right right="admin"/>
+                        <installed-package name="messageCenterControl" namespace="nms"/>
+                        <installed-package name="paper" namespace="nms"/>
+                        <installed-package name="mobile" namespace="nms"/>
+                        <installed-package name="phone" namespace="nms"/>
+                        <installed-package name="deliverability" namespace="nms"/>
+                        <installed-package name="coupon" namespace="nms"/>
+                        <installed-package name="webAnalytics" namespace="nms"/>
+                        <installed-package name="azuredw" namespace="nms"/>
+                        <installed-package name="amp" namespace="nms"/>
+                        <installed-package name="security" namespace="ma"/>
+                        <installed-package name="core" namespace="xtk"/>
+                        <installed-package name="folder" namespace="nms"/>
+                        <installed-package name="systemStrings" namespace="nms"/>
+                        <installed-package name="ruleset" namespace="nms"/>
+                        <installed-package name="country" namespace="nms"/>
+                        <installed-package name="report" namespace="nms"/>
+                        <installed-package name="coreInteraction" namespace="nms"/>
+                        <installed-package name="japanLoc" namespace="nms"/>
+                        <installed-package name="billing" namespace="nms"/>
+                        <installed-package name="heatmap" namespace="nms"/>
+                        <installed-package name="core" namespace="nms"/>
+                        <installed-package name="campaign" namespace="nms"/>
+                        <installed-package name="mrm" namespace="nms"/>
+                        <installed-package name="simulation" namespace="nms"/>
+                        <installed-package name="interaction" namespace="nms"/>
+                        <installed-package name="mobileApp" namespace="nms"/>
+                        <installed-package name="content" namespace="ncm"/>
+                        <installed-package name="survey" namespace="nms"/>
+                        <installed-package name="predictive" namespace="nms"/>
+                        <installed-package name="neolap" namespace="nms"/>
+                        <installed-package name="teradata" namespace="nms"/>
+                        <installed-package name="snowflake" namespace="nms"/>
+                        <installed-package name="vertica" namespace="nms"/>
+                        <installed-package name="bigquery" namespace="nms"/>
+                        <installed-package name="saphana" namespace="nms"/>
+                        <installed-package name="federatedDataAccess" namespace="nms"/>
+                        <installed-package name="campaignOptimization" namespace="nms"/>
+                        <installed-package name="aemIntegration" namespace="nms"/>
+                        <installed-package name="macIntegration" namespace="nms"/>
+                        <installed-package name="social" namespace="nms"/>
+                        <installed-package name="messageCenterExec" namespace="nms"/>
+                        <installed-package name="aamIntegration" namespace="nms"/>
+                        <installed-package name="hive" namespace="nms"/>
+                        <installed-package name="messageCenter" namespace="nms"/>
+                        <installed-package name="gdpr" namespace="nms"/>
+                    </userInfo>
+                </sessionInfo>
+            </pSessionInfo>
+            <pstrSecurityToken xsi:type="xsd:string">@jOZQCJ8SAceG_91CZQRVMJM0ALBt2Yz30gwegSd0fV9e3ePxunoC0E7QXj0zje5nCtw3C0g-vYvuEFzmGDNHHg==</pstrSecurityToken>
+        </LogonResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+avr. 21, 2022 1:52:59 PM com.soapadoberequest.eps.SOAPWorkflow postSOAPPostEvent
+INFO: Post event workflow SOAP request XML response:
+avr. 21, 2022 1:52:59 PM com.soapadoberequest.eps.SOAPWorkflow postSOAPPostEvent
+INFO: 
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns="urn:xtk:workflow">
+    <SOAP-ENV:Body>
+        <PostEventResponse xmlns="urn:xtk:workflow" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></PostEventResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+
+avr. 21, 2022 1:53:41 PM com.soapadoberequest.eps.SOAPWorkflow postSOAPStartWorkflow
+INFO: Start Workflow SOAP request XML response:
+avr. 21, 2022 1:53:41 PM com.soapadoberequest.eps.SOAPWorkflow postSOAPStartWorkflow
+INFO: 
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns="urn:xtk:workflow">
+    <SOAP-ENV:Body>
+        <StartResponse xmlns="urn:xtk:workflow" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></StartResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
+

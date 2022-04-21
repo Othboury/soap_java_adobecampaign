@@ -2,10 +2,14 @@ package com.soapadoberequest.eps;
 
 import org.w3c.dom.Node;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * This is the main class
@@ -20,6 +24,13 @@ public class SOAPCalls {
     public static void main(String[] args) throws Exception {
         //Logger to initiate the logs
         Logger logger = Logger.getLogger("logger");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy-HH_mm_ss");
+        Date date = new Date();
+        FileHandler fh = new FileHandler("Logs-"+formatter.format(date)+".txt", true);   // true forces append mode
+        SimpleFormatter sf = new SimpleFormatter();
+        fh.setFormatter(sf);
+        logger.addHandler(fh);
+
         logger.log(Level.INFO, "START SOAP REQUESTS...");
 
         //Declare the soap objects for each functionality
@@ -76,7 +87,7 @@ public class SOAPCalls {
                 System.out.println("6. Submit delivery\n");
                 choice = Integer.parseInt(sc.nextLine());
                 switch (choice) {
-                    case 1, 3, 4, 5, 6 -> System.out.println("In development phase...\n");
+                    case 1, 3, 4, 5, 6 -> System.out.println("Under development...\n");
                     case 2 -> {
                         System.out.println("Enter delivery's internal name:\n");
                         String internalName = sc.nextLine();
@@ -109,7 +120,7 @@ public class SOAPCalls {
                         rEmail = sc.nextLine();
                         soapQuery.postSOAPSelect(rEmail,sessionToken, securityToken);
                     }
-                    case 3 ->{
+                    case 3 -> {
                         System.out.println("Enter filename:\n");
                         filename = sc.nextLine();
                         String userHomeFolder = System.getProperty("user.home");
@@ -118,14 +129,14 @@ public class SOAPCalls {
                         logger.log(Level.INFO, filepath);
                         soapQuery.postSOAPWriteCollection( filepath, sessionToken, securityToken);
                     }
-                    case  4 ->{
+                    case  4 -> {
                         System.out.println("Enter schema prefix (ex: nms, xtk):\n");
                         prefix = sc.nextLine();
                         System.out.println("Enter schema name:\n");
                         schemaName = sc.nextLine();
                         soapQuery.postSOAPSelectCount(prefix,schemaName,sessionToken, securityToken);
                     }
-                    case 5 ->{
+                    case 5 -> {
                         System.out.println("Enter schema prefix (ex: nms, xtk):\n");
                         prefix = sc.nextLine();
                         System.out.println("Enter schema name:\n");
@@ -153,7 +164,7 @@ public class SOAPCalls {
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPStartWorkflow(wkInternalName,sessionToken, securityToken);
                     }
-                    case 2 ->{
+                    case 2 -> {
                         String stop;
                         ArrayList<String> varName = new ArrayList<>();
                         ArrayList<String> varValue = new ArrayList<>();
@@ -172,7 +183,7 @@ public class SOAPCalls {
                         soapWorkflow.postSOAPStartWithParams(wkInternalName, varName, varValue, sessionToken,
                                 securityToken);
                     }
-                    case 3 ->{
+                    case 3 -> {
                         String stop;
                         ArrayList<String> varName = new ArrayList<>();
                         ArrayList<String> varValue = new ArrayList<>();
@@ -194,27 +205,27 @@ public class SOAPCalls {
                         soapWorkflow.postSOAPPostEvent(wkInternalName,activity, varName, varValue, sessionToken,
                                 securityToken);
                     }
-                    case 4 ->{
+                    case 4 -> {
                         System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPPauseWorkflow(wkInternalName,sessionToken,securityToken);
                     }
-                    case 5 ->{
+                    case 5 -> {
                         System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPKillWorkflow(wkInternalName,sessionToken,securityToken);
                     }
-                    case 6 ->{
+                    case 6 -> {
                         System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPWakeUpWorkflow(wkInternalName,sessionToken,securityToken);
                     }
-                    case 7 ->{
+                    case 7 -> {
                         System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPWorkflowLogs(wkInternalName,sessionToken,securityToken);
                     }
-                    case 8 ->{
+                    case 8 -> {
                         System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPWorkflowState(wkInternalName,sessionToken,securityToken);

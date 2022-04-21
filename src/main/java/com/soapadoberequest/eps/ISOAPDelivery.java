@@ -44,7 +44,7 @@ public interface ISOAPDelivery {
             throws Exception;
 
     /**
-     * This function sends a SOAP request to prerape a delivery and start it
+     * This function sends a SOAP request to prepare a delivery and start it
      *
      * @param internalName The internal name of the delivery
      * @param sessionToken Token of the session (__sessiontoken)
