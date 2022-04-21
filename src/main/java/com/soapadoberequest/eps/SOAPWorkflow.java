@@ -56,11 +56,9 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Start Workflow SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"----------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"----------------------------------------");
             }
 
         } catch (Exception e) {
@@ -118,11 +116,9 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Post event workflow SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"----------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"----------------------------------------");
             }
 
         } catch (Exception e) {
@@ -165,11 +161,9 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Kill workflow SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"----------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"----------------------------------------");
             }
 
         } catch (Exception e) {
@@ -211,11 +205,9 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Pause workflow SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"----------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"----------------------------------------");
             }
         } catch (Exception e) {
             throw new Exception("WebService SOAP exception = " + e);
@@ -256,11 +248,9 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Wake up workflow SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"----------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"----------------------------------------");
             }
 
         } catch (Exception e) {
@@ -315,11 +305,9 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Start workflow with params SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"----------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"----------------------------------------");
             }
 
         } catch (Exception e) {
@@ -382,14 +370,12 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                     myWriter.close();
                     logger.log(Level.INFO, "Successfully wrote to the file.");
                     logger.log(Level.INFO, "The file path: {0}", Path.of(filename).toUri());
-                    logger.log(Level.CONFIG,"----------------------------------------");
                 } catch (IOException e) {
                     throw new Exception("IO exception = " + e);
                 }
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"----------------------------------------");
             }
 
         } catch (Exception e) {
@@ -442,11 +428,9 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Select workflow state SOAP request XML response");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"----------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"----------------------------------------");
             }
 
         } catch (Exception e) {
@@ -500,7 +484,6 @@ public class SOAPWorkflow implements ISOAPWorkflow{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Select workflow SOAP request XML response");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"----------------------------------------");
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -512,7 +495,6 @@ public class SOAPWorkflow implements ISOAPWorkflow{
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.INFO,"----------------------------------------");
                 return null;
             }
 

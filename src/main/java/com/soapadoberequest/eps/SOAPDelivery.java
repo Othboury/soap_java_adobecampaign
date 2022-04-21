@@ -83,11 +83,9 @@ public class SOAPDelivery implements ISOAPDelivery{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Create delivery with template SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"-------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"-------------------------------------");
             }
 
         } catch (Exception e) {
@@ -141,7 +139,6 @@ public class SOAPDelivery implements ISOAPDelivery{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Select delivery SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"-------------------------------------");
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -152,7 +149,6 @@ public class SOAPDelivery implements ISOAPDelivery{
                         .getAttributes().getNamedItem("id").getNodeValue();
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"-------------------------------------");
             }
 
         } catch (Exception e) {
@@ -199,11 +195,9 @@ public class SOAPDelivery implements ISOAPDelivery{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Prepare and start SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"-------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"-------------------------------------");
             }
 
         } catch (Exception e) {
@@ -250,11 +244,9 @@ public class SOAPDelivery implements ISOAPDelivery{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Prepare target SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"-------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"-------------------------------------");
             }
 
         } catch (Exception e) {
@@ -301,11 +293,9 @@ public class SOAPDelivery implements ISOAPDelivery{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Prepare Message SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"-------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"-------------------------------------");
             }
 
         } catch (Exception e) {
@@ -352,7 +342,6 @@ public class SOAPDelivery implements ISOAPDelivery{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Submit delivery SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"-------------------------------------");
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -363,7 +352,6 @@ public class SOAPDelivery implements ISOAPDelivery{
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"-------------------------------------");
             }
 
         } catch (Exception e) {
@@ -407,11 +395,9 @@ public class SOAPDelivery implements ISOAPDelivery{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Stop delivery SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"-------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"-------------------------------------");
             }
 
         } catch (Exception e) {

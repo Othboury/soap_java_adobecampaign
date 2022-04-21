@@ -21,60 +21,6 @@ public class SOAPQuery implements ISOAPQuery{
     Logger logger = Logger.getLogger("logger");
 
     /**
-     * This function sends a SOAP request to insert a new recipient
-     *
-     * @param firstname FirstName of recipient
-     * @param lastname LastName of recipient
-     * @param email Email of recipient
-     * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security token of the session (X-Security-Token)
-     * @throws Exception Throws exception when failure
-     */
-    @Override
-    public void postSOAPInsert(String firstname, String lastname, String email, String sessionToken,
-                               String securityToken) throws Exception{
-        String resp;
-        try {
-            String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
-                    "xmlns:urn=\"urn:nms:recipient\">\n" +
-                    "   <soapenv:Header/>\n" +
-                    "   <soapenv:Body>\n" +
-                    "      <urn:insert>\n" +
-                    "         <urn:sessiontoken/>\n" +
-                    "         <urn:entity>\n" +
-                    "            <!--You may enter ANY elements at this point-->\n" +
-                    "         </urn:entity>\n" +
-                    "         <urn:firstName>"+firstname+"</urn:firstName>\n" +
-                    "         <urn:lastName>"+lastname+"</urn:lastName>\n" +
-                    "         <urn:email>"+email+"</urn:email>\n" +
-                    "      </urn:insert>\n" +
-                    "   </soapenv:Body>\n" +
-                    "</soapenv:Envelope>";
-
-            HttpClientClass httpClientClass = new HttpClientClass();
-            HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:recipient#insert",
-                    sessionToken, securityToken);
-
-            if (respEntity != null) {
-                resp = EntityUtils.toString(respEntity);
-
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Insert query SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"--------------------------------------");
-
-            } else {
-                logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"--------------------------------------");
-            }
-
-        } catch (Exception e) {
-            throw new Exception("WebService SOAP exception = " + e);
-        }
-    }
-
-    /**
      * This function sends a SOAP request to select the count of table
      *
      * @param prefix Prefix of the schema (ex: nms)
@@ -120,7 +66,6 @@ public class SOAPQuery implements ISOAPQuery{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Select count query SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"--------------------------------------");
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -132,7 +77,6 @@ public class SOAPQuery implements ISOAPQuery{
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"--------------------------------------");
             }
 
         } catch (Exception e) {
@@ -187,7 +131,6 @@ public class SOAPQuery implements ISOAPQuery{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Select last query SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"--------------------------------------");
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -199,7 +142,6 @@ public class SOAPQuery implements ISOAPQuery{
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"--------------------------------------");
             }
 
         } catch (Exception e) {
@@ -254,11 +196,9 @@ public class SOAPQuery implements ISOAPQuery{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Select query SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"--------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"--------------------------------------");
             }
 
         } catch (Exception e) {
@@ -357,10 +297,8 @@ public class SOAPQuery implements ISOAPQuery{
 
                 logger.log(Level.INFO,"WriteCollection query SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.CONFIG,"--------------------------------------");
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"--------------------------------------");
             }
 
         } catch (Exception e) {
@@ -429,12 +367,10 @@ public class SOAPQuery implements ISOAPQuery{
                     String lastIdInserted = postSOAPSelectLast("nms", "recipient",
                             sessionToken, securityToken);
                     logger.log(Level.INFO,"Last entry ID after insertion: {0}", lastIdInserted);
-                    logger.log(Level.CONFIG,"--------------------------------------");
                 }
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.CONFIG,"--------------------------------------");
             }
 
         } catch (Exception e) {

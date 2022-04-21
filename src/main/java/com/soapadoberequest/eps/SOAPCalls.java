@@ -99,28 +99,18 @@ public class SOAPCalls {
             //Queries section's menu
             }else if(entry == 2){
                 System.out.println("Queries SOAP requests (Choose the number):\n");
-                System.out.println("1. Insert one basic recipient (firstname, lastname, email)\n");
-                System.out.println("2. Select recipient with email\n");
-                System.out.println("3. Write Collection (to apply CRUD methods on recipients, deliveries and workflows)\n");
-                System.out.println("4. Select count \n");
-                System.out.println("5. Select last entry \n");
+                System.out.println("1. Select recipient with email\n");
+                System.out.println("2. Write Collection (to apply CRUD methods on recipients, deliveries and workflows)\n");
+                System.out.println("3. Select count \n");
+                System.out.println("4. Select last entry \n");
                 choice = Integer.parseInt(sc.nextLine());
                 switch (choice){
                     case 1 -> {
-                        System.out.println("Enter recipient's first name:\n");
-                        rFname = sc.nextLine();
-                        System.out.println("Enter recipient's last name:\n");
-                        rLname = sc.nextLine();
-                        System.out.println("Enter recipient's email:\n");
-                        rEmail = sc.nextLine();
-                        soapQuery.postSOAPInsert(rFname, rLname, rEmail, sessionToken, securityToken);
-                    }
-                    case 2 -> {
                         System.out.println("Enter recipient's email:\n");
                         rEmail = sc.nextLine();
                         soapQuery.postSOAPSelect(rEmail,sessionToken, securityToken);
                     }
-                    case 3 -> {
+                    case 2 -> {
                         System.out.println("Enter filename:\n");
                         filename = sc.nextLine();
                         String userHomeFolder = System.getProperty("user.home");
@@ -129,14 +119,14 @@ public class SOAPCalls {
                         logger.log(Level.INFO, filepath);
                         soapQuery.postSOAPWriteCollection( filepath, sessionToken, securityToken);
                     }
-                    case  4 -> {
+                    case  3 -> {
                         System.out.println("Enter schema prefix (ex: nms, xtk):\n");
                         prefix = sc.nextLine();
                         System.out.println("Enter schema name:\n");
                         schemaName = sc.nextLine();
                         soapQuery.postSOAPSelectCount(prefix,schemaName,sessionToken, securityToken);
                     }
-                    case 5 -> {
+                    case 4 -> {
                         System.out.println("Enter schema prefix (ex: nms, xtk):\n");
                         prefix = sc.nextLine();
                         System.out.println("Enter schema name:\n");

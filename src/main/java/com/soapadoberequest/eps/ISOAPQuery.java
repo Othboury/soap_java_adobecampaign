@@ -6,19 +6,6 @@ package com.soapadoberequest.eps;
  */
 public interface ISOAPQuery {
     /**
-     * This function sends a SOAP request to insert a new recipient
-     *
-     * @param firstname FirstName of recipient
-     * @param lastname LastName of recipient
-     * @param email Email of recipient
-     * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security token of the session (X-Security-Token)
-     * @throws Exception Throws exception when failure
-     */
-    public void postSOAPInsert(String firstname, String lastname, String email, String sessionToken,
-                               String securityToken) throws Exception;
-
-    /**
      * This function sends a SOAP request to select a recipient using the email
      *
      * @param email Email of recipient

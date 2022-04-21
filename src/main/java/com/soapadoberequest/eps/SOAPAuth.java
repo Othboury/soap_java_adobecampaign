@@ -60,7 +60,6 @@ public class SOAPAuth implements ISOAPAuth{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Authentication SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.INFO,"-----------------------------------------");
 
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
@@ -72,7 +71,6 @@ public class SOAPAuth implements ISOAPAuth{
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.INFO,"-----------------------------------------");
             }
 
             //Pouplate the tokens Arraylist
@@ -129,11 +127,9 @@ public class SOAPAuth implements ISOAPAuth{
                 String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
                 logger.log(Level.INFO,"Subscribe recipient to service SOAP request XML response:");
                 logger.log(Level.INFO,loggerInfo);
-                logger.log(Level.INFO,"-----------------------------------------");
 
             } else {
                 logger.log(Level.WARNING,"No Response");
-                logger.log(Level.INFO,"-----------------------------------------");
             }
 
         } catch (Exception e) {
