@@ -1,9 +1,3 @@
-# Ignore files related to API keys
-.env
-
-# Ignore txt files
-*.txt
-
 # Maven
 target/
 pom.xml.tag
@@ -32,3 +26,9 @@ buildNumber.properties
 *.zip
 *.tar.gz
 *.rar
+
+# Ignore files related to API keys
+.env
+
+# Ignore txt files
+*.txt
