@@ -29,7 +29,7 @@ public interface ISOAPQuery {
     /**
      * This function sends a SOAP request to select the count of table
      *
-     * @param prefix Prefix of the Schema (ex: nms)
+     * @param prefix Prefix of the schema (ex: nms)
      * @param tableName The name of the schema (ex: recipient)
      * @param sessionToken Token of the session (__sessiontoken)
      * @param securityToken Security token of the session (X-Security-Token)
@@ -42,7 +42,7 @@ public interface ISOAPQuery {
     /**
      * This function sends a SOAP request to select last entry's id
      *
-     * @param prefix Prefix of the Schema (ex: nms)
+     * @param prefix Prefix of the schema (ex: nms)
      * @param tableName The name of the schema (ex: recipient)
      * @param sessionToken Token of the session (__sessiontoken)
      * @param securityToken Security token of the session (X-Security-Token)

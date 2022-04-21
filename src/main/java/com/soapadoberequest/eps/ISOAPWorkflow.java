@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface ISOAPWorkflow {
     /**
-     *This function sends a SOAP request to start a workflow
+     * This function sends a SOAP request to start a workflow
      *
      * @param workflowId The ID of the workflow
      * @param sessionToken Token of the session (__sessiontoken)
@@ -84,7 +84,7 @@ public interface ISOAPWorkflow {
      *
      * @param internalName The internal name of the workflow
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
+     * @param securityToken Security token of the session (X-Security-Token)
      * @throws Exception Throws Exception when failure
      */
     public void postSOAPWorkflowLogs(String internalName, String sessionToken, String securityToken)
@@ -106,7 +106,7 @@ public interface ISOAPWorkflow {
      *
      * @param internalName Internal name of workflow
      * @param sessionToken Token of the session (__sessiontoken)
-     * @param securityToken Security Token of the session (X-Security-Token)
+     * @param securityToken Security token of the session (X-Security-Token)
      * @throws Exception Throws exception when failure
      * @return Returns the workflow's ID
      */

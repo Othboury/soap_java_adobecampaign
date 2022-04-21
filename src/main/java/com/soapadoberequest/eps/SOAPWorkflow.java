@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
  * This class contains the SOAP requests for different workflow functions, it implements its methods from the interface
  * ISOAPWorkflow
  */
-public class SOAPWorkflow implements ISOAPWorkflow{
+public class SOAPWorkflow implements ISOAPWorkflow {
     //Logger to initiate the logs
     Logger logger = Logger.getLogger("logger");
 
     /**
-     *This function sends a SOAP request to start a workflow
+     * This function sends a SOAP request to start a workflow
      *
      * @param workflowId The ID of the workflow
      * @param sessionToken Token of the session (__sessiontoken)

@@ -1,6 +1,5 @@
 package com.soapadoberequest.eps;
 
-
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import jakarta.xml.soap.MessageFactory;
@@ -16,7 +15,7 @@ import java.util.logging.Logger;
  * This class contains the SOAP requests for different query functions, it implements its methods from the interface
  * ISOAPQuery
  */
-public class SOAPQuery implements ISOAPQuery{
+public class SOAPQuery implements ISOAPQuery {
     //Logger to initiate the logs
     Logger logger = Logger.getLogger("logger");
 
@@ -32,7 +31,7 @@ public class SOAPQuery implements ISOAPQuery{
      */
     @Override
     public String postSOAPSelectCount(String prefix, String tableName, String sessionToken, String securityToken)
-            throws Exception{
+            throws Exception {
         String resp;
         try {
 
@@ -88,7 +87,7 @@ public class SOAPQuery implements ISOAPQuery{
     /**
      * This function sends a SOAP request to select last entry's ID
      *
-     * @param prefix Prefix of the Schema (ex: nms)
+     * @param prefix Prefix of the schema (ex: nms)
      * @param tableName The name of the schema (ex: recipient)
      * @param sessionToken Token of the session (__sessiontoken)
      * @param securityToken Security token of the session (X-Security-Token)
@@ -97,7 +96,7 @@ public class SOAPQuery implements ISOAPQuery{
      */
     @Override
     public String postSOAPSelectLast(String prefix, String tableName, String sessionToken,
-                                     String securityToken) throws Exception{
+                                     String securityToken) throws Exception {
         String resp;
         try {
             String soapBody = """
@@ -250,7 +249,7 @@ public class SOAPQuery implements ISOAPQuery{
             logger.log(Level.INFO,"The entity collection:");
             logger.log(Level.INFO, template);
 
-            try{
+            try {
             int currentCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0], schema.split(":")[1],
                     sessionToken, securityToken));
             String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
@@ -284,13 +283,13 @@ public class SOAPQuery implements ISOAPQuery{
                 int secondCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0],
                         schema.split(":")[1] ,sessionToken, securityToken));
 
-                if (currentCount == secondCount && countInsert == countDelete){
+                if (currentCount == secondCount && countInsert == countDelete) {
                     logger.log(Level.INFO,"The numbers of lines in the database didn't change because the file " +
                             "contain a number of rows to insert equal to the number of rows to delete");
 
-                }else if(currentCount == secondCount) {
+                } else if (currentCount == secondCount) {
                     logger.log(Level.INFO,"No entry has been saved in the datatable");
-                }else if(secondCount > currentCount){
+                } else if (secondCount > currentCount) {
                     int entriesNumber = secondCount - currentCount;
                     logger.log(Level.INFO,"{0} entries were registered in database", String.valueOf(entriesNumber));
                 }
@@ -301,12 +300,12 @@ public class SOAPQuery implements ISOAPQuery{
                 logger.log(Level.WARNING,"No Response");
             }
 
-        } catch (Exception e) {
+        } catch (Exception e){
                 throw new Exception("WebService SOAP exception = " + e);
         }
-    } catch (CsvValidationException e) {
+    } catch (CsvValidationException e){
             throw new Exception("CsvValidationException = "+ e);
-        } catch (IOException e) {
+        } catch (IOException e){
             throw new Exception("IOException = " + e);
         }
     }

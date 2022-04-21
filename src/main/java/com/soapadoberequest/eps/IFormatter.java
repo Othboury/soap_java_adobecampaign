@@ -6,9 +6,9 @@ package com.soapadoberequest.eps;
 public interface IFormatter {
 
     /**
-     * This methods allow to format a string output into a pretty print XML using Dom4j
+     * This method allow to format a string output into a pretty print XML using Dom4j
      *
-     * @param xmlString The String to format
+     * @param xmlString The string to format
      * @param indent The number of indents in the XML
      * @param skipDeclaration A boolean parameter in order to skip XML declarations
      * @return The pretty print XML output
