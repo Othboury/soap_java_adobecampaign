@@ -379,7 +379,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             }
 
         } catch (Exception e) {
-
+            throw new Exception("WebService SOAP exception = " + e);
         }
     }
 
