@@ -3,9 +3,7 @@ package com.soapadoberequest.eps;
 import org.w3c.dom.Node;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
+import java.util.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +24,7 @@ public class SOAPCalls {
         Logger logger = Logger.getLogger("logger");
         SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy-HH_mm_ss");
         Date date = new Date();
-        FileHandler fh = new FileHandler("Logs-"+formatter.format(date)+".log", true);   // true forces append mode
+        FileHandler fh = new FileHandler("Logs-"+formatter.format(date)+".log", true);
         SimpleFormatter sf = new SimpleFormatter();
         fh.setFormatter(sf);
         logger.addHandler(fh);
@@ -55,8 +53,6 @@ public class SOAPCalls {
         String securityToken;
 
         //Vars related to the SOAP calls
-        String rFname;
-        String rLname;
         String rEmail;
         String prefix;
         String schemaName;
@@ -138,16 +134,43 @@ public class SOAPCalls {
 
             //Workflows section's menu
             }else if(entry ==3){
+                System.out.println( "***************************\n");
+                System.out.println("ALERT: The system will, every 10 minutes, automatically start a scan of workflows " +
+                        "that are paused and stopped in order to analyse their failures...The system will generate a log" +
+                        "file containing the failure data\n");
+                System.out.println( "***************************\n");
                 System.out.println("Workflows SOAP requests (Choose the number):\n");
                 System.out.println( "1. Start Workflow\n");
-                System.out.println("2. Start with parameters\n");
+                System.out.println( "2. Start with parameters\n");
                 System.out.println( "3. Post Event Workflow\n");
                 System.out.println( "4. Pause Workflow\n");
                 System.out.println( "5. Kill Workflow\n");
                 System.out.println( "6. Wake Up Workflow\n");
                 System.out.println( "7. Get workflow Logs\n");
                 System.out.println( "8. Get workflow state\n");
+                System.out.println( "9. Get workflow failure state\n");
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        List<String> internalNames;
+                        try {
+                            internalNames = soapWorkflow.postSOAPPausedAndStoppedWKF(sessionToken, securityToken);
+
+                            for(String internalName: internalNames){
+                                soapWorkflow.checkWorkflowStatus(internalName, sessionToken, securityToken);
+                            }
+                            System.out.println( "***************************\n");
+                            System.out.println("ALERT: Scan of Workflows ended. Logs are now available!\n");
+                            System.out.println( "***************************\n");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }, 0, 600000);//wait 0 ms before doing the action and do it every 600000ms (10 minutes)
                 choice = Integer.parseInt(sc.nextLine());
+
                 switch (choice){
                     case 1 -> {
                         System.out.println(workflowInternal);
@@ -220,8 +243,14 @@ public class SOAPCalls {
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPWorkflowState(wkInternalName,sessionToken,securityToken);
                     }
+                    case 9 -> {
+                        System.out.println(workflowInternal);
+                        wkInternalName = sc.nextLine();
+                        soapWorkflow.postSOAPWorkflowFailed(wkInternalName,sessionToken,securityToken);
+                    }
                     default -> System.out.println(defaultMessage);
                 }
+                timer.cancel();//stop the timer
             }
         }while(entry > 0 && entry < 4);
 
