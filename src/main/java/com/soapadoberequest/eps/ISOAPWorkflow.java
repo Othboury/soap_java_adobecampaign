@@ -107,6 +107,7 @@ public interface ISOAPWorkflow {
      * @param sessionToken Token of the session (__sessiontoken)
      * @param securityToken Security token of the session (X-Security-Token)
      * @throws Exception Throws exception when failure
+     * @return List of paused and stooped workflows' internalNames
      */
     public List<String> postSOAPWorkflowFailed(String workflowInternalName, String sessionToken, String securityToken)
             throws Exception;
@@ -141,6 +142,7 @@ public interface ISOAPWorkflow {
      * @param sessionToken Token of the session (__sessiontoken)
      * @param securityToken Security token of the session (X-Security-Token)
      * @throws Exception Throws e when failure
+     * @return List of paused and stooped workflows' internalNames
      */
     public List<String> postSOAPPausedAndStoppedWKF(String sessionToken, String securityToken) throws Exception;
 }

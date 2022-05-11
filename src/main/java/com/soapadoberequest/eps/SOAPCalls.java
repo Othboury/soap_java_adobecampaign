@@ -168,7 +168,7 @@ public class SOAPCalls {
                         }
 
                     }
-                }, 0, 600000);//wait 0 ms before doing the action and do it every 600000ms (10 minutes)
+                },600000, 600000);//do it after 600000ms (10 minutes)
                 choice = Integer.parseInt(sc.nextLine());
 
                 switch (choice){
@@ -176,6 +176,27 @@ public class SOAPCalls {
                         System.out.println(workflowInternal);
                         wkInternalName = sc.nextLine();
                         soapWorkflow.postSOAPStartWorkflow(wkInternalName,sessionToken, securityToken);
+
+                        Timer timer_wkf = new Timer();
+                        String finalWkInternalName = wkInternalName;
+                        timer_wkf.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                List<String> internalNames;
+                                try {
+                                    internalNames = soapWorkflow.postSOAPPausedAndStoppedWKF(sessionToken, securityToken);
+                                    for(String internalName: internalNames){
+                                        if(internalName.equals(finalWkInternalName)){
+                                            System.out.println("The workflow "+finalWkInternalName+" you have started is " +
+                                                "paused or suspended");}
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }, 600000, 600000);//do it after 600000ms (10 minutes)
+                        timer_wkf.cancel();
                     }
                     case 2 -> {
                         String stop;
