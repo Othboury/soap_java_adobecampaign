@@ -187,7 +187,7 @@ public class SOAPCalls {
                                     internalNames = soapWorkflow.postSOAPPausedAndStoppedWKF(sessionToken, securityToken);
                                     for(String internalName: internalNames){
                                         if(internalName.equals(finalWkInternalName)){
-                                            System.out.println("The workflow "+finalWkInternalName+" you have started is " +
+                                            System.out.println("The workflow '"+finalWkInternalName+"' you have started is " +
                                                 "paused or suspended");}
                                     }
                                 } catch (Exception e) {
