@@ -81,6 +81,7 @@ public class SOAPCalls {
                 System.out.println("4. Prepare message\n");
                 System.out.println("5. Prepare and start\n");
                 System.out.println("6. Submit delivery\n");
+                System.out.println("0. Go back\n");
                 choice = Integer.parseInt(sc.nextLine());
                 switch (choice) {
                     case 1, 3, 4, 5, 6 -> System.out.println("Under development...\n");
@@ -99,6 +100,7 @@ public class SOAPCalls {
                 System.out.println("2. Write Collection (to apply CRUD methods on recipients, deliveries and workflows)\n");
                 System.out.println("3. Select count \n");
                 System.out.println("4. Select last entry \n");
+                System.out.println("0. Go back\n");
                 choice = Integer.parseInt(sc.nextLine());
                 switch (choice){
                     case 1 -> {
@@ -149,6 +151,7 @@ public class SOAPCalls {
                 System.out.println( "7. Get workflow Logs\n");
                 System.out.println( "8. Get workflow state\n");
                 System.out.println( "9. Get workflow failure state\n");
+                System.out.println("0. Go back\n");
                 Timer timer = new Timer();
                 timer.schedule(new TimerTask() {
                     @Override
