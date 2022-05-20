@@ -56,14 +56,25 @@ public class SOAPAuth implements ISOAPAuth{
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Authentication SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
-
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
                 SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    System.out.println("Connected and ready to run...\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Authentication SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("Connection not made, please check the logs for further details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Authentication SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
+                }
 
                 //Retrieve the sessionToken and securityToken based on their elements' tagNames
                 sessionToken =  soapResp.getSOAPBody().getElementsByTagName("pstrSessionToken").item(0);
