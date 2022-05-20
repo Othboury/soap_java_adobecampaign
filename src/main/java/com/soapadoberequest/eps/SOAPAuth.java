@@ -70,7 +70,7 @@ public class SOAPAuth implements ISOAPAuth{
                 securityToken =  soapResp.getSOAPBody().getElementsByTagName("pstrSecurityToken").item(0);
 
             } else {
-                logger.log(Level.WARNING,"No Response");
+                logger.log(Level.WARNING,"No Response, connection has not being made.");
             }
 
             //Pouplate the tokens Arraylist

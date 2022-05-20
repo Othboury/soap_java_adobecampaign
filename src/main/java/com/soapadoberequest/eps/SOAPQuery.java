@@ -61,14 +61,27 @@ public class SOAPQuery implements ISOAPQuery {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Select count query SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
-
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
                 SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    System.out.println("The count of '"+prefix+tableName+"' has been successfully retrieved.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Select count query SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("The count of '"+prefix+tableName+"' has not been successfully retrieved, " +
+                            "please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Select count query SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
+                }
 
                 //Retrieve the deliveryId based on their attribute's name and return it
                 return soapResp.getSOAPBody().getElementsByTagName(tableName).item(0)
@@ -126,14 +139,27 @@ public class SOAPQuery implements ISOAPQuery {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Select last query SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
-
                 //Convert response to SOAP Message
                 InputStream is = new ByteArrayInputStream(resp.getBytes());
                 SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    System.out.println("The last entry in '"+prefix+tableName+"' has been successfully retrieved.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Last entry query SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("The last entry in '"+prefix+tableName+"' has not been successfully retrieved, " +
+                            "please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Last entry query SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
+                }
 
                 //Retrieve the deliveryId based on their attribute's name and return it
                 return soapResp.getSOAPBody().getElementsByTagName(tableName).item(0)
@@ -191,10 +217,35 @@ public class SOAPQuery implements ISOAPQuery {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Select query SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
+                //Convert response to SOAP Message
+                InputStream is = new ByteArrayInputStream(resp.getBytes());
+                SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    System.out.println("The recipient has been successfully retrieved.\n");
+                    String emailRetrieved = soapResp.getSOAPBody().getElementsByTagName("recipient").item(0)
+                            .getAttributes().getNamedItem("email").getNodeValue();
+                    String firstNameRetrieved = soapResp.getSOAPBody().getElementsByTagName("recipient").item(0)
+                            .getAttributes().getNamedItem("firstName").getNodeValue();
+                    String lastNameRetrieved = soapResp.getSOAPBody().getElementsByTagName("recipient").item(0)
+                            .getAttributes().getNamedItem("lastName").getNodeValue();
+                    System.out.println("Recipient's email: "+ emailRetrieved+"\n Recipient's firstname: "+
+                            firstNameRetrieved+ "\n Recipient's lastname: "+ lastNameRetrieved + "\n");
+
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Select recipient query SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("The recipient was not successfully retrieved, please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Select recipient query SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
+                }
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -274,28 +325,53 @@ public class SOAPQuery implements ISOAPQuery {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                //Convert response to SOAP Message
+                InputStream is = new ByteArrayInputStream(resp.getBytes());
+                SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
 
-                logger.log(Level.INFO, "FILE -> The number of rows to insert is: {0} ", countInsert);
-                logger.log(Level.INFO, "FILE -> The number of rows to update is: {0} ", countUpdate);
-                logger.log(Level.INFO, "FILE -> The number of rows to delete is: {0} ", countDelete);
-                int secondCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0],
-                        schema.split(":")[1] ,sessionToken, securityToken));
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    //prints whole response
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
 
-                if (currentCount == secondCount && countInsert == countDelete) {
-                    logger.log(Level.INFO,"The numbers of lines in the database didn't change because the file " +
-                            "contain a number of rows to insert equal to the number of rows to delete");
+                    logger.log(Level.INFO, "FILE -> The number of rows to insert is: {0} ", countInsert);
+                    System.out.println("FILE -> The number of rows to insert is: "+ countInsert+"\n");
+                    logger.log(Level.INFO, "FILE -> The number of rows to update is: {0} ", countUpdate);
+                    System.out.println("FILE -> The number of rows to update is: "+ countUpdate+"\n");
+                    logger.log(Level.INFO, "FILE -> The number of rows to delete is: {0} ", countDelete);
+                    System.out.println("FILE -> The number of rows to delete is: "+ countDelete+"\n");
+                    int secondCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0],
+                            schema.split(":")[1] ,sessionToken, securityToken));
 
-                } else if (currentCount == secondCount) {
-                    logger.log(Level.INFO,"No entry has been saved in the datatable");
-                } else if (secondCount > currentCount) {
-                    int entriesNumber = secondCount - currentCount;
-                    logger.log(Level.INFO,"{0} entries were registered in database", String.valueOf(entriesNumber));
+                    if (currentCount == secondCount && countInsert == countDelete) {
+                        logger.log(Level.INFO,"The numbers of lines in the database didn't change because the file " +
+                                "contain a number of rows to insert equal to the number of rows to delete");
+                        System.out.println("The numbers of lines in the database didn't change because the file" +
+                                "contain a number of rows to insert equal to the number of rows to delete.\n");
+
+
+                    } else if (currentCount == secondCount) {
+                        logger.log(Level.INFO,"No entry has been saved in the datatable");
+                        System.out.println("No entry has been saved in the datatable.\n");
+                    } else if (secondCount > currentCount) {
+                        int entriesNumber = secondCount - currentCount;
+                        logger.log(Level.INFO,"{0} entries were registered in database", String.valueOf(entriesNumber));
+                        System.out.println(String.valueOf(entriesNumber)+" entries were registered in database\n");
+                    }
+
+                    logger.log(Level.INFO,"WriteCollection query SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("The writeCollection wasn't successful, please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Last entry query SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
                 }
 
-                logger.log(Level.INFO,"WriteCollection query SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
+
             } else {
                 logger.log(Level.WARNING,"No Response");
             }
@@ -350,22 +426,40 @@ public class SOAPQuery implements ISOAPQuery {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Write query SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
+                //Convert response to SOAP Message
+                InputStream is = new ByteArrayInputStream(resp.getBytes());
+                SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
 
-                int secondCount = Integer.parseInt(postSOAPSelectCount(prefix, schema,sessionToken, securityToken));
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    int secondCount = Integer.parseInt(postSOAPSelectCount(prefix, schema,sessionToken, securityToken));
 
-                if (currentCount == secondCount){
-                    logger.log(Level.WARNING,"No entry has been saved in the datatable");
-                }else if(secondCount > currentCount){
-                    int entriesNumber = secondCount - currentCount;
-                    logger.log(Level.INFO,"Last entry ID before insertion: {0}", lastId);
-                    logger.log(Level.INFO,"{0} entries were registered in database", String.valueOf(entriesNumber));
-                    String lastIdInserted = postSOAPSelectLast("nms", "recipient",
-                            sessionToken, securityToken);
-                    logger.log(Level.INFO,"Last entry ID after insertion: {0}", lastIdInserted);
+                    if (currentCount == secondCount){
+                        logger.log(Level.INFO,"No entry has been saved in the datatable");
+                        System.out.println("No entry has been saved in the datatable. \n");
+                    }else if(secondCount > currentCount){
+                        int entriesNumber = secondCount - currentCount;
+                        logger.log(Level.INFO,"Last entry ID before insertion: {0}", lastId);
+                        System.out.println("Last entry ID before insertion: "+lastId+" \n");
+                        logger.log(Level.INFO,"{0} entries were registered in database", String.valueOf(entriesNumber));
+                        System.out.println(String.valueOf(entriesNumber)+" entries were registered in database. \n");
+                        String lastIdInserted = postSOAPSelectLast("nms", "recipient",
+                                sessionToken, securityToken);
+                        logger.log(Level.INFO,"Last entry ID after insertion: {0}", lastIdInserted);
+                        System.out.println("Last entry ID after insertion: "+lastIdInserted+" \n");
+                    }
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Write query SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("Writing the recipient into the DB was not successful, please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Write query SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
                 }
 
             } else {

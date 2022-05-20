@@ -57,10 +57,26 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Start Workflow SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
+                //Convert response to SOAP Message
+                InputStream is = new ByteArrayInputStream(resp.getBytes());
+                SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    System.out.println("The workflow '"+workflowId+"' has successfully started. \n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Start Workflow SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("The workflow '"+workflowId+"' hasn't started, please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Start Workflow SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
+                }
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -117,10 +133,27 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Post event workflow SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
+                //Convert response to SOAP Message
+                InputStream is = new ByteArrayInputStream(resp.getBytes());
+                SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    System.out.println("The postEvent of the workflow '"+workFlowId+"' was successful. \n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Post event workflow SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("The postEvent of the workflow '"+workFlowId+"' has failed, " +
+                            "please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Post event workflow SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
+                }
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -162,10 +195,27 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Kill workflow SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
+                //Convert response to SOAP Message
+                InputStream is = new ByteArrayInputStream(resp.getBytes());
+                SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    System.out.println("The workflow '"+workFlowId+"' was been successful killed. \n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Kill workflow SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("The workflow '"+workFlowId+"' kill has failed, " +
+                            "please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Kill workflow SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
+                }
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -206,10 +256,27 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Pause workflow SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
+                //Convert response to SOAP Message
+                InputStream is = new ByteArrayInputStream(resp.getBytes());
+                SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    System.out.println("The workflow '"+workFlowId+"' has been successfully paused. \n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Pause workflow SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("The workflow '"+workFlowId+"' has not successfully been paused, " +
+                            "please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Pause workflow SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
+                }
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -249,10 +316,27 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Wake up workflow SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
+                //Convert response to SOAP Message
+                InputStream is = new ByteArrayInputStream(resp.getBytes());
+                SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    System.out.println("The workflow '"+workFlowId+"' has been successfully woken up. \n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Wake Up workflow SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("The workflow '"+workFlowId+"' has not successfully been woken up, " +
+                            "please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Wake Up workflow SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
+                }
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -306,10 +390,27 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Start workflow with params SOAP request XML response:");
-                logger.log(Level.INFO,loggerInfo);
+                //Convert response to SOAP Message
+                InputStream is = new ByteArrayInputStream(resp.getBytes());
+                SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    System.out.println("The workflow '"+workFlowId+"' has successfully started with Parameters. \n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Start workflow with parameters SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("The workflow '"+workFlowId+"' has not successfully started with parameters, " +
+                            "please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Start workflow with parameters SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
+                }
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -366,17 +467,34 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //Write log response in xml file
-                try {
-                    String userHomeFolder = System.getProperty("user.home");
-                    String filename = userHomeFolder+"\\Desktop\\Logs-"+internalName+".xml";
-                    FileWriter myWriter = new FileWriter(filename);
-                    myWriter.write(Formatter.prettyPrintByDom4j(resp,4, true));
-                    myWriter.close();
-                    logger.log(Level.INFO, "Successfully wrote to the file.");
-                    logger.log(Level.INFO, "The file path: {0}", Path.of(filename).toUri());
-                } catch (IOException e) {
-                    throw new Exception("IO exception = " + e);
+                //Convert response to SOAP Message
+                InputStream is = new ByteArrayInputStream(resp.getBytes());
+                SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    System.out.println("The logs of the workflow '"+workflowId+"' have successfully been retrieved. \n");
+                    //Print logs into xml file
+                    try {
+                        String userHomeFolder = System.getProperty("user.home");
+                        String filename = userHomeFolder+"\\Desktop\\Logs-"+internalName+".xml";
+                        FileWriter myWriter = new FileWriter(filename);
+                        myWriter.write(Formatter.prettyPrintByDom4j(resp,4, true));
+                        myWriter.close();
+                        logger.log(Level.INFO, "Successfully wrote to the file.");
+                        logger.log(Level.INFO, "The file path: {0}", Path.of(filename).toUri());
+                    } catch (IOException e) {
+                        throw new Exception("IO exception = " + e);
+                    }
+                } else{
+                    System.out.println("The logs of the workflow '"+workflowId+"' have not successfully been retrieved, " +
+                            "please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO, "No writings have been inserted into the file.");
+                    logger.log(Level.INFO,loggerInfo);
                 }
 
             } else {
@@ -429,10 +547,27 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);
 
-                //prints whole response
-                String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                logger.log(Level.INFO,"Select workflow state SOAP request XML response");
-                logger.log(Level.INFO,loggerInfo);
+                //Convert response to SOAP Message
+                InputStream is = new ByteArrayInputStream(resp.getBytes());
+                SOAPMessage soapResp = MessageFactory.newInstance().createMessage(null, is);
+
+                //Check the firstChild of the SOAPResponse to determine whether the response has a fault envelope or not
+                String firstChild = soapResp.getSOAPBody().getFirstChild().getNodeName();
+                if(!firstChild.equals("SOAP-ENV:Fault")){
+                    System.out.println("The state of the workflow '"+workflowInternalName+"' has successfully been retrieved. \n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Select workflow state SOAP request XML response:");
+                    logger.log(Level.INFO,loggerInfo);
+                } else{
+                    System.out.println("The state of the workflow '"+workflowInternalName+"' has not successfully been retrieved., " +
+                            "please check the logs for further " +
+                            "details.\n");
+                    //Print logs
+                    String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
+                    logger.log(Level.INFO,"Select workflow state SOAP request XML response (with errors):");
+                    logger.log(Level.INFO,loggerInfo);
+                }
 
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -509,14 +644,16 @@ public class SOAPWorkflow implements ISOAPWorkflow {
                             .getAttributes().getNamedItem("status").getNodeValue();
                     errorActivity = soapResp.getSOAPBody().getElementsByTagName("workflow").item(0)
                             .getAttributes().getNamedItem("errorActivity").getNodeValue();
-                    rs.add(errorActivity);
-                    rs.add(realStatus);
                 }else{
                     realStatus = "0";
                     errorActivity="N/A";
-                    rs.add(errorActivity);
-                    rs.add(realStatus);
                 }
+                rs.add(errorActivity);
+                rs.add(realStatus);
+                System.out.println("failed= "+ rs.get(0)+"\n"
+                + "status= "+ rs.get(1)+"\n"
+                + "errorActivity= "+rs.get(2));
+
                 return rs;
             } else {
                 logger.log(Level.WARNING,"No Response");
@@ -594,7 +731,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
     }
 
     /**
-     * This function sends multiple SOAP requests to check workflows statuts and define which ones failed, it also
+     * This function sends multiple SOAP requests to check workflows' status and define which ones failed, it also
      * returns the activity in which the workflow failed
      *
      * @param internalName Internal name of workflow

@@ -122,14 +122,14 @@ public class SOAPCalls {
                         prefix = sc.nextLine();
                         System.out.println("Enter schema name:\n");
                         schemaName = sc.nextLine();
-                        soapQuery.postSOAPSelectCount(prefix,schemaName,sessionToken, securityToken);
+                        System.out.println(soapQuery.postSOAPSelectCount(prefix,schemaName,sessionToken, securityToken));
                     }
                     case 4 -> {
                         System.out.println("Enter schema prefix (ex: nms, xtk):\n");
                         prefix = sc.nextLine();
                         System.out.println("Enter schema name:\n");
                         schemaName = sc.nextLine();
-                        soapQuery.postSOAPSelectLast(prefix,schemaName,sessionToken, securityToken);
+                        System.out.println(soapQuery.postSOAPSelectLast(prefix,schemaName,sessionToken, securityToken));
                     }
                     default -> System.out.println(defaultMessage);
                 }
