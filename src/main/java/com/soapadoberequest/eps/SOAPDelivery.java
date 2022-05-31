@@ -90,6 +90,7 @@ public class SOAPDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -153,6 +154,7 @@ public class SOAPDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
         return null;
@@ -202,6 +204,7 @@ public class SOAPDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -251,6 +254,7 @@ public class SOAPDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -300,6 +304,7 @@ public class SOAPDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -356,6 +361,7 @@ public class SOAPDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
         return null;
@@ -402,6 +408,7 @@ public class SOAPDelivery implements ISOAPDelivery{
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }

@@ -83,6 +83,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -160,6 +161,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -222,6 +224,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -282,6 +285,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
                 logger.log(Level.WARNING,"No Response");
             }
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -343,6 +347,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -417,6 +422,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -502,6 +508,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -574,6 +581,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -660,6 +668,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
         return null;
@@ -726,6 +735,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -822,6 +832,7 @@ public class SOAPWorkflow implements ISOAPWorkflow {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
         return null;

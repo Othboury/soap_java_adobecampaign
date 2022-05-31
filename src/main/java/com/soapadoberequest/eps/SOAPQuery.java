@@ -92,6 +92,7 @@ public class SOAPQuery implements ISOAPQuery {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
         return null;
@@ -170,6 +171,7 @@ public class SOAPQuery implements ISOAPQuery {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
         return null;
@@ -252,6 +254,7 @@ public class SOAPQuery implements ISOAPQuery {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }
@@ -377,11 +380,14 @@ public class SOAPQuery implements ISOAPQuery {
             }
 
         } catch (Exception e){
+                logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
                 throw new Exception("WebService SOAP exception = " + e);
         }
     } catch (CsvValidationException e){
+            logger.log(Level.WARNING,"CsvValidationException = {0}", e);
             throw new Exception("CsvValidationException = "+ e);
         } catch (IOException e){
+            logger.log(Level.WARNING,"IOException = {0}", e);
             throw new Exception("IOException = " + e);
         }
     }
@@ -467,6 +473,7 @@ public class SOAPQuery implements ISOAPQuery {
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }

@@ -93,7 +93,9 @@ public class SOAPAuth implements ISOAPAuth{
             return tokens;
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
+
         }
     }
 
@@ -144,6 +146,7 @@ public class SOAPAuth implements ISOAPAuth{
             }
 
         } catch (Exception e) {
+            logger.log(Level.WARNING,"WebService SOAP exception = {0}", e);
             throw new Exception("WebService SOAP exception = " + e);
         }
     }

@@ -9,12 +9,17 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class contains the HTTPClient methods in order to launch SOAP requests, it implements its methods from the
  * interface IHttpClientClass
  */
 public class HttpClientClass implements IHttpClientClass{
+    //Logger to initiate the logs
+    Logger logger = Logger.getLogger("logger");
+
     //Dotenv to get the information stored in the .env file
     Dotenv dotenv = Dotenv.configure()
             .ignoreIfMalformed()
@@ -66,6 +71,7 @@ public class HttpClientClass implements IHttpClientClass{
         StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
 
         // URL of request
+        logger.setUseParentHandlers(false);
         HttpPost post = new HttpPost(dotenv.get(HTTP_URL));
         post.setHeader("SOAPAction", "xtk:session#Logon");
         post.setEntity(strEntity);
