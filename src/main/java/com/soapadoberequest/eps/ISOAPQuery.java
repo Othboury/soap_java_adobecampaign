@@ -36,8 +36,8 @@ public interface ISOAPQuery {
      * @return Returns the count
      * @throws Exception Throws exception when failure
      */
-    public String postSOAPSelectCount(String prefix, String tableName, String sessionToken, String securityToken)
-            throws Exception;
+    public String postSOAPSelectCount(String prefix, String tableName, String sessionToken,
+                                      String securityToken) throws Exception;
 
     /**
      * This function sends a SOAP request to select last entry's id

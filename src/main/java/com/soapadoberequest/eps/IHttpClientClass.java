@@ -18,8 +18,7 @@ public interface IHttpClientClass {
      * @return HttpEntity
      * @throws IOException Throws exception when failure
      */
-    public HttpEntity httpClientCall(String soapBody, String soapAction, String sessionToken, String securityToken)
-            throws IOException;
+    public HttpEntity httpClientCall(String soapBody, String soapAction, String sessionToken, String securityToken) throws IOException;
 
     /**
      * This method is used to launch HTTPClient to logon in order to get session and security tokens

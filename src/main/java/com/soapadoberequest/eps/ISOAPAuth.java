@@ -12,10 +12,13 @@ public interface ISOAPAuth {
     /**
      * This function sends a SOAP request to authenticate and returns the sessionToken and the securityToken
      *
+     * @param login User's adobe campaign login
+     * @param password User's adobe campaign password
+     * @param port Adobe Campaign's server port
      * @return SessionToken and securityToken
      * @throws Exception Throws exception when failure
      */
-    public List<Node> postSOAPAuth() throws Exception;
+    public List<Node> postSOAPAuth(String login, String password, String port) throws Exception;
 
     /**
      * This function sends a SOAP request to subscribe a recipient to a service

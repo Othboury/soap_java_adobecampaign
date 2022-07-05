@@ -28,10 +28,13 @@ public class SOAPAuth implements ISOAPAuth{
     /**
      * This function sends a SOAP request to authenticate and returns the sessionToken and the securityToken
      *
+     * @param login User's adobe campaign login
+     * @param password User's adobe campaign password
+     * @param port Adobe Campaign's server port
      * @return SessionToken and securityToken
      * @throws Exception Throws exception when failure
      */
-    public ArrayList<Node> postSOAPAuth() throws Exception {
+    public ArrayList<Node> postSOAPAuth(String login, String password, String port) throws Exception {
         String resp;
         Node securityToken = null;
         Node sessionToken = null;
@@ -42,8 +45,8 @@ public class SOAPAuth implements ISOAPAuth{
                     "   <soapenv:Body>\n" +
                     "      <urn:Logon>\n" +
                     "         <urn:sessiontoken/>\n" +
-                    "         <urn:strLogin>"+dotenv.get("ADOBE_LOGIN")+"</urn:strLogin>\n" +
-                    "         <urn:strPassword>"+dotenv.get("ADOBE_PASSWORD")+"</urn:strPassword>\n" +
+                    "         <urn:strLogin>"+login+"</urn:strLogin>\n" +
+                    "         <urn:strPassword>"+password+"</urn:strPassword>\n" +
                     "         <urn:elemParameters>\n" +
                     "         </urn:elemParameters>\n" +
                     "      </urn:Logon>\n" +
@@ -66,8 +69,7 @@ public class SOAPAuth implements ISOAPAuth{
                     System.out.println("Connected and ready to run...\n");
                     //Print logs
                     String loggerInfo = Formatter.prettyPrintByDom4j(resp,4, true);
-                    logger.log(Level.INFO,"Authentication SOAP request XML response:");
-                    logger.log(Level.INFO,loggerInfo);
+                    logger.log(Level.INFO,"Authentication SOAP successful:");
                 } else{
                     System.out.println("Connection not made, please check the logs for further details.\n");
                     //Print logs
@@ -84,7 +86,7 @@ public class SOAPAuth implements ISOAPAuth{
                 logger.log(Level.WARNING,"No Response, connection has not being made.");
             }
 
-            //Pouplate the tokens Arraylist
+            //Populate the tokens Arraylist
             ArrayList<Node> tokens = new ArrayList<>();
             tokens.add(sessionToken);
             tokens.add(securityToken);
@@ -131,7 +133,7 @@ public class SOAPAuth implements ISOAPAuth{
 
             HttpClientClass httpClientClass = new HttpClientClass();
             HttpEntity respEntity =  httpClientClass.httpClientCall(soapBody, "nms:subscription#Subscribe",
-                    sessionToken, securityToken );
+                    sessionToken, securityToken);
 
             if (respEntity != null) {
                 resp = EntityUtils.toString(respEntity);

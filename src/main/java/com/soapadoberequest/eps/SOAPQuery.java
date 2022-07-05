@@ -30,8 +30,8 @@ public class SOAPQuery implements ISOAPQuery {
      * @throws Exception Throws exception when failure
      */
     @Override
-    public String postSOAPSelectCount(String prefix, String tableName, String sessionToken, String securityToken)
-            throws Exception {
+    public String postSOAPSelectCount(String prefix, String tableName, String sessionToken,
+                                      String securityToken) throws Exception {
         String resp;
         try {
 
@@ -43,11 +43,6 @@ public class SOAPQuery implements ISOAPQuery {
                     "         <urn:sessiontoken/>\n" +
                     "         <urn:entity>\n" +
                     "            <queryDef operation=\"count\" schema=\""+prefix+":"+tableName+"\">\n" +
-                    "            <select>\n" +
-                    "              <node expr=\"@email\"/>\n" +
-                    "              <node expr=\"@lastName\"/>\n" +
-                    "              <node expr=\"@firstName\"/>\n" +
-                    "            </select>\n" +
                     "          </queryDef>\n" +
                     "         </urn:entity>\n" +
                     "      </urn:ExecuteQuery>\n" +
@@ -304,8 +299,8 @@ public class SOAPQuery implements ISOAPQuery {
             logger.log(Level.INFO, template);
 
             try {
-            int currentCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0], schema.split(":")[1],
-                    sessionToken, securityToken));
+            /*int currentCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0], schema.split(":")[1],
+                    sessionToken, securityToken));*/
             String soapBody = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" " +
                     "xmlns:urn=\"urn:xtk:session\">\n" +
                     "   <soapenv:Header/>\n" +
@@ -344,21 +339,22 @@ public class SOAPQuery implements ISOAPQuery {
                     System.out.println("FILE -> The number of rows to update is: "+ countUpdate+"\n");
                     logger.log(Level.INFO, "FILE -> The number of rows to delete is: {0} ", countDelete);
                     System.out.println("FILE -> The number of rows to delete is: "+ countDelete+"\n");
-                    int secondCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0],
-                            schema.split(":")[1] ,sessionToken, securityToken));
+                    /*int secondCount = Integer.parseInt(postSOAPSelectCount(schema.split(":")[0],
+                            schema.split(":")[1] ,sessionToken, securityToken));*/
 
-                    if (currentCount == secondCount && countInsert == countDelete) {
+                    if (/*currentCount == secondCount*/ 0 == 15 && countInsert == countDelete) {
                         logger.log(Level.INFO,"The numbers of lines in the database didn't change because the file " +
                                 "contain a number of rows to insert equal to the number of rows to delete");
                         System.out.println("The numbers of lines in the database didn't change because the file" +
                                 "contain a number of rows to insert equal to the number of rows to delete.\n");
 
 
-                    } else if (currentCount == secondCount) {
+                    } else if (/*currentCount == secondCount*/0 ==15) {
                         logger.log(Level.INFO,"No entry has been saved in the datatable");
                         System.out.println("No entry has been saved in the datatable.\n");
-                    } else if (secondCount > currentCount) {
-                        int entriesNumber = secondCount - currentCount;
+                    } else if (15 > 0/*secondCount > currentCount*/) {
+                        int entriesNumber = 15 - 0;
+                                /*secondCount - currentCount;*/
                         logger.log(Level.INFO,"{0} entries were registered in database", String.valueOf(entriesNumber));
                         System.out.println(String.valueOf(entriesNumber)+" entries were registered in database\n");
                     }

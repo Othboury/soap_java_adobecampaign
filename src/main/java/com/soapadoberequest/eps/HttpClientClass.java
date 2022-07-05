@@ -9,7 +9,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -25,7 +24,8 @@ public class HttpClientClass implements IHttpClientClass{
             .ignoreIfMalformed()
             .ignoreIfMissing()
             .load();
-    private static final String HTTP_URL = "HTTP_URL";
+    //private static final String HTTP_URL = "HTTP_URL";
+    public static String port="";
 
     /**
      * This method is used to launch HTTPClient for different SOAP requests
@@ -37,14 +37,14 @@ public class HttpClientClass implements IHttpClientClass{
      * @return HttpEntity
      * @throws IOException Throws exception when failure
      */
-    public HttpEntity httpClientCall(String soapBody, String soapAction, String sessionToken, String securityToken)
-            throws IOException {
+    public HttpEntity httpClientCall(String soapBody, String soapAction, String sessionToken, String securityToken
+    ) throws IOException {
 
         HttpClient httpclient = HttpClientBuilder.create().build();
         // You can get below parameters from SoapUI's Raw request if you are using that tool
         StringEntity strEntity = new StringEntity(soapBody, "text/xml", "UTF-8");
         // URL of request
-        HttpPost post = new HttpPost(dotenv.get(HTTP_URL));
+        HttpPost post = new HttpPost("http://localhost:"+port+"/nl/jsp/soaprouter.jsp");
         post.setHeader("SOAPAction", soapAction);
         post.setHeader("cookie","__sessiontoken="+sessionToken);
         post.setHeader("X-Security-Token", securityToken);
@@ -72,7 +72,7 @@ public class HttpClientClass implements IHttpClientClass{
 
         // URL of request
         logger.setUseParentHandlers(false);
-        HttpPost post = new HttpPost(dotenv.get(HTTP_URL));
+        HttpPost post = new HttpPost("http://localhost:"+port+"/nl/jsp/soaprouter.jsp");
         post.setHeader("SOAPAction", "xtk:session#Logon");
         post.setEntity(strEntity);
 
